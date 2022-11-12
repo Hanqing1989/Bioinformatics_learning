@@ -1,0 +1,10 @@
+# 【教程】Python 3、R、Anaconda 和 Biopython 的安装
+
+# Table of Contents
+
+## macOS
+
+### 安装 Python 3
+
+- 在官网下载并安装最新的 pkg 安装包：[Python Releases for macOS | Python.org](https://www.python.org/downloads/macos/)。
+- 在 Terminal 中输入命令：`python --version`，查看 python 版本号。
