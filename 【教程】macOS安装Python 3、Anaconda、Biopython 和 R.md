@@ -55,8 +55,9 @@
 
 ### 安装 Biopython 
 
-- 在 Terminal 中输入命令：`conda install biopython`，直到安装完成。
-- 在 Terminal 中输入命令：`conda search biopython`，可查询安装版本号。
+- 在 Terminal 中输入命令：`conda install -c conda-forge biopython`，直到安装完成。
+- 在 Terminal 中输入命令：`conda update -c conda-forge biopython`，可更新版本。
+- 其他安装方法参考：[Packages · Biopython](https://biopython.org/wiki/Packages)。
 
 ### 管理 Anaconda 环境
 
