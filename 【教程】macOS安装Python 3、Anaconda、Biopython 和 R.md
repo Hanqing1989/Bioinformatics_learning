@@ -50,7 +50,7 @@
 ###  配置 Python3 环境 ：
 
 - 在 Terminal 中输入命令：`which python3`，查看该路径是否与 Anaconda 默认环境（base） 的路径相同，如不一致，继续下一步。
-- 在 Terminal 中输入命令：`open ~/.bash_profile`，会弹出一个记事本，在最下方插入一行命令： `export PATH="/Users/liang.hanqing/opt/anaconda3/bin:${PATH}"`，关闭记事本。
+- 在 Terminal 中输入命令：`open ~/.bash_profile`，会弹出一个记事本，在最下方插入一行命令： `export PATH="/Users/user_name/opt/anaconda3/bin:${PATH}"`（user_name 为当前用户的用户名），关闭记事本。
 - 在 Terminal 中输入命令：`source ~/.bash_profile`，保存修改，再输入 `which python3`，输出的结果就是对应的路径了。
 
 ### 安装 Biopython 
