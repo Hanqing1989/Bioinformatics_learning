@@ -5,8 +5,8 @@
 # Table of Contents
 
 1. [macOS](#macos)
-   1. [安装 Python 3](#安装-python-3)
-   2. [安装 Anaconda3](#安装-anaconda3)
+   1. [安装 Anaconda3](#安装-anaconda3)
+   2. [安装 Python 3](#安装-python-3)
    3. [配置 Python3 环境 ：](#配置-python3-环境-)
    4. [安装 Biopython](#安装-biopython)
    5. [管理 Anaconda 环境](#管理-anaconda-环境)
@@ -34,14 +34,6 @@
 
 ## macOS
 
-### 安装 Python 3
-
-- **如果要装Anaconda3，其中会自带python3，无需再额外手动安装python**。
-- 在官网下载并安装最新的 pkg 安装包：[Python Releases for macOS | Python.org](https://www.python.org/downloads/macos/)。
-- 在 Terminal 中输入命令：`python --version`，查看 python 版本号。
-- 如果想要使用 python 命令，而非 python3 命令执行 python，那么可以设置环境变量来解决，在终端中执行如下代码：`echo 'alias python=python3'>> .bash_profile`。
-- 推出并且重新打开 Terminal，输入 `python`，可看到 Python3。
-
 ### 安装 Anaconda3
 
 - 下载并安装最新的 pkg 安装包：[Anaconda下载页](https://repo.anaconda.com/archive/)。
@@ -49,6 +41,14 @@
 - 在 mac 的 Launchpad 中可以找到名为“Anaconda-Navigator”的图标，点击打开。若“Anaconda-Navigator”成功启动，则说明真正成功地安装了 Anaconda；如果未成功，请务必仔细检查以上安装步骤。
 - 在 Terminal 中输入命令：`conda list`，如果 Anaconda 被成功安装，则会显示已经安装的包名和版本号。
 - 提示：默认情况下，新创建的环境将会被保存在 ***/Users/<user_name>/anaconda3/env*** 目录下，其中， ***<user_name>*** 为当前用户的用户名。
+
+### 安装 Python 3
+
+- **如果要装Anaconda3，其中会自带python3，无需再额外手动安装python**。
+- 在官网下载并安装最新的 pkg 安装包：[Python Releases for macOS | Python.org](https://www.python.org/downloads/macos/)。
+- 在 Terminal 中输入命令：`python --version`，查看 python 版本号。
+- 如果想要使用 python 命令，而非 python3 命令执行 python，那么可以设置环境变量来解决，在终端中执行如下代码：`echo 'alias python=python3'>> .bash_profile`。
+- 推出并且重新打开 Terminal，输入 `python`，可看到 Python3。
 
 ###  配置 Python3 环境 ：
 
