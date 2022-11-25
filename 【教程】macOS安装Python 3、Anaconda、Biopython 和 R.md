@@ -6,7 +6,7 @@
 
 1. [macOS](#macos)
    1. [安装 Python 3](#安装-python-3)
-   2. [安装 Anaconda](#安装-anaconda)
+   2. [安装 Anaconda3](#安装-anaconda3)
    3. [配置 Python3 环境 ：](#配置-python3-环境-)
    4. [安装 Biopython](#安装-biopython)
    5. [管理 Anaconda 环境](#管理-anaconda-环境)
@@ -36,12 +36,13 @@
 
 ### 安装 Python 3
 
+- **如果要装Anaconda3，其中会自带python3，无需再额外手动安装python**。
 - 在官网下载并安装最新的 pkg 安装包：[Python Releases for macOS | Python.org](https://www.python.org/downloads/macos/)。
 - 在 Terminal 中输入命令：`python --version`，查看 python 版本号。
 - 如果想要使用 python 命令，而非 python3 命令执行 python，那么可以设置环境变量来解决，在终端中执行如下代码：`echo 'alias python=python3'>> .bash_profile`。
 - 推出并且重新打开 Terminal，输入 `python`，可看到 Python3。
 
-### 安装 Anaconda
+### 安装 Anaconda3
 
 - 下载并安装最新的 pkg 安装包：[Anaconda下载页](https://repo.anaconda.com/archive/)。
 - 等待“Installation”部分结束，在“Summary”部分若看到“The installation was completed successfully.”则安装成功，直接点击“Close”关闭对话框。
