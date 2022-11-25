@@ -44,7 +44,7 @@
 
 ### 安装 Python 3
 
-- **如果要装Anaconda3，其中会自带python3，无需再额外手动安装python**。
+- **如果已安装Anaconda3，其中会自带python3，无需再额外手动安装python**。
 - 在官网下载并安装最新的 pkg 安装包：[Python Releases for macOS | Python.org](https://www.python.org/downloads/macos/)。
 - 在 Terminal 中输入命令：`python --version`，查看 python 版本号。
 - 如果想要使用 python 命令，而非 python3 命令执行 python，那么可以设置环境变量来解决，在终端中执行如下代码：`echo 'alias python=python3'>> .bash_profile`。
