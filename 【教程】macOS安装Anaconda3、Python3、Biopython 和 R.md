@@ -6,7 +6,7 @@
 
 1. [macOS](#macos)
    1. [安装 Anaconda3](#安装-anaconda3)
-   2. [安装 Python 3](#安装-python-3)
+   2. [安装 Python3](#安装-python3)
    3. [配置 Python3 环境](#配置-python3-环境)
    4. [安装 Biopython](#安装-biopython)
    5. [管理 Anaconda 环境](#管理-anaconda-环境)
@@ -42,7 +42,7 @@
 - 在 Terminal 中输入命令：`conda list`，如果 Anaconda 被成功安装，则会显示已经安装的包名和版本号。
 - 提示：默认情况下，新创建的环境将会被保存在 ***/Users/<user_name>/anaconda3/env*** 目录下，其中， ***<user_name>*** 为当前用户的用户名。
 
-### 安装 Python 3
+### 安装 Python3
 
 - **如果已安装Anaconda3，其中会自带python3，无需再额外手动安装python**。
 - 在官网下载并安装最新的 pkg 安装包：[Python Releases for macOS | Python.org](https://www.python.org/downloads/macos/)。
