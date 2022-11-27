@@ -15,8 +15,8 @@
 	2. [配置文件路径](#配置文件路径)
 	3. [修改配置文件](#修改配置文件)
 8. [拓展功能](#拓展功能)
-	1. [关联 Jupyter Notebook 和 conda 的环境和包——“nb_conda”](#关联-jupyter-notebook-和-conda-的环境和包nb_conda)
-	2. [Markdown 生成目录](#markdown-生成目录)
+	1. [关联 Jupyter Notebook 和 conda 的环境和包——“nb\_conda”](#关联-jupyter-notebook-和-conda-的环境和包nb_conda)
+	2. [Jupyter Notebook 的插件安装](#jupyter-notebook-的插件安装)
 9. [关闭和退出](#关闭和退出)
 	1. [关闭笔记本和终端](#关闭笔记本和终端)
 	2. [退出 Jupyter Notebook 程序](#退出-jupyter-notebook-程序)
@@ -146,11 +146,15 @@ h 查看所有快捷键
 - 可以在笔记本内的“Kernel”类目里的“Change  kernel”切换内核。
 - 在 Terminal 输入命令：`canda remove nb_conda`，卸载nb_conda包。
 
-### Markdown 生成目录
+### Jupyter Notebook 的插件安装
 
-- 通过安装扩展来实现目录的添加，在 Terminal 输入命令：`conda install -c conda-forge jupyter_contrib_nbextensions`。
-- 启动 Jupyter Notebook，出现“Nbextensions”扩展项，点击“Nbextensions”，勾选“Table  of Contents ⑵”。
-- 在 Jupyter Notebook 中使用 Markdown，点击目录的图标即可使用。
+- 安装扩展项：在 Terminal 输入命令：`conda install -c conda-forge jupyter_contrib_nbextensions`。
+
+- Markdown 生成目录
+  - 启动 Jupyter Notebook，出现“Nbextensions”扩展项，点击“Nbextensions”，勾选“Table  of Contents ⑵”。
+  - 在“Table  of Contents ⑵”的设置中，取消“Automatically number notebook's sections”。勾选“Skip h1 headings from numbering”，“Add a Table of Contents cell at the top of the notebook”。
+- 开启代码补全
+  - 选择“Hinterland”插件。
 
 ## 关闭和退出
 
