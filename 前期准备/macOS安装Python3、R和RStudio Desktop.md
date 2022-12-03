@@ -26,9 +26,9 @@
 
 ## 4 安装 Homebrew
 
-- 在 Terminal 中输入命令：`export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:789`。
+- 在 Terminal 中输入命令：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`。
 
-- 在 Terminal 中输入命令：`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`。
+- Homebrew卸载脚本，在 Terminal 中输入命令：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"`。
 
 ## 5 安装 git 用于与 Github 的版本控制
 
@@ -37,6 +37,5 @@
 ## References
 
 1. [【B站】2022新版黑马程序员python教程:P5](https://www.bilibili.com/video/BV1qW4y1a7fU?p=5&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
-2. [Failed to connect to raw.githubusercontent.com:443解决办法](https://zhuanlan.zhihu.com/p/115450863)
-3. [安装 Homebrew](https://brew.sh/index_zh-cn)
-4. [git(Download for macOS)](https://git-scm.com/download/mac)
+2. [Homebrew安装教程---kalrry](https://juejin.cn/post/7085362350840086536)
+3. [git(Download for macOS)](https://git-scm.com/download/mac)
