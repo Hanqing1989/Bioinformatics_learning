@@ -1,4 +1,4 @@
-# RStudio基本操作和初始设置
+# RStudio 的初始设置和基本操作
 
 **Table of Contents**
 
@@ -43,26 +43,25 @@
 - Pane Layout：可以设置 RStudio 的窗口布局，以及选择各个窗口内所显示的内容。
 - Packages -> Management：“Primary CRAN repository” 选择国内的安装源。
 - Python：根据 Python 的环境路径选择 Python 解释器的路径。
-- Sweave：“PDF Generation”，在Weave Rnw files using 选择 knitr，在 Typeset LaTeX into PDF using 选择 XeLaTex；“LaTeX Editing and Compilation”，全部勾选。
+- 如需导出PDF文档，则需要设置Sweave：“PDF Generation”，在Weave Rnw files using 选择 knitr，在 Typeset LaTeX into PDF using 选择 XeLaTex；“LaTeX Editing and Compilation”，全部勾选。
 
 ## 4 Workflow
 
-在 RStudio 中写代码有3中选择：写在命令窗口中，写在R脚本中，写在Rmarkdown文档中。对初学者而言，使用Rmarkdown文档是比较合适的。
+在 RStudio 中写代码有3中选择：写在命令窗口中，写在R脚本中，写在 Rmarkdown 文档中。对初学者而言，使用 Rmarkdown 文档是比较合适的。
 
 1. 新建一个 Project 来管理所有文档。
-2. 新建一个 R Markdown 文档。选择“From Template”，
+2. 新建一个 R Markdown 文档（如需要导出中文PDF，则选择“From Template”中的“CTeX Document”）。
 3. 将代码嵌入块中。一次按行、按块或全部运行代码。
 4. 编写文本并添加表格、图形、图像和引文。使用 Markdown 语法或 RStudio Visual Markdown 编辑器格式化。
-5. 在 YAML 头中设置输出格式和选项。自定义主题或添加参数以执行或添加与 Shiny 的交互。
-6. 在 Knit 可选择不同的文件类型进行浏览，在写作时预览作品，同时将对应格式保存至工作目录下。
-7. 使用 PDF 格式并输出中文时，请点击 Knit 旁的小齿轮，并修改字体引擎为 xelatex。
+5. 在 YAML 头中设置输出格式和选项（如目录：output: html_document: toc: yes，注意分行逐次缩进）。自定义主题或添加参数以执行或添加与 Shiny 的交互。
+6. 在 Knit 可选择不同的文件类型进行浏览，**建议选择 html 格式预览（可以使用目录导航）**，在写作时预览作品，同时将对应格式保存至工作目录下（同时包含 html_document 和 R Markdown 两个文件）。
+7. 如需使用 PDF 格式并输出中文时，请点击 Knit 旁的小齿轮，并修改字体引擎为 xelatex。
 
 ## 5 最常用快捷键（必会）
 
-1. 注释/取消注释当前行（代码块）： Ctrl+Shift+C；
-2. 插入代码块：Ctrl+Alt+I；
-3. 运行光标所在行的代码：Ctrl+Enter；
-4. 运行当前光标所在行的代码块：Ctrl+Shift+Enter。
+1. 注释/取消注释当前行（代码块）： Ctrl+Shift+C。
+2. 插入代码块：Ctrl+Alt+I。
+3. 运行光标所在行的代码：Ctrl+Enter。
 
 ## References
 
