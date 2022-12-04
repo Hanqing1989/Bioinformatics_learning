@@ -150,23 +150,676 @@ my_matrix_1 <- matrix(cells, nrow=2, ncol=2, byrow=TRUE,
 my_matrix_1
 ```
 
+```{r}
+# 创建了一个2×2的矩阵并按 列 进行了填充
+my_matrix_2 <- matrix(cells, nrow=2, ncol=2, byrow=FALSE, 
+                      dimnames=list(row_names, col_names))
+my_matrix_2
+```
 
+- 可以使用下标和`[方括号]`来选择矩阵中的行、列或元素。`X[i,]`指矩阵X中的第i行，`X[,j]`指第j列，`X[i, j]`指第i行第j个元素。选择多行或多列时，下标i和j可为数值型向量。
 
+```{r}
+x <- matrix(1:10, nrow=2)
+x
+```
+```{r}
+x[2,]
+```
+```{r}
+x[,2]
+```
+```{r}
+x[1,4]
+```
+```{r}
+x[1,c(4,5)]
+```
 
+### 2.2.3 数组
 
+- 数组(array)与矩阵类似，但是维度可以大于2。数组可通过array函数创建，形式如下:
 
+```
+my_array <- array(vector, dimensions, dimnames)
+```
 
+- 其中vector包含了数组中的数据，dimensions是一个数值型向量，给出了各个维度下标的最大值，而dimnames是可选的、各维度名称标签的列表。
 
+```{r}
+# 创建一个数组
+dim1 <- c("A1", "A2")
+dim2 <- c("B1", "B2", "B3")
+dim3 <- c("C1", "C2", "C3", "C4")
+z <- array(1:24, c(2, 3, 4), dimnames=list(dim1, dim2, dim3))
+z
+```
 
+```{r}
+z[1,2,3] # 表示在C3的第一行第二列
+```
 
+### 2.2.4 数据框
 
+- 由于不同的列可以包含不同模式(数值型、字符型等)的数据，数据框的概念较矩阵来说更为一般，与通常在SAS、SPSS和Stata中的数据集类似。**数据框是R中最常处理的数据结构**。 
 
+- 数据框可通过函数`data.frame()`创建：
 
+```
+my_data <- data.frame(col1, col2, col3,...)
+```
 
+- 其中的列向量col1、col2、col3等可为任何类型(如字符型、数值型或逻辑型) 。每一列的名称可由函数names指定。
 
+```{r}
+patientID <- c(1, 2, 3, 4)
+age <- c(25, 34, 28, 52)
+diabetes <- c("Type1", "Type2", "Type1", "Type1")
+status <- c("Poor", "Improved", "Excellent", "Poor")
+patientdata <- data.frame(patientID, age, diabetes, status)
+patientdata
+```
 
+- 选取数据框中元素的方式有若干种。可以使用前述(如矩阵中的)下标记号，亦可直接指定列名。
 
+```{r}
+patientdata[1:2]
+```
 
+```{r}
+patientdata[c("diabetes", "status")]
+```
 
+```{r}
+patientdata$age # 表示patientdata数据框中的变量age
+```
 
- 
+- 如果想生成糖尿病类型变量diabetes和病情变量status的列联表，使用以下代码即可：
+
+```{r}
+table(patientdata$diabetes, patientdata$status)
+```
+
+- 可以联合使用函数attach( )和detach( )或**单独使用函数with( )来简化代码**。
+
+- 实例标识符 
+    - 在病例数据中，病人编号(patientID)用于区分数据集中不同的个体。在R中，实例标识符(case identifier)可通过数据框操作函数中的rowname选项指定。例如，语句：
+
+```
+patientdata <- data.frame(patientID, age, diabetes,                           
+                          status, row.names=patientID)
+```
+
+- 将patientID指定为R中标记各类打印输出和图形中实例名称所用的变量。
+
+### 2.2.5 因子
+
+- 变量可归结为名义型、有序型或连续型变量。
+    - **名义型变量是没有顺序之分的类别变量**。糖尿病类型Diabetes(Type1、Type2)是名义型变量的一例。即使在数据中Type1编码为1而Type2编码为2，这也并不意味着二者是有序的。
+    - **有序型变量表示一种顺序关系，而非数量关系**。病情Status(poor、improved、excellent)是顺序型变量的一个上佳示例。我们明白，病情为poor(较差)病人的状态不如improved(病情好转)的病人，但并不知道相差多少。
+    - **连续型变量可以呈现为某个范围内的任意值，并同时表示了顺序和数量**。年龄Age就是一个连续型变量，它能够表示像14.5或22.8这样的值以及其间的其他任意值。很清楚，15岁的人比14岁的人年长一岁。
+
+- 类别(名义型)变量和有序类别(有序型)变量在R中称为因子(factor)。因子在R中非常重要，因为它决定了数据的分析方式以及如何进行视觉呈现。
+
+- 函数factor( )以一个整数向量的形式存储类别值，整数的取值范围是`[1...k]`(其中k是名义型变量中唯一值的个数)，同时一个由字符串(原始值)组成的内部向量将映射到这些整数上。举例来说，假设有向量：
+
+```
+diabetes <- c("Type1", "Type2", "Type1", "Type1")
+```
+
+- 语句`diabetes <- factor(diabetes)`将此向量存储为(1, 2, 1, 1)，并在内部将其关联为1=Type1和2=Type2(具体赋值根据字母顺序而定)。针对向量diabetes进行的任何分析都会将其作为名义型变量对待，并自动选择适合这一测量尺度1的统计方法。 要表示有序型变量，需要为函数`factor()`指定参数ordered=TRUE。给定向量：
+
+```
+status <- c("Poor", "Improved", "Excellent", "Poor")
+```
+
+- 语句`status <- factor(status, ordered=TRUE)`会将向量编码为(3, 2, 1, 3)，并在内部将这些值关联为1=Excellent、2=Improved以及3=Poor。另外，针对此向量进行的任何分析都会将其作为有序型变量对待，并自动选择合适的统计方法。
+
+- 对于字符型向量，因子的水平默认依字母顺序创建。这对于因子status是有意义的，因为“Excellent”、“Improved”、“Poor”的排序方式恰好与逻辑顺序相一致。如果“Poor”被编码为“Ailing”，会有问题，因为顺序将为“Ailing”、“Excellent”、“Improved”。如果理想中的顺序是“Poor”、“Improved”、“Excellent”，则会出现类似的问题。按默认的字母顺序排序的因子很少能够让人满意。可以通过指定levels选项来覆盖默认排序。例如:
+
+```
+status <- factor(status, order=TRUE,                  
+                 levels=c("Poor", "Improved", "Excellent"))
+```
+
+- 各水平的赋值将为1=Poor、2=Improved、3=Excellent。请保证指定的水平与数据中的真实值相匹配，因为任何在数据中出现而未在参数中列举的数据都将被设为缺失值。
+
+- 数值型变量可以用levels和labels参数来编码成因子。如果男性被编码成1，女性被编码成2，则以下语句：
+
+```
+sex <- factor(sex, levels=c(1, 2), labels=c("Male", "Female"))
+```
+
+- 把变量转换成一个无序因子。注意到标签的顺序必须和水平相一致。在这个例子中，性别将被当成类别型变量，标签“Male”和“Female”将替代1和2在结果中输出，而且所有不是1或2的性别变量将被设为缺失值。
+
+- 案例：因子的使用
+
+```{r}
+patientID <- c(1, 2, 3, 4)
+age <- c(25, 34, 28, 52)
+diabetes <- c("Type1", "Type2", "Type1", "Type1") # 普通因子
+status <- c("Poor", "Improved", "Excellent", "Poor") # 有序因子
+# 以上为以向量形式输入数据
+diabetes <- factor(diabetes)
+status <- factor(status, order=TRUE)
+patientdata <- data.frame(patientID, age, diabetes, status)
+str(patientdata) # 显示对象的结构
+```
+
+```{r}
+summary(patientdata) # 显示对象的统计概要
+```
+
+### 2.2.6 列表
+
+- **列表(list)是R的数据类型中最为复杂的一种**。一般来说，列表就是一些对象(或成分，component)的有序集合。列表允许你整合若干(可能无关的)对象到单个对象名下。例如，某个列表中可能是若干向量、矩阵、数据框，甚至其他列表的组合。可以使用函数list( )创建列表：
+
+```
+my_list <- list(object1, object2, ...)
+```
+
+- 其中的对象可以是目前为止讲到的任何结构。你还可以为列表中的对象命名：
+
+```
+my_list <- list(name1=object1, name2=object2, ...)
+```
+
+- 案例：创建一个列表
+
+```{r}
+g <- "My First List"
+h <- c(25, 26, 18, 39)
+j <- matrix(1:10, nrow=5)
+k <- c("one", "two", "three")
+my_list <- list(title=g, ages=h, j, k)  # 创建列表
+my_list   # 输出整个列表
+```
+
+```{r}
+# 输出第二个成分
+my_list[[2]]
+```
+
+## 2.3 数据的输入
+
+- **如需直接处理Excel数据文件，建议使用rstudio导入。**
+
+### 2.3.1 导入带分隔符的文本文件
+
+- 你可以使用`read.table()`从带分隔符的文本文件中导入数据。此函数可读入一个表格格式的文件并将其保存为一个数据框。表格的每一行分别出现在文件中每一行。其语法如下：
+
+```
+my_dataframe <- read.table(file, options)
+```
+
+- 其中，file是一个带分隔符的ASCII文本文件，options是控制如何处理数据的选项，具体选项包括：
+
+```
+header # 一个表示文件是否在第一行包含了变量名的逻辑型变量
+sep # 分开数据值的分隔符。默认是 sep="",这表示了一个或多个空格、制表符、换行或回车。使用 sep=","来读取用逗号来分隔行内数据的文件,使用 sep="\t"来读取使用制表符来分割行内数据的文件
+row.names # 一个用于指定一个或多个行标记符的可选参数
+col.names # 如果数据文件的第一行不包括变量名 (header=FASLE) , 你可以用 col.names 去指定一个包含变量名的字符向量。 如果 header=FALSE 以及 col.names 选项被省略了, 变量会被分别命名为 V1、V2,以此类推
+na.strings # 可选的用于表示缺失值的字符向量。比如说,na.strings=c("-9", "?")把-9 和?值在读取数据的时候转换成 NA
+colClasses # 可选的分配到每一列的类向量。 比如说, colClasses=c("numeric", "numeric", "character", "NULL", "numeric")把前两列读取为数值型变量,把第三列读取为字符型向量,跳过第四列,把第五列读取为数值型向量。如果数据有多余五列,colClasses 的值会被循环。当你在读取大型文本文件的时候,加上 colClasses 选项可以可观地提升处理的速度
+quote # 用于对有特殊字符的字符串划定界限的自负床。默认值是双引号(")或单引号(')
+skip # 读取数据前跳过的行的数目。这个选项在跳过头注释的时候比较有用
+stringsAsFactors # 一个逻辑变量, 标记处字符向量是否需要转化成因子。 默认值是 TRUE, 除非它被 colClases 所覆盖。当你在处理大型文本文件的时候,设置成 stringsAsFactors=FALSE 可以提升处理速度
+text # 一个指定文字进行处理的字符串。如果 text 被设置了,file 应该被留空。
+```
+
+- 案例：读取studentgrades.csv的文本文件，它包含了学生在数学、科学、和社会学习的分数。
+
+```{r}
+grades <- read.table("studentgrades.csv", header=TRUE,     
+                     row.names="StudentID", sep=",")
+grades # print data frame
+```
+
+```{r}
+str(grades) # view data frame structure
+```
+
+### 2.3.2 导入SPSS文件
+
+```{r}
+library(foreign)
+my_data <- read.spss('pancerdata.sav')
+head(my_data)
+```
+
+## 2.4 处理数据对象的实用函数
+
+```
+length(object) # 显示对象中元素/成分的数量 
+dim(object) # 显示某个对象的维度 
+str(object) # 显示某个对象的结构 
+class(object) # 显示某个对象的类或类型 
+mode(object) # 显示某个对象的模式 
+names(object) # 显示某对象中各成分的名称 
+c(object, object,...) # 将对象合并入一个向量 
+cbind(object, object, ...) # 按列合并对象 
+rbind(object, object, ...) # 按行合并对象 
+object # 输出某个对象 
+head(object) # 列出某个对象的开始部分 
+tail(object) # 列出某个对象的最后部分 
+ls() # 显示当前的对象列表
+rm(object, object, ...) # 删除一个或更多个对象。语句 rm(list = ls())将删除当前工作环境中的几乎所有对象
+newobject <- edit(object) # 编辑对象并另存为newobject 
+fix(object) # 直接编辑对象
+```
+
+# 3 基本数据管理
+
+## 3.1 创建新变量
+
+- 运算符
+
+```
++ # 加
+- # 减
+* # 乘
+/ # 除
+^或** # 求幂 
+x%%y # 求余数。例如，5%%2的余数为1（5/2结果为2余1）
+x%/%y # 整数除法。5%/%2的结果为2（5/2结果为2余1） 
+```
+
+- 案例：
+
+```{r}
+my_data <- data.frame(x1 = c(2, 2, 6, 4),                    
+                      x2 = c(3, 4, 2, 8))
+my_data <- transform(my_data,
+                    sumx=x1+x2,
+                    neanx=(x1+x2)/2)
+my_data
+```
+
+## 3.2 变量的重编码
+
+- 重编码涉及根据同一个变量和/或其他变量的现有值创建新值的过程。
+
+- 要重编码数据,可以使用R中的一个或多个逻辑运算符。逻辑运算符表达式可返回TRUE或FALSE。
+
+- 逻辑运算符
+
+```
+< # 小于 
+<= # 小于或等于 
+> # 大于 
+>= # 大于或等于 
+== # 严格等于 
+!= # 不等于 
+!x # 非x 
+x | y # x或y 
+x & y # x和y 
+isTRUE(x) # 测试x是否为TRUE
+```
+
+```{r}
+# 创建leadership数据框
+manager <- c(1, 2, 3, 4, 5) 
+date <- c("10/24/08", "10/28/08", "10/1/08", "10/12/08", "5/1/09") 
+country <- c("US", "US", "UK", "UK", "UK") 
+gender <- c("M", "F", "F", "M", "F") 
+age <- c(32, 45, 25, 39, 99) 
+q1 <- c(5, 3, 3, 3, 2) 
+q2 <- c(4, 5, 5, 3, 2) 
+q3 <- c(5, 2, 5, 4, 1) 
+q4 <- c(5, 5, 5, NA, 2) 
+q5 <- c(5, 5, 2, NA, 1) 
+leadership <- data.frame(manager, date, country, gender, age,                          
+                         q1, q2, q3, q4, q5, stringsAsFactors=FALSE)
+leadership
+```
+
+- 假设希望将leadership数据集中经理人的连续型年龄变量age重编码为类别型变量agecat(Young、 Middle Aged、Elder)。创建agecat变量：
+
+```{r}
+leadership <- within(leadership,{                      
+    agecat <- NA                       
+    agecat[age > 75]              <- "Elder"                      
+    agecat[age >= 55 & age <= 75] <- "Middle Aged"                      
+    agecat[age < 55]              <- "Young" })
+leadership
+```
+
+## 3.3 变量的重命名
+
+- 假设你希望将变量名manager修改为managerID，并将date修改为testDate，那么可以使用语句：
+
+```
+fix(leadership)
+```
+
+- 若以编程方式，可以通过`names()`函数来重命名变量。例如：
+
+```{r}
+names(leadership)[2] <- "testDate"
+names(leadership)[6:10] <- c("item1", "item2", "item3", "item4", "item5")
+leadership
+```
+
+- plyr包中有一个`rename()`函数，可用于修改变量名。这个函数默认并没有被安装，所以你首先要使用命令`install.packages("plyr")`对之进行安装。
+
+- `rename()`函数的使用格式为：
+
+```
+rename(dataframe, c(oldname="newname", oldname="newname",...))
+```
+
+- 示例：
+
+```{r}
+library(plyr) 
+leadership <- rename(leadership,                       
+                    c(manager="managerID", testDate="date"))
+leadership
+```
+
+## 3.4 缺失值
+
+- 在R中，缺失值以符号NA(Not Available，不可用)表示。R提供了一些函数，用于识别包含缺失值的观测。函数`is.na()`允许检测缺失值是否存在。
+
+```{r}
+# 再次使用leadership数据框
+manager <- c(1, 2, 3, 4, 5) 
+date <- c("10/24/08", "10/28/08", "10/1/08", "10/12/08", "5/1/09") 
+country <- c("US", "US", "UK", "UK", "UK") 
+gender <- c("M", "F", "F", "M", "F") 
+age <- c(32, 45, 25, 39, 99) 
+q1 <- c(5, 3, 3, 3, 2) 
+q2 <- c(4, 5, 5, 3, 2) 
+q3 <- c(5, 2, 5, 4, 1) 
+q4 <- c(5, 5, 5, NA, 2) 
+q5 <- c(5, 5, 2, NA, 1) 
+leadership <- data.frame(manager, date, country, gender, age,                          
+                         q1, q2, q3, q4, q5, stringsAsFactors=FALSE)
+leadership
+```
+
+```{r}
+is.na(leadership[,6:10])
+```
+
+- 这里的`leadership[,6:10]`将数据框限定到第6列至第10列，接下来`is.na()`识别出了缺失值。
+
+- 还可以使用赋值语句将某些值重编码为缺失值。在leadership示例中，缺失的年龄值被编码为99。在分析这一数据集之前，必须让R明白本例中的99表示缺失值(否则这些样本的平均年龄将会高得离谱)。可以通过重编码这个变量完成这项工作（**请确保所有的缺失数据已在分析之前被妥善地编码为缺失值，否则分析结果将失去意义。**）：
+
+```{r}
+# 任何等于99的年龄值都将被修改为NA
+leadership$age[leadership$age == 99] <- NA
+leadership
+```
+
+- 确定了缺失值的位置以后，你需要在进一步分析数据之前以某种方式删除这些缺失值。多数的数值函数都拥有一个`na.rm=TRUE`选项，可以在计算之前移除缺失值并使用剩余值进行计算：
+
+```{r}
+x <- c(1, 2, NA, 3) 
+y <- sum(x, na.rm=TRUE)
+y
+```
+
+- 在使用函数处理不完整的数据时，请务必查阅它们的帮助文档(例如，help(sum))，检查这些函数是如何处理缺失数据的。
+
+- 可以通过函数`na.omit()`移除所有含有缺失值的观测。`na.omit()`可以删除所有含有缺失数据的行。
+
+```{r}
+# 使用na.omit()删除不完整的观测
+newdata <- na.omit(leadership) 
+newdata
+```
+
+## 3.5 日期值
+
+- 日期值通常以字符串的形式输入到R中，然后转化为以数值形式存储的日期变量。函数`as.Date()`用于执行这种转化。其语法为`as.Date(x, "input_format")`，其中x是字符型数据，input_format则给出了用于读入日期的适当格式。
+
+```
+%d # 数字表示的日期(0~31) 01~31 
+%a # 缩写的星期名 Mon 
+%A # 非缩写星期名 Monday 
+%m # 月份(00~12) 00~12 
+%b # 缩写的月份 Jan 
+%B # 非缩写月份 January 
+%y # 两位数的年份 07 
+%Y # 四位数的年份 2007
+```
+
+- 有两个函数对于处理时间戳数据特别实用。`Sys.Date()`可以返回当天的日期，而`date()`则返回当前的日期和时间。
+
+- 可以使用函数`format(x, format="output_format")`来输出指定格式的日期值，并且可以提取日期值中的某些部分，`format()`函数可接受一个参数(本例中是一个日期)并按某种格式输出结果：
+
+```{r}
+today <- Sys.Date() 
+format(today, format="%B %d %Y")
+format(today, format="%A")
+```
+
+- R可以在日期值上执行算术运算。例如：
+
+```{r}
+startdate <- as.Date("2004-02-13") 
+enddate <- as.Date("2011-01-22")
+days <- enddate - startdate 
+days
+```
+
+```{r}
+today <- Sys.Date()
+dob <- as.Date("1956-10-12") 
+difftime(today, dob, units="weeks")
+```
+
+## 3.6 类型转换
+
+- R与其他统计编程语言有着类似的数据类型转换方式。举例来说，向一个数值型向量中添加一个字符串会将此向量中的所有元素转换为字符型。
+
+- 判断类型：
+
+```
+is.numeric()
+is.character() 
+is.vector()
+is.matrix()
+is.data.frame() 
+is.factor()
+is.logical()
+```
+
+- 转换类型：
+
+```
+as.numeric()
+as.character()
+as.vector() 
+as.matrix() 
+as.data.frame() 
+as.factor() 
+as.logical()
+```
+
+- 名为`is.datatype()`这样的函数返回TRUE或FALSE, 而`as.datatype()`这样的函数则将其参数转换为对应的类型。
+
+- 案例：
+
+```{r}
+a <- c(1,2,3)  # a为数值型向量
+a
+```
+```{r}
+is.numeric(a)
+```
+```{r}
+is.vector(a)
+```
+```{r}
+a <- as.character(a) # 将a转换为字符型向量
+a
+```
+```{r}
+is.numeric(a)
+```
+```{r}
+is.vector(a)
+```
+```{r}
+is.character(a)
+```
+
+## 3.7 数据排序
+
+- 在R中，可以使用`order()`函数对一个数据框进行排序。默认的排序顺序是升序。在排序变量的前边加一个减号即可得到降序的排序结果。
+
+```{r}
+# 再次使用leadership数据框
+manager <- c(1, 2, 3, 4, 5) 
+date <- c("10/24/08", "10/28/08", "10/1/08", "10/12/08", "5/1/09") 
+country <- c("US", "US", "UK", "UK", "UK") 
+gender <- c("M", "F", "F", "M", "F") 
+age <- c(32, 45, 25, 39, 99) 
+q1 <- c(5, 3, 3, 3, 2) 
+q2 <- c(4, 5, 5, 3, 2) 
+q3 <- c(5, 2, 5, 4, 1) 
+q4 <- c(5, 5, 5, NA, 2) 
+q5 <- c(5, 5, 2, NA, 1) 
+leadership <- data.frame(manager, date, country, gender, age,                          
+                         q1, q2, q3, q4, q5, stringsAsFactors=FALSE)
+leadership
+```
+
+```{r}
+# 创建了一个新的数据集,其中各行依经理人的年龄升序排序
+newdata <- leadership[order(leadership$age),]
+newdata
+```
+
+```{r}
+# 将各行依女性到男性、同样性别中按年龄升序排序
+attach(leadership) 
+newdata <- leadership[order(gender, age),] 
+detach(leadership)
+newdata
+```
+
+```{r}
+# 将各行依经理人的性别和年龄降序排序
+attach(leadership) 
+newdata <-leadership[order(gender, -age),] 
+detach(leadership)
+newdata
+```
+
+## 3.8 数据集的合并
+
+- 如果数据分散在多个地方，你就需要在继续下一步之前将其合并。
+
+### 3.8.1 向数据框添加列
+
+- 要横向合并两个数据框(数据集)，请使用`merge()`函数。在多数情况下，两个数据框是通过一个或多个共有变量进行联结的(即一种内联结，inner join)。例如：
+
+```
+# 将dataframeA和dataframeB按照ID进行了合并
+total <- merge(dataframeA, dataframeB, by="ID")
+# 将两个数据框按照ID和Country进行了合并
+total <- merge(dataframeA, dataframeB, by=c("ID","Country"))
+```
+
+### 3.8.2 向数据框添加行
+
+- 要纵向合并两个数据框(数据集)，请使用`rbind()`函数：
+
+```
+total <- rbind(dataframeA, dataframeB)
+```
+
+- 两个数据框必须拥有相同的变量，不过它们的顺序不必一定相同。如果dataframeA中拥有dataframeB中没有的变量，请在合并它们之前做以下某种处理：
+    - 删除dataframeA中的多余变量。
+    - 在dataframeB中创建追加的变量并将其值设为NA(缺失)。 
+
+- 纵向联结通常用于向数据框中添加观测。
+
+## 3.9 数据集取子集
+
+### 3.9.1 选入(保留)变量
+
+- 从一个大数据集中选择有限数量的变量来创建一个新的数据集是常有的事。通过`dataframe[row indices, column indices]`这样的记号来访问选择变量。例如：
+
+```{r}
+newdata <- leadership[, c(6:10)]
+newdata
+```
+
+- 案例：从leadership数据框中选择了变量q1、q2、q3、q4和q5，并将它们保存到了数据框newdata中。将行下标留空(,)表示默认选择所有行。
+
+```{r}
+# 实现了等价的变量选择。这里, (引号中的)变量名充当了列的下标,因此选择的列是相同的
+myvars <- c("q1", "q2", "q3", "q4", "q5")
+newdata <-leadership[myvars]
+newdata
+```
+
+### 3.9.2 剔除(丢弃)变量
+
+- 剔除变量的原因有很多。例如，如果某个变量中有很多缺失值，你可能就想在进一步分析之前将其丢弃。下面是一些剔除变量的方法。
+
+```{r}
+# 剔除变量q3和q4
+myvars <- names(leadership) %in% c("q3", "q4") 
+newdata <- leadership[!myvars] 
+newdata
+```
+
+### 3.9.3 选入观测
+
+```{r}
+# 选择第1行到第3行 (前三个观测）
+newdata <- leadership[1:3,]
+# 选择所有30岁以上的男性
+newdata <- leadership[leadership$gender=="M" &                               
+                      leadership$age > 30,]
+# 使用了attach()函数, 所以你就不必在变量名前加上数据框名称了
+attach(leadership)         
+newdata <- leadership[gender=='M' & age > 30,]          
+detach(leadership)
+newdata
+```
+
+### 3.9.4 subset( )函数
+
+- 使用`subset()`函数大概是选择变量和观测最简单的方法了。
+
+```{r}
+# 选择所有age值大于等于35或age值小于24的行,保留了变量q1到q4
+newdata <- subset(leadership, age >= 35 | age < 24,                   
+                  select=c(q1, q2, q3, q4))
+newdata
+```
+
+```{r}
+# 选择所有25岁以上的男性,并保留了变量gender到q4(gender、q4和其间所有列)
+newdata <- subset(leadership, gender=="M" & age > 25,                    
+                  select=gender:q4)
+newdata
+```
+
+### 3.9.5 随机抽样
+
+- `sample()`函数能够让你从数据集中(有放回或无放回地)抽取大小为n的一个随机样本。
+
+```{r}
+# 从leadership数据集中随机抽取一个大小为3的样本
+my_sample <- leadership[sample(1:nrow(leadership), 3, replace=FALSE),]
+my_sample
+```
+
+- `sample()`函数中的**第一个参数是一个由要从中抽样的元素组成的向量。在这里，这个向量是1到数据框中观测的数量，第二个参数是要抽取的元素数量，第三个参数表示无放回抽样**。`sample()`函数会返回随机抽样得到的元素，之后即可用于选择数据框中的行。
+
+# 4 图形初阶
+
+## 一个简单的例子
+
+## 图形参数
+
+## 添加文本、自定义坐标轴的图例
+
+## 图形的组合

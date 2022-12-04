@@ -61,7 +61,7 @@
 
 1. 注释/取消注释当前行（代码块）： Ctrl+Shift+C。
 2. 插入代码块：Ctrl+Alt+I。
-3. 运行光标所在行的代码：Ctrl+Enter。
+3. 运行当前代码块的代码：Ctrl+Shift+Enter。
 
 RStudio 的详细使用教程（如图形和表格的输入和输出，表格内容的渲染）请参考：[庄亮亮：R Markdown 入门教程](https://cosx.org/2021/04/rmarkdown-introduction/)。
 
