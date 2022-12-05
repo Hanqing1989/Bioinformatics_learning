@@ -1,4 +1,4 @@
-R语言基础学习（第一阶段）
+R语言基础学习（第一阶段）——初识R语言
 ================
 
 - <a href="#1-r语言介绍" id="toc-1-r语言介绍">1 R语言介绍</a>
@@ -47,12 +47,6 @@ R语言基础学习（第一阶段）
     - <a href="#394-subset-函数" id="toc-394-subset-函数">3.9.4 subset(
       )函数</a>
     - <a href="#395-随机抽样" id="toc-395-随机抽样">3.9.5 随机抽样</a>
-- <a href="#4-图形初阶" id="toc-4-图形初阶">4 图形初阶</a>
-  - <a href="#一个简单的例子" id="toc-一个简单的例子">一个简单的例子</a>
-  - <a href="#图形参数" id="toc-图形参数">图形参数</a>
-  - <a href="#添加文本自定义坐标轴的图例"
-    id="toc-添加文本自定义坐标轴的图例">添加文本、自定义坐标轴的图例</a>
-  - <a href="#图形的组合" id="toc-图形的组合">图形的组合</a>
 
 Source：
 
@@ -68,10 +62,10 @@ Source：
 - R语句由函数和赋值构成。R使用\<-（快捷键：alt +
   -），而不是传统的=作为赋值符号。例如，以下语句：
 
-``` r
-> # 创建一个名为X的向量对象，它包含5个来自标准正态分布的随机偏差。
-> x <- rnorm(5)
-```
+<!-- -->
+
+    # 创建一个名为X的向量对象，它包含5个来自标准正态分布的随机偏差。
+    x <- rnorm(5)
 
 ### 1.1.1 工作空间
 
@@ -89,7 +83,7 @@ Source：
 [1] "/Users/liang.hanqing/Documents/Git-local/Github_Bioinformatics_Learning/R/Phase1_R_Basic_Learning"
 > # 列出当前工作空间中的对象
 > ls()
-[1] "x"
+character(0)
 ```
 
     # 移除(删除)一个或多个对象
@@ -105,11 +99,11 @@ Source：
 > x <- runif(20) # 创建了一个包含20个均匀分布随机变量的向量
 > summary(x) # 生成了此数据的摘要统计量
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.010   0.228   0.620   0.548   0.847   0.977 
+  0.035   0.334   0.542   0.544   0.820   0.998 
 > hist(x) # 生成了此数据的直方图
 ```
 
-![](Phase1_R_Basic_Learning_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_初识R语言_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ## 1.2 包
 
@@ -414,7 +408,7 @@ A2 20 22 24
 - 语句`status <- factor(status, ordered=TRUE)`会将向量编码为(3, 2, 1,
   3)，并在内部将这些值关联为1=Excellent、2=Improved以及3=Poor。另外，针对此向量进行的任何分析都会将其作为有序型变量对待，并自动选择合适的统计方法。
 
-- 对于字符型向量，因子的水平默认依字母顺序创建。这对于因子status是有意义的，因为“Excellent”、“Improved”、“Poor”的排序方式恰好与逻辑顺序相一致。如果“Poor”被编码为“Ailing”，会有问题，因为顺序将为“Ailing”、“Excellent”、“Improved”。如果理想中的顺序是“Poor”、“Improved”、“Excellent”，则会出现类似的问题。按默认的字母顺序排序的因子很少能够让人满意。可以通过指定levels选项来覆盖默认排序。例如:
+- 对于字符型向量，因子的水平默认依字母顺序创建。这对于因子status是有意义的，因为”Excellent”、“Improved”、“Poor”的排序方式恰好与逻辑顺序相一致。如果”Poor”被编码为”Ailing”，会有问题，因为顺序将为”Ailing”、“Excellent”、“Improved”。如果理想中的顺序是”Poor”、“Improved”、“Excellent”，则会出现类似的问题。按默认的字母顺序排序的因子很少能够让人满意。可以通过指定levels选项来覆盖默认排序。例如:
 
 <!-- -->
 
@@ -429,7 +423,7 @@ A2 20 22 24
 
     sex <- factor(sex, levels=c(1, 2), labels=c("Male", "Female"))
 
-- 把变量转换成一个无序因子。注意到标签的顺序必须和水平相一致。在这个例子中，性别将被当成类别型变量，标签“Male”和“Female”将替代1和2在结果中输出，而且所有不是1或2的性别变量将被设为缺失值。
+- 把变量转换成一个无序因子。注意到标签的顺序必须和水平相一致。在这个例子中，性别将被当成类别型变量，标签”Male”和”Female”将替代1和2在结果中输出，而且所有不是1或2的性别变量将被设为缺失值。
 
 - 案例：因子的使用
 
@@ -876,9 +870,9 @@ Levels: 无术中放疗 有术中放疗
 ``` r
 > today <- Sys.Date() 
 > format(today, format="%B %d %Y")
-[1] "December 04 2022"
+[1] "December 05 2022"
 > format(today, format="%A")
-[1] "Sunday"
+[1] "Monday"
 ```
 
 - R可以在日期值上执行算术运算。例如：
@@ -1165,19 +1159,9 @@ Time difference of 3451 weeks
 > my_sample <- leadership[sample(1:nrow(leadership), 3, replace=FALSE),]
 > my_sample
   manager     date country gender age q1 q2 q3 q4 q5
-1       1 10/24/08      US      M  32  5  4  5  5  5
-3       3  10/1/08      UK      F  25  3  5  5  5  2
 2       2 10/28/08      US      F  45  3  5  2  5  5
+4       4 10/12/08      UK      M  39  3  3  4 NA NA
+3       3  10/1/08      UK      F  25  3  5  5  5  2
 ```
 
 - `sample()`函数中的**第一个参数是一个由要从中抽样的元素组成的向量。在这里，这个向量是1到数据框中观测的数量，第二个参数是要抽取的元素数量，第三个参数表示无放回抽样**。`sample()`函数会返回随机抽样得到的元素，之后即可用于选择数据框中的行。
-
-# 4 图形初阶
-
-## 一个简单的例子
-
-## 图形参数
-
-## 添加文本、自定义坐标轴的图例
-
-## 图形的组合
