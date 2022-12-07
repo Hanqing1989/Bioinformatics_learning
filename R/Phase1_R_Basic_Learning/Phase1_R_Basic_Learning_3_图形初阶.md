@@ -1,45 +1,45 @@
 R语言基础学习（第一阶段）——图形初阶
 ================
 
-- <a href="#4-图形初阶" id="toc-4-图形初阶">4 图形初阶</a>
-  - <a href="#41-使用图形图片的输出" id="toc-41-使用图形图片的输出">4.1
+- <a href="#5-图形初阶" id="toc-5-图形初阶">5 图形初阶</a>
+  - <a href="#51-使用图形图片的输出" id="toc-51-使用图形图片的输出">5.1
     使用图形（图片的输出）</a>
-  - <a href="#42-一个简单的例子" id="toc-42-一个简单的例子">4.2
+  - <a href="#52-一个简单的例子" id="toc-52-一个简单的例子">5.2
     一个简单的例子</a>
-  - <a href="#43-图形参数" id="toc-43-图形参数">4.3 图形参数</a>
-    - <a href="#431-符号与线条" id="toc-431-符号与线条">4.3.1 符号与线条</a>
-    - <a href="#432-颜色" id="toc-432-颜色">4.3.2 颜色</a>
-    - <a href="#433-文本属性" id="toc-433-文本属性">4.3.3 文本属性</a>
-    - <a href="#434-图形尺寸与边界尺寸" id="toc-434-图形尺寸与边界尺寸">4.3.4
+  - <a href="#53-图形参数" id="toc-53-图形参数">5.3 图形参数</a>
+    - <a href="#531-符号与线条" id="toc-531-符号与线条">5.3.1 符号与线条</a>
+    - <a href="#532-颜色" id="toc-532-颜色">5.3.2 颜色</a>
+    - <a href="#533-文本属性" id="toc-533-文本属性">5.3.3 文本属性</a>
+    - <a href="#534-图形尺寸与边界尺寸" id="toc-534-图形尺寸与边界尺寸">5.3.4
       图形尺寸与边界尺寸</a>
-  - <a href="#44-添加文本自定义坐标轴的图例"
-    id="toc-44-添加文本自定义坐标轴的图例">4.4
+  - <a href="#54-添加文本自定义坐标轴的图例"
+    id="toc-54-添加文本自定义坐标轴的图例">5.4
     添加文本、自定义坐标轴的图例</a>
-    - <a href="#441-标题" id="toc-441-标题">4.4.1 标题</a>
-    - <a href="#442-坐标轴" id="toc-442-坐标轴">4.4.2 坐标轴</a>
-    - <a href="#443-参考线" id="toc-443-参考线">4.4.3 参考线</a>
-    - <a href="#444-图例" id="toc-444-图例">4.4.4 图例</a>
-    - <a href="#445-文本标注" id="toc-445-文本标注">4.4.5 文本标注</a>
-  - <a href="#45-图形的组合" id="toc-45-图形的组合">4.5 图形的组合</a>
-- <a href="#5-基本图形" id="toc-5-基本图形">5 基本图形</a>
-  - <a href="#51-条形图" id="toc-51-条形图">5.1 条形图</a>
-    - <a href="#511-简单的条形图" id="toc-511-简单的条形图">5.1.1
+    - <a href="#541-标题" id="toc-541-标题">5.4.1 标题</a>
+    - <a href="#542-坐标轴" id="toc-542-坐标轴">5.4.2 坐标轴</a>
+    - <a href="#543-参考线" id="toc-543-参考线">5.4.3 参考线</a>
+    - <a href="#544-图例" id="toc-544-图例">5.4.4 图例</a>
+    - <a href="#545-文本标注" id="toc-545-文本标注">5.4.5 文本标注</a>
+  - <a href="#55-图形的组合" id="toc-55-图形的组合">5.5 图形的组合</a>
+- <a href="#6-基本图形" id="toc-6-基本图形">6 基本图形</a>
+  - <a href="#61-条形图" id="toc-61-条形图">6.1 条形图</a>
+    - <a href="#611-简单的条形图" id="toc-611-简单的条形图">6.1.1
       简单的条形图</a>
-    - <a href="#512-堆砌条形图和分组条形图"
-      id="toc-512-堆砌条形图和分组条形图">5.1.2 堆砌条形图和分组条形图</a>
-    - <a href="#513-均值条形图" id="toc-513-均值条形图">5.1.3 均值条形图</a>
-    - <a href="#514-条形图的微调" id="toc-514-条形图的微调">5.1.4
+    - <a href="#612-堆砌条形图和分组条形图"
+      id="toc-612-堆砌条形图和分组条形图">6.1.2 堆砌条形图和分组条形图</a>
+    - <a href="#613-均值条形图" id="toc-613-均值条形图">6.1.3 均值条形图</a>
+    - <a href="#614-条形图的微调" id="toc-614-条形图的微调">6.1.4
       条形图的微调</a>
-    - <a href="#515-棘状图" id="toc-515-棘状图">5.1.5 棘状图</a>
-  - <a href="#52-饼图" id="toc-52-饼图">5.2 饼图</a>
-  - <a href="#53-直方图" id="toc-53-直方图">5.3 直方图</a>
-  - <a href="#54-核密度图" id="toc-54-核密度图">5.4 核密度图</a>
-  - <a href="#55-箱线图" id="toc-55-箱线图">5.5 箱线图</a>
-    - <a href="#551-使用并列箱线图进行跨组比较"
-      id="toc-551-使用并列箱线图进行跨组比较">5.5.1
+    - <a href="#615-棘状图" id="toc-615-棘状图">6.1.5 棘状图</a>
+  - <a href="#62-饼图" id="toc-62-饼图">6.2 饼图</a>
+  - <a href="#63-直方图" id="toc-63-直方图">6.3 直方图</a>
+  - <a href="#64-核密度图" id="toc-64-核密度图">6.4 核密度图</a>
+  - <a href="#65-箱线图" id="toc-65-箱线图">6.5 箱线图</a>
+    - <a href="#651-使用并列箱线图进行跨组比较"
+      id="toc-651-使用并列箱线图进行跨组比较">6.5.1
       使用并列箱线图进行跨组比较</a>
-    - <a href="#552-小提琴图" id="toc-552-小提琴图">5.5.2 小提琴图</a>
-  - <a href="#56-点图" id="toc-56-点图">5.6 点图</a>
+    - <a href="#652-小提琴图" id="toc-652-小提琴图">6.5.2 小提琴图</a>
+  - <a href="#66-点图" id="toc-66-点图">6.6 点图</a>
 
 Source：
 
@@ -48,9 +48,9 @@ Source：
 2.  [【B站】从零开始学 R
     语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
 
-# 4 图形初阶
+# 5 图形初阶
 
-## 4.1 使用图形（图片的输出）
+## 5.1 使用图形（图片的输出）
 
 - R是一个惊艳的图形构建平台，可以通过逐条输入语句构建图形，逐渐完善图形特征，直至得到想要的效果。例如：
 
@@ -61,14 +61,13 @@ Source：
 > title("Regression of MPG on Weight")   # 第四句添加了标题
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ``` r
 > detach(mtcars)  # 最后一句为数据框解除了绑定
 ```
 
-- 可以通过代码或图形用户界面来保存图形。要通过代码保存图形,
-  将绘图语句夹在开启目标图形设备的语句和关闭目标图形设备的语句之间即可。例如,
+- 可以通过代码或图形用户界面来保存图形。要通过代码保存图形，将绘图语句夹在开启目标图形设备的语句和关闭目标图形设备的语句之间即可。例如,
   以下代码会将图形保存到当前工作目录中名为mygraph.pdf的PDF文件中:
 
 <!-- -->
@@ -84,7 +83,7 @@ Source：
 - 除了`pdf()`，还可以使用函数`win.metafile()`、`png()`、`jpeg()`、`bmp()`、`tiff()`、`xfig()`和`postscript()`将图形保存为其他格式。
   (注意，Windows图元文件格式仅在Windows系统中可用。)
 
-## 4.2 一个简单的例子
+## 5.2 一个简单的例子
 
 | 剂量 | 对药物A的响应 | 对药物B的响应 |
 |:----:|:-------------:|:-------------:|
@@ -104,29 +103,23 @@ Source：
 > plot(dose, drugA, type="b")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 - `plot()`是R中为对象作图的一个泛型函数
-  (它的输出将根据所绘制对象类型的不同而变化) 。
-  本例中，`plot(x, y, type="b")`将x置于横轴，将y置于纵轴，绘制点集(x,
-  y)，然后使用线段将其连接。选项type=“b”表示同时绘制点和线。使用`help(plot)`可以查看其他选项。
+  (它的输出将根据所绘制对象类型的不同而变化)
+  。本例中，`plot(x, y, type="b")`将x置于横轴，将y置于纵轴，绘制点集(x,y)，然后使用线段将其连接。选项type=“b”表示同时绘制点和线。使用`help(plot)`可以查看其他选项。
 
-## 4.3 图形参数
+## 5.3 图形参数
 
-- 可以通过修改称为图形参数的选项来自定义一幅图形的多个特征
-  (字体、颜色、坐标轴、标签)
-  。一种方法是通过函数`par()`来指定这些选项。以这种方式设定的参数值除非被再次修改,
-  否 则 将 在 会 话 结 束 前 一 直 有 效 。 其 调 用 格 式 为：
+- 可以通过修改称为图形参数的选项来自定义一幅图形的多个特征(字体、颜色、坐标轴、标签)。一种方法是通过函数`par()`来指定这些选项。以这种方式设定的参数值除非被再次修改，否则将在会话结束前一直有效。其调用格式为：
 
 <!-- -->
 
     par(optionname=value, optionname=name,...)
 
-- 不加参数地执行`par()`将生成一个含有当前图形参数设置的列表。
-  添加参数`no.readonly=TRUE`可以生成一个可以修改的当前图形参数列表。
+- 不加参数地执行`par()`将生成一个含有当前图形参数设置的列表。添加参数`no.readonly=TRUE`可以生成一个可以修改的当前图形参数列表。
 
-- 继续4.2的例子，假设使用实心三角而不是空心圆圈作为点的符号,
-  并且想用虚线代替实线连接这些点。可以使用以下代码完成修改:
+- 继续4.2的例子，假设使用实心三角而不是空心圆圈作为点的符号，并且想用虚线代替实线连接这些点。可以使用以下代码完成修改:
 
 ``` r
 > opar <- par(no.readonly=TRUE)  # 首个语句复制了一份当前的图形参数设置
@@ -134,7 +127,7 @@ Source：
 > plot(dose, drugA, type="b")  
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
 > par(opar)
@@ -146,9 +139,9 @@ Source：
 > plot(dose, drugA, type="b", lty=2, pch=17)
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-### 4.3.1 符号与线条
+### 5.3.1 符号与线条
 
 | 参数 |                                 描述                                  |
 |:----:|:---------------------------------------------------------------------:|
@@ -171,9 +164,9 @@ Source：
 > plot(dose, drugA, type="b", lty=3, lwd=3, pch=15, cex=2)
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-### 4.3.2 颜色
+### 5.3.2 颜色
 
 | 参数     | 描述                                                                                                                                                                                               |
 |:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -186,8 +179,7 @@ Source：
 | bg       | 图形的背景色。                                                                                                                                                                                     |
 
 - 对于创建吸引人的颜色配对，RColorBrewer特别受到欢迎。注意在第一次使用它之前先进行下载`(install.packages("RColorBrewer"))`。
-  安装之后，使用函数`brewer.pal(n, name)`
-  来创建一个颜色值的向量。比如说，以下代码：
+  安装之后，使用函数`brewer.pal(n, name)`来创建一个颜色值的向量。比如说，以下代码：
 
 ``` r
 > library(RColorBrewer) 
@@ -196,7 +188,7 @@ Source：
 > barplot(rep(1,n), col=mycolors)
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 - R中也有多种用于创建连续型颜色向量的函数，包括`rainbow()`、`heat.colors()`、`terrain.colors()`、`topo.colors()`以及`cm.colors()`。举例来说，`rainbow(10)`可以生成10种连续的”彩虹型”颜色。
 
@@ -206,16 +198,16 @@ Source：
 > pie(rep(1,n),labels = mycolors,col=rainbow(n))
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 > mygrays <- gray(0:n/n)
 > pie(rep(1,n),labels = mygrays,col=gray(0:n/n))
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
-### 4.3.3 文本属性
+### 5.3.3 文本属性
 
 | 参数      | 描述                                                                                                         |
 |:----------|--------------------------------------------------------------------------------------------------------------|
@@ -232,8 +224,7 @@ Source：
 | ps        | 字体磅值(1 磅约为 1/72 英寸) 。文本的最终大小为 ps\*cex。                                                    |
 | family    | 绘制文本时使用的字体族。标准的取值为 serif(衬线) 、sans(无衬线)和 mono(等宽)。                               |
 
-- 创建的所有图形都将拥有斜体、1.5倍于默认文本大小的坐标轴标签(名称)
-  ，以及粗斜体、2倍于默认文本大小的标题：
+- 创建的所有图形都将拥有斜体、1.5倍于默认文本大小的坐标轴标签(名称)，以及粗斜体、2倍于默认文本大小的标题：
 
 <!-- -->
 
@@ -241,7 +232,7 @@ Source：
 
 - 如果以PDF格式输出图形，则修改字体族会相对简单一些，可以使用`names(pdfFonts())`找出系统中有哪些字体是可用的，然后使用`pdf(file= "myplot.pdf", family="fontname")`来生成图形。
 
-### 4.3.4 图形尺寸与边界尺寸
+### 5.3.4 图形尺寸与边界尺寸
 
 | 参数 | 描述                                                                                        |
 |------|---------------------------------------------------------------------------------------------|
@@ -249,9 +240,9 @@ Source：
 | mai  | 以数值向量表示的边界大小，顺序为”下、左、上、右”，单位为英寸。                              |
 | mar  | 以数值向量表示的边界大小,顺序为”下、左、上、右” ,单位为英分。默认值为 c(5, 4, 4, 2) + 0.1。 |
 
-以下代码可生成一幅4英寸宽、3英寸高、上下边界为1英寸、左边界为0.5英寸、右边界为0.2英寸的图形：
+- 以下代码可生成一幅4英寸宽、3英寸高、上下边界为1英寸、左边界为0.5英寸、右边界为0.2英寸的图形：
 
-    par(pin=c(4,3), mai=c(1,.5, 1, .2))
+  par(pin=c(4,3), mai=c(1,.5, 1, .2))
 
 - 代码清单3-1 使用图形参数控制图形外观
 
@@ -266,22 +257,21 @@ Source：
 > plot(dose, drugA, type="b", pch=19, lty=2, col="red")  #使用红色实心圆圈和虚线创建了第一幅图
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 > plot(dose, drugB, type="b", pch=23, lty=6, col="blue", bg="green")  # 使用绿色填充的绿色菱形加蓝色边框和蓝色虚线创建了第二幅图形
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
 
 ``` r
 > par(opar)  # 还原了初始的图形参数设置
 ```
 
-## 4.4 添加文本、自定义坐标轴的图例
+## 5.4 添加文本、自定义坐标轴的图例
 
-- 通过以下代码在图形上添加了标题(main) 、副标题(sub)
-  、坐标轴标签(xlab、ylab)并指定了坐标轴范围(xlim、ylim)：
+- 通过以下代码在图形上添加了标题(main)、副标题(sub)、坐标轴标签(xlab、ylab)并指定了坐标轴范围(xlim、ylim)：
 
 ``` r
 > plot(dose, drugA, type="b",       
@@ -292,11 +282,11 @@ Source：
 +      xlim=c(0, 60), ylim=c(0, 70))
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 - **注意：并非所有函数都支持这些选项。请参考相应函数的帮助以了解其可以接受哪些选项。某些高级绘图函数已经包含了默认的标题和标签。可以通过在`plot()`语句或单独的`par()`语句中添加`ann=FALSE`来移除它们。**
 
-### 4.4.1 标题
+### 5.4.1 标题
 
 - 使用`title()`函数为图形添加标题和坐标轴标签。调用格式为:
 
@@ -316,7 +306,7 @@ Source：
 
 - **注意：函数`title()`一般来说被用于添加信息到一个默认标题和坐标轴标签被`ann=FALSE`选项移除的图形中。**
 
-### 4.4.2 坐标轴
+### 5.4.2 坐标轴
 
 - 可以使用函数`axis()`来创建自定义的坐标轴，而非使用R中的默认坐标轴。其格式为：
 
@@ -347,8 +337,7 @@ Source：
     library(Hmisc) 
     minor.tick(nx=n, ny=n, tick.ratio=n)
 
-- 举例来说，下列语句将在X轴的**每两条主刻度线**之间添加1
-  条次要刻度线（分割得到2个区间），并在Y轴的**每两条主刻度线**之间添加2条次要刻度线（分割得到3个区间，次要刻度线的长度将是主刻度线的一半：
+- 举例来说，下列语句将在X轴的**每两条主刻度线**之间添加1条次要刻度线（分割得到2个区间），并在Y轴的**每两条主刻度线**之间添加2条次要刻度线（分割得到3个区间，次要刻度线的长度将是主刻度线的一半：
 
 <!-- -->
 
@@ -384,13 +373,13 @@ Source：
 > minor.tick(nx=4, ny=4, tick.ratio=0.5) # 在X轴和Y轴的每两条主刻度线之间(即1-3主刻度线之间）添加3条次要刻度线（分割得到4个区间），次要刻度线的长度将是主刻度线的一半
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
 > par(opar)
 ```
 
-### 4.4.3 参考线
+### 5.4.3 参考线
 
 - 函数`abline()`可以用来为图形添加参考线。其使用格式为：
 
@@ -408,7 +397,7 @@ Source：
     # 在x为1、3、5、7、9的位置添加了垂直的蓝色虚线
     abline(v=seq(1, 10, 2), lty=2, col="blue")
 
-### 4.4.4 图例
+### 5.4.4 图例
 
 - 使用函数`legend()`来添加图例：
 
@@ -451,13 +440,13 @@ Source：
 +        lty=c(1,2),pch=c(15, 17),col=c("red","blue"))   
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 > par(opar)
 ```
 
-### 4.4.5 文本标注
+### 5.4.5 文本标注
 
 - 通过函数`text()`和`mtext()`将文本添加到图形上。`text()`可向绘图区域内部添加文本，而`mtext()`则向图形的四个边界之一添加文本。使用格式分别为:
 
@@ -490,13 +479,13 @@ Source：
 +      cex=0.6, pos=4, col="red")  # 各点的标签大小被缩小了40%, 颜色为红色
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 > detach(mtcars)
 ```
 
-## 4.5 图形的组合
+## 5.5 图形的组合
 
 - 在R中使用函数`par()`或`layout()`可以容易地组合多幅图形为一幅总括图形。
 
@@ -514,7 +503,7 @@ Source：
 > boxplot(wt, main="Boxplot of wt") 
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
 > par(opar) 
@@ -532,7 +521,7 @@ Source：
 > hist(disp) 
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 > par(opar) 
@@ -549,7 +538,7 @@ Source：
 > hist(disp) 
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ``` r
 > detach(mtcars)
@@ -571,7 +560,7 @@ Source：
 > hist(disp) 
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
 > detach(mtcars)
@@ -597,21 +586,19 @@ Source：
 > mtext("Enhanced Scatterplot", side=3, outer=TRUE, line=-3)  
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 > par(opar)
 ```
 
-# 5 基本图形
+# 6 基本图形
 
-## 5.1 条形图
+## 6.1 条形图
 
-### 5.1.1 简单的条形图
+### 6.1.1 简单的条形图
 
-- 条形图通过垂直的或水平的条形展示了类别型变量的分布(频数)
-  。函数`barplot()`的最简单用法是：
-  `barplot(height)`，其中的height是一个向量或一个矩阵。若height是一个向量，则它的值就确定了各条形的高度，并将绘制一幅垂直的条形图。使用选项`horiz=TRUE`则会生成一幅水平条形图。选项main可添加一个图形标题，而选项xlab和ylab则会分别添加x轴和y轴标签。
+- 条形图通过垂直的或水平的条形展示了类别型变量的分布(频数)。函数`barplot()`的最简单用法是：`barplot(height)`，其中的height是一个向量或一个矩阵。若height是一个向量，则它的值就确定了各条形的高度，并将绘制一幅垂直的条形图。使用选项`horiz=TRUE`则会生成一幅水平条形图。选项main可添加一个图形标题，而选项xlab和ylab则会分别添加x轴和y轴标签。
 
 - 在关节炎研究中，变量Improved记录了对每位接受了安慰剂或药物治疗的病人的治疗结果：
 
@@ -628,7 +615,7 @@ Source：
 +         xlab="Improvement", ylab="Frequency") 
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 > # 水平条形图
@@ -638,9 +625,9 @@ Source：
 +         horiz=TRUE)
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
 
-### 5.1.2 堆砌条形图和分组条形图
+### 6.1.2 堆砌条形图和分组条形图
 
 - 如果height是一个矩阵而不是一个向量，则绘图结果将是一幅堆砌条形图或分组条形图。若beside=FALSE(默认值)，则矩阵中的每一列都将生成图中的一个条形，各列中的值将给出堆砌的”子条”的高度。若beside=TRUE，则矩阵中的每一列都表示一个分组，各列中的值将并列而不是堆砌。考虑治疗类型和改善情况的列联表：
 
@@ -661,7 +648,7 @@ Source：
 +         legend=rownames(counts)) 
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 ``` r
 > # 分组条形图
@@ -672,9 +659,9 @@ Source：
 +         legend=rownames(counts), beside=TRUE)
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
 
-### 5.1.3 均值条形图
+### 6.1.3 均值条形图
 
 - 条形图可以使用数据整合函数并将结果传递给`barplot()`函数，来创建表示均值、中位数、标准差等的条形图。
 
@@ -698,9 +685,9 @@ Source：
 > title("Mean Illiteracy Rate")    # 添加标题
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
-### 5.1.4 条形图的微调
+### 6.1.4 条形图的微调
 
 - 代码清单6-4 为条形图搭配标签
 
@@ -718,9 +705,9 @@ Source：
 +                     "Marked Improvement"))   # 修改标签文本
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
-### 5.1.5 棘状图
+### 6.1.5 棘状图
 
 - 棘状图对堆砌条形图进行了重缩放，这样每个条形的高度均为1，**每一段的高度即表示比例**。棘状图可由vcd包中的函数`spine()`绘制。以下代码可以生成一幅简单的棘状图：
 
@@ -731,7 +718,7 @@ Source：
 > spine(counts, main="Spinogram Example") 
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ``` r
 > detach(Arthritis)
@@ -739,9 +726,9 @@ Source：
 
 - 上图所示：治疗组同安慰剂组相比，获得显著改善的患者比例明显更高。
 
-## 5.2 饼图
+## 6.2 饼图
 
-- 饼图可由以下函数创建：`pie(x, labels)`。其中x是一个非负数值向量，表示每个扇形的面积，而labels则是表示各扇形标签的字符型向量。
+- 饼图可由以下函数创建：`pie(x,labels)`。其中x是一个非负数值向量，表示每个扇形的面积，而labels则是表示各扇形标签的字符型向量。
 
 ``` r
 > par(mfrow=c(2, 2))  # 将四幅图形组合为一幅
@@ -764,10 +751,10 @@ Source：
 +     main="Pie Chart from a Table\n (with sample sizes)")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
-- 扇形图 (Lemon & Tyagi, 2009)
-  提供了一种同时展示相对数量和相互差异的方法。在R中，扇形图是通过plotrix包中的`fan.plot()`函数实现的。
+- 扇形图 (Lemon & Tyagi,
+  2009)提供了一种同时展示相对数量和相互差异的方法。在R中，扇形图是通过plotrix包中的`fan.plot()`函数实现的。
 
 ``` r
 > library(plotrix) 
@@ -776,9 +763,9 @@ Source：
 > fan.plot(slices, labels = lbls, main="Fan Plot")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
-## 5.3 直方图
+## 6.3 直方图
 
 - 直方图通过在x轴上将值域分割为一定数量的组，在y轴上显示相应值的频数，展示了连续型变量的分布。可以使用如下函数创建直方图：`hist(x)`，其中的x是一个由数据值组成的数值向量。参数`freq=FALSE`表示根据概率密度而不是频数绘制图形。参数breaks用于控制组的数量。在定义直方图中的单元时，默认将生成等距切分。
 
@@ -814,9 +801,9 @@ Source：
 > box()
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
-## 5.4 核密度图
+## 6.4 核密度图
 
 - 核密度估计是用于估计随机变量概率密度函数的一种非参数方法。从总体上讲，核密度图不失为一种用来观察**连续型变量分布**的有效方法。绘制密度图的方法(不叠加到另一幅图上方)为：`plot(density(x))`，其中的x是一个数值型向量。由于`plot()`函数会创建一幅新的图形，所以要向一幅已经存在的图形上叠加一条密度曲线，可以使用`lines()`函数(如代码清单6-6所示)。
 
@@ -830,9 +817,9 @@ Source：
 > rug(mtcars$mpg, col="brown")  # 添加棕色的轴须图
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
-- 核密度图可用于比较组间差异。使用sm包中的`sm.density.compare()`函数可向图形叠加两组或更多的核密度图。使用格式为：`sm.density.compare(x, factor)`其中的x是一个数值型向量，factor是一个分组变量。请在第一次使用sm包之前安装它。
+- 核密度图可用于比较组间差异。使用sm包中的`sm.density.compare()`函数可向图形叠加两组或更多的核密度图。使用格式为：`sm.density.compare(x,factor)`其中的x是一个数值型向量，factor是一个分组变量。请在第一次使用sm包之前安装它。
 
 ``` r
 > library(sm)  
@@ -846,13 +833,13 @@ Source：
 > legend('topright', levels(cyl.f), fill=colfill)   
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 ``` r
 > detach(mtcars)
 ```
 
-## 5.5 箱线图
+## 6.5 箱线图
 
 - 箱线图(又称盒须图)通过绘制连续型变量的五数总括，即最小值、下四分位数(第25百分位数)、中位数(第50百分位数)
   、上四分位数(第75百分位数)以及最大值，描述了连续型变量的分布。箱线图能够显示出可能为离群点(范围±1.5\*IQR以外的值，IQR表示四分位距，即上四分位数与下四分位数的差值)的观测。例如:
@@ -861,7 +848,7 @@ Source：
 > boxplot(mtcars$mpg, main="Box plot", ylab="Miles per Gallon")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 ``` r
 > boxplot.stats(mtcars$mpg) # 输出用于构建图形的统计
@@ -878,14 +865,12 @@ $out
 numeric(0)
 ```
 
-### 5.5.1 使用并列箱线图进行跨组比较
+### 6.5.1 使用并列箱线图进行跨组比较
 
-- 箱线图可以展示单个变量或分组变量。使用格式为：boxplot(formula,
-  data=dataframe)，其中的formula是一个公式，dataframe代表提供数据的数据框(或列表)。
+- 箱线图可以展示单个变量或分组变量。使用格式为：boxplot(formula,data=dataframe)，其中的formula是一个公式，dataframe代表提供数据的数据框(或列表)。
 
 - 一个示例公式为y \~
-  A，这将为类别型变量A的每个值并列地生成数值型变量y的箱线图。公式y
-  \~A\*B则将为类别型变量A和B所有水平的两两组合生成数值型变量y的箱线图。
+  A，这将为类别型变量A的每个值并列地生成数值型变量y的箱线图。公式y\~A\*B则将为类别型变量A和B所有水平的两两组合生成数值型变量y的箱线图。
 
 - 添加参数`varwidth=TRUE`将使箱线图的宽度与其样本大小的平方根成正比。参数`horizontal=TRUE`可以反转坐标轴的方向。
 
@@ -898,7 +883,7 @@ numeric(0)
 +         ylab="Miles Per Gallon")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 - 箱线图灵活多变，通过添加`notch=TRUE`，可以得到含凹槽的箱线图。**若两个箱的凹槽互不重叠，则表明它们的中位数有显著差异**(Chambers
   et
@@ -914,7 +899,7 @@ numeric(0)
 +         ylab="Miles Per Gallon")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 - 可以为多个分组因子绘制箱线图。代码清单6-9为不同缸数和不同变速箱类型的车型绘制了每加仑汽油行驶英里数的箱线图。同样地，这里使用参数col为箱线图进行了着色。请注意颜色的循环使用。在本例中，共有六幅箱线图和两种指定的颜色，所以颜色将重复使用三次。
 
@@ -938,12 +923,12 @@ numeric(0)
 +         xlab="Auto Type", ylab="Miles Per Gallon")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 - 对于四缸和六缸车型，标准变速箱(standard)的油耗更高。但是对于八缸车型，油耗似乎没有差别。从箱线图的宽度看出,
   四缸标准变速箱的车型和八缸自动变速箱的车型在数据集中最常见。
 
-### 5.5.2 小提琴图
+### 6.5.2 小提琴图
 
 - 小提琴图是箱线图与核密度图的结合。可以使用vioplot包中的`vioplot()`函数绘制它。请在第一次使用之前安装vioplot包。
 
@@ -969,11 +954,11 @@ numeric(0)
 +       xlab="Number of Cylinders")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 - 小提琴图基本上是核密度图以镜像方式在箱线图上的叠加。在图中，白点是中位数，黑色盒型的范围是下四分位点到上四分位点，细黑线表示须。外部形状即为核密度估计。
 
-## 5.6 点图
+## 6.6 点图
 
 - 点图提供了一种在简单水平刻度上绘制大量有标签值的方法。可以使用`dotchart()`函数创建点图，格式为：
 
@@ -989,7 +974,7 @@ numeric(0)
 +          xlab="Miles Per Gallon")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 - 通常来说，点图在经过排序并且分组变量被不同的符号和颜色区分开的时候最有用。
 
@@ -1012,6 +997,6 @@ numeric(0)
 +          xlab = "Miles Per Gallon")
 ```
 
-![](Phase1_R_Basic_Learning_图形初阶_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 - 可以从点图中获得显著的洞察力，因为每个点都有标签，每个点的值都有其内在含义，并且这些点是以一种能够促进比较的方式排布的，但是随着数据点的增多，点图的实用性随之下降。
