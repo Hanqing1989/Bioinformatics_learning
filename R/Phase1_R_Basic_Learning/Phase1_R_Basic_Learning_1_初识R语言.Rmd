@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
+knitr::opts_chunk$set(options(digits=2),prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
 ```
 
 Source：
@@ -14,6 +14,8 @@ Source：
 1.  《R语言实战（中文第二版）》
 
 2.  [【B站】从零开始学 R 语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
+
+3. [Yufei Zhong：R语言学习笔记](https://bookdown.org/zyf19940501/Rbook/)
 
 # 1 R语言介绍
 
@@ -65,6 +67,7 @@ hist(x) # 生成了此数据的直方图
 -   第一次安装一个包，使用命令`install.packages('packages_name')`即可。
 -   使用命令`update.packages()`可以更新已经安装的包。
 -   要查看已安装包的描述，可以使用`installed.packages()`命令，这将列出安装的包，以及它们的版本号、依赖关系等信息。
+- 如把包下载到本地，可在工作区右侧的“Package”打开本地包进行安装。
 
 ### 1.2.3 包的载入
 
@@ -346,11 +349,11 @@ my_list[[2]]
 
 ## 2.3 数据的输入
 
--   **如需直接处理Excel数据文件，建议使用rstudio导入。**
+-   **Excel数据文件、SPSS、SAS等文件，都可以使用rstudio的文件导入选项，直接将数据导入。**
 
 ### 2.3.1 导入带分隔符的文本文件
 
--   你可以使用`read.table()`从带分隔符的文本文件中导入数据。此函数可读入一个表格格式的文件并将其保存为一个数据框。表格的每一行分别出现在文件中每一行。其语法如下：
+-   可以使用`read.table()`从带分隔符的文本文件中导入数据。此函数可读入一个表格格式的文件并将其保存为一个数据框。表格的每一行分别出现在文件中每一行。其语法如下：
 
 <!-- -->
 
@@ -383,7 +386,20 @@ grades # print data frame
 str(grades) # view data frame structure
 ```
 
-### 2.3.2 导入SPSS文件
+### 2.3.2 导入Excel电子表格
+
+- 使用`install.packages("readxl")`下载安装readxl包，紧接着通过library("readxl") 加载该包，
+函数`read_excel()`导入一个工作表到一个数据框中。最简单的格式是`read_excel(file,n)`，其中file是Excel工作簿的所在路径，n则为要导入的工作表序号。
+
+```{r}
+library(readxl) 
+workbook <- "/Users/liang.hanqing/Documents/Git-local/Github_Bioinformatics_Learning/R/Phase1_R_Basic_Learning/studentgrades.xlsx" 
+mydataframe <- read_excel(workbook, 1)
+```
+
+- 在工作区右侧的Environment，可看到“mydataframe”，单击即可打开数据集。
+
+### 2.3.3 导入SPSS文件
 
 ```{r}
 library(foreign)
@@ -391,7 +407,58 @@ my_data <- read.spss('pancerdata.sav')
 head(my_data)
 ```
 
-## 2.4 处理数据对象的实用函数
+## 2.4 数据的导出
+
+### 2.4.1 导出符号分隔文本文件
+
+- 可以用`write.table()`函数将R对象输出到符号分隔文件中。函数使用方法是：
+
+```
+write.table(x, outfile, sep=delimiter, quote=TRUE, na="NA")
+```
+- 其中x是要输出的对象，outfile是目标文件。例如，这条语句：
+
+```
+write.table(mydata, "mydata.txt", sep=",")
+```
+- 会将mydata数据集输出到当前目录下逗号分隔的mydata.txt文件中。用路径(例如c:/myprojects/mydata.txt)可以将输出文件保存到任何地方。用sep="\t"替换sep=","，数据就会保存到制表符分隔的文件中。默认情况下，字符串是放在引号("")中的，缺失值用NA表示。
+
+### 2.4.2 导出Excel电子表格
+
+- 安装writexl包：`install.packages("writexl")`，包中的`writexl::write_xlsx()`函数可以将R数据框写入到Excel文件中。使用方法是：
+
+```{r}
+library(writexl) 
+writexl::write_xlsx(patientdata,path = 'patientdata.xlsx')
+```
+
+- 在工作区目录下可找到patientdata.xlsx文件。
+
+- 例如，这条语句：
+
+```
+library(xlsx) 
+write.xlsx(mydata, "mydata.xlsx")
+```
+- 会将mydata数据框保存到当前目录下的Excel文件mydata.xlsx的工作表(默认是Sheet1)中。默认情况下，数据集中的变量名称会被作为电子表格头部，行名称会放在电子表格的第一列。函数会覆盖已存在的mydata.xlsx文件。
+
+### 2.4.3 导出给统计学程序
+
+- foreign包中的`write.foreign()`可以将数据框导出到外部统计软件。这会创建两个文件，一个是保存数据的文本文件，另一个是指导外部统计软件导入数据的编码文件。使用方法如下：
+
+```
+write.foreign(dataframe, datafile, codefile, package=package)
+```
+
+- 例如，下面这段代码：
+
+```
+library(foreign) 
+write.foreign(mydata, "mydata.txt", "mycode.sps", package="SPSS")
+```
+- 会将mydata数据框导出到当前目录的纯文本文件mydata.txt中，同时还会生成一个用于读取该文本文件的SPSS程序mycode.sps。
+
+## 2.5 处理数据对象的实用函数
 
     length(object) # 显示对象中元素/成分的数量 
     dim(object) # 显示某个对象的维度 
