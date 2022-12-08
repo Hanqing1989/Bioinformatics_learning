@@ -785,7 +785,7 @@ roster
 
 ### 4.3.1 重复和循环
 
-- 1. for结构 
+#### 4.3.1.1 for结构 
 
 - for循环重复地执行一个语句，直到某个变量的值不再包含在序列seq中为止。语法为：
 
@@ -793,7 +793,7 @@ roster
 for (var in seq) statement
 ```
 
-- 2. while结构 
+#### 4.3.1.2 while结构 
 
 - while循环重复地执行一个语句，直到条件不为真为止。语法为：
 
@@ -807,7 +807,7 @@ while (cond) statement
 
 - 条件执行结构包括if-else、ifelse和switch。 
 
-- 1. if-else结构 
+#### 4.3.2.1 if-else结构 
 
 - 控制结构if-else在某个给定条件为真时执行语句，也可以同时在条件为假时执行另外的语句。语法为:
 
@@ -816,7 +816,7 @@ if (cond) statement
 if (cond) statement1 else statement2
 ```
 
-- 2. ifelse结构 
+#### 4.3.2.2 ifelse结构 
 
 - ifelse结构是if-else结构比较紧凑的向量化版本，其语法为:
 
@@ -826,7 +826,7 @@ ifelse(cond, statement1, statement2)
 
 - 若cond为TRUE，则执行第一个语句；若cond为FALSE，则执行第二个语句。
 
-- 3. switch结构 
+#### 4.3.2.3 switch结构 
 
 - switch根据一个表达式的值选择语句执行。语法为：
 
