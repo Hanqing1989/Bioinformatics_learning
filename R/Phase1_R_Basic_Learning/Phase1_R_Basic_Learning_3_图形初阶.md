@@ -40,6 +40,7 @@ R语言基础学习（第一阶段）——图形初阶
       使用并列箱线图进行跨组比较</a>
     - <a href="#652-小提琴图" id="toc-652-小提琴图">6.5.2 小提琴图</a>
   - <a href="#66-点图" id="toc-66-点图">6.6 点图</a>
+  - <a href="#67-生存曲线" id="toc-67-生存曲线">6.7 生存曲线</a>
 
 Source：
 
@@ -1000,3 +1001,92 @@ numeric(0)
 ![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 - 可以从点图中获得显著的洞察力，因为每个点都有标签，每个点的值都有其内在含义，并且这些点是以一种能够促进比较的方式排布的，但是随着数据点的增多，点图的实用性随之下降。
+
+- 安装一些包：`install.packages(c("car", "scatterplot3d", "gclus", "hexbin", "IDPmisc", "Hmisc","corrgram", "vcd", "rld"))`。
+
+``` r
+> par(ask=TRUE)
+> opar <- par(no.readonly=TRUE) # record current settings
+> 
+> # A scatter plot with best fit lines
+> attach(mtcars)                                                     
+> plot(wt, mpg, 
++      main="Basic Scatterplot of MPG vs. Weight",       
++      xlab="Car Weight (lbs/1000)", 
++      ylab="Miles Per Gallon ", pch=19)
+> abline(lm(mpg ~ wt), col="red", lwd=2, lty=1)            
+> lines(lowess(wt, mpg), col="blue", lwd=2, lty=2)
+```
+
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+
+``` r
+> detach(mtcars)
+```
+
+``` r
+> # Creating side by side scatter and line plots
+> opar <- par(no.readonly=TRUE)
+> par(mfrow=c(1,2))
+> t1 <- subset(Orange, Tree==1)
+> plot(t1$age, t1$circumference,
++      xlab="Age (days)",
++      ylab="Circumference (mm)",
++      main="Orange Tree 1 Growth")
+> plot(t1$age, t1$circumference,
++      xlab="Age (days)",
++      ylab="Circumference (mm)",
++      main="Orange Tree 1 Growth",
++      type="b")
+```
+
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+
+``` r
+> par(opar)
+```
+
+## 6.7 生存曲线
+
+- 先安装survival和survminer两个包。
+
+``` r
+> library(survival)
+> library(survminer)
+> fit <- survfit(Surv(time, status) ~ sex, data = lung)
+> 
+> ggsurvplot(fit,
++            pval = TRUE, #在图上添加log rank检验的p值
++            conf.int = TRUE,#添加置信区间
++            risk.table = TRUE, #在图下方添加风险表
++            risk.table.col = "strata", # 根据数据分组为风险表添加颜色
++            linetype = "strata", # 改变不同组别的生存曲线的线型
++            surv.median.line = "hv", # 标注出中位生存时间
++            ggtheme = theme_bw(), # 改变图形风格
++            palette = c("#E7B800", "#2E9FDF"))#图形颜色风格
+```
+
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+
+``` r
+> ggsurvplot(
++   fit,                    
++   pval = TRUE,             
++   conf.int = TRUE,    
++   conf.int.style = "ribbon",  # 设置置信区间的风格
++   xlab = "Time in days",   # 设置x轴标签
++   break.time.by = 200,     # 将x轴按照200为间隔进行切分
++   ggtheme = theme_light(), # 设置图形风格
++   risk.table = "abs_pct",  # 在风险表中添加绝对数和相对数
++   risk.table.y.text.col = TRUE,# 设置风险表的文字颜色
++   risk.table.y.text = FALSE,# 以条柱展示风险表的标签，而非文字
++   ncensor.plot = TRUE,      # 展示随访过程中不同时间点死亡和删失的情况
++   surv.median.line = "hv",  # 添加中位生存时间
++   legend.labs = 
++     c("Male", "Female"),    # 改变图例标签
++   palette = 
++     c("#E7B800", "#2E9FDF") # 设置颜色
++ )
+```
+
+![](Phase1_R_Basic_Learning_3_图形初阶_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->

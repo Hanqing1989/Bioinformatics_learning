@@ -88,7 +88,7 @@ character(0)
 > x <- runif(20) # 创建了一个包含20个均匀分布随机变量的向量
 > summary(x) # 生成了此数据的摘要统计量
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.005   0.403   0.528   0.565   0.845   0.984 
+  0.005   0.262   0.559   0.510   0.762   0.992 
 > hist(x) # 生成了此数据的直方图
 ```
 
@@ -244,6 +244,28 @@ R2 26 68
 > x[1,c(4,5)]
 [1] 7 9
 ```
+
+- 案例：构建热图
+
+``` r
+> data=as.matrix(mtcars) #heatmap()接受的数值对象为矩阵，因此需要事先将mtcars数据框转成矩阵
+> heatmap(data) #不需要传入任何参数，就可以进行热图的绘制。
+```
+
+![](Phase1_R_Basic_Learning_1_初识R语言_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+``` r
+> 
+> heatmap(data, scale="column")#传入scale参数。
+```
+
+![](Phase1_R_Basic_Learning_1_初识R语言_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
+
+``` r
+> heatmap(data, scale="column", col = terrain.colors(256),Colv = NA, Rowv = NA)
+```
+
+![](Phase1_R_Basic_Learning_1_初识R语言_files/figure-gfm/unnamed-chunk-15-3.png)<!-- -->
 
 ### 2.2.3 数组
 
@@ -539,6 +561,34 @@ $ages
  $ Math          : int  90 75 65 90
  $ Science       : int  80 NA 75 95
  $ Social.Studies: int  67 80 70 92
+```
+
+- 案例：
+
+- 先安装forestplot、grid、abind、checkmate四个包。
+
+``` r
+> library(forestplot)
+> os_forest <- read.csv('os_forest.csv',header = FALSE)
+> # 读入数据的时候一定要把header设置成FALSE，保证第一行不被当作列名称。
+> tiff('Figure_os_forest.tiff',height = 1600,width = 2400,res= 300)
+> forestplot(labeltext = as.matrix(os_forest[,1:3]),
++            #设置用于文本展示的列，此处用数据的前三列作为文本，在图中展示
++            mean = os_forest$V4, #设置均值
++            lower = os_forest$V5, #设置均值的上限
++            upper = os_forest$V6, #设置均值的下限
++            is.summary = c(T,T,T,F,F,T,F,F,T,F,F),
++            #该参数接受一个逻辑向量，用于定义数据中的每一行是否是汇总值，若是，则在对应位置设置为TRUE，若否，则设置为FALSE；设置为TRUE的行则以粗体出现
++            zero = 1, #设置参照值，此处我们展示的是HR值，故参照值是1，而不是0
++            boxsize = 0.4, #设置点估计的方形大小
++            lineheight = unit(10,'mm'),#设置图形中的行距
++            colgap = unit(3,'mm'),#设置图形中的列间距
++            lwd.zero = 2,#设置参考线的粗细
++            lwd.ci = 1.5,#设置区间估计线的粗细
++            col=fpColors(box='#458B00',  summary= "#8B008B",lines = 'black',zero = '#7AC5CD'),
++            #使用fpColors()函数定义图形元素的颜色，从左至右分别对应点估计方形，汇总值，区间估计线，参考线
++            xlab="The estimates",#设置x轴标签
++            graph.pos = 3)#设置森林图的位置，此处设置为3，则出现在第三列
 ```
 
 ### 2.3.2 导入Excel电子表格
