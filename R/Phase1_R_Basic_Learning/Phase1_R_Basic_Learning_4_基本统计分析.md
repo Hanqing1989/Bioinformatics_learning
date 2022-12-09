@@ -6,10 +6,16 @@ R语言进阶学习（第二阶段）——基本统计分析
     描述性统计分析</a>
     - <a href="#711-方法云集" id="toc-711-方法云集">7.1.1 方法云集</a>
     - <a href="#712-更多方法" id="toc-712-更多方法">7.1.2 更多方法</a>
-    - <a href="#713-分组计算描述性统计量"
-      id="toc-713-分组计算描述性统计量">7.1.3 分组计算描述性统计量</a>
-    - <a href="#714-分组计算的扩展" id="toc-714-分组计算的扩展">7.1.4
+    - <a href="#713-单组数据汇总统计量" id="toc-713-单组数据汇总统计量">7.1.3
+      单组数据汇总统计量</a>
+    - <a href="#714-单数据分布类型的图形描述"
+      id="toc-714-单数据分布类型的图形描述">7.1.4 单数据分布类型的图形描述</a>
+    - <a href="#715-分组计算描述性统计量"
+      id="toc-715-分组计算描述性统计量">7.1.5 分组计算描述性统计量</a>
+    - <a href="#716-分组计算的扩展" id="toc-716-分组计算的扩展">7.1.6
       分组计算的扩展</a>
+    - <a href="#717-分组数据的图形描述" id="toc-717-分组数据的图形描述">7.1.7
+      分组数据的图形描述</a>
   - <a href="#72-频数表和列联表" id="toc-72-频数表和列联表">7.2
     频数表和列联表</a>
     - <a href="#721-生成频数表" id="toc-721-生成频数表">7.2.1 生成频数表</a>
@@ -25,8 +31,9 @@ R语言进阶学习（第二阶段）——基本统计分析
       独立样本的 t 检验</a>
     - <a href="#742-非独立样本的-t-检验"
       id="toc-742-非独立样本的-t-检验">7.4.2 非独立样本的 t 检验</a>
-  - <a href="#75-组间差异的非参数检验" id="toc-75-组间差异的非参数检验">7.5
-    组间差异的非参数检验</a>
+  - <a href="#75-组间差异的非参数检验秩和检验"
+    id="toc-75-组间差异的非参数检验秩和检验">7.5
+    组间差异的非参数检验（秩和检验）</a>
     - <a href="#751-两组的比较" id="toc-751-两组的比较">7.5.1 两组的比较</a>
     - <a href="#752-多于两组的比较" id="toc-752-多于两组的比较">7.5.2
       多于两组的比较</a>
@@ -198,7 +205,200 @@ hp  12.12
 wt   0.17
 ```
 
-### 7.1.3 分组计算描述性统计量
+### 7.1.3 单组数据汇总统计量
+
+- 均数、标准差、中位数、分位数计算。
+
+- 统计描述过程中的缺失值处理。
+
+- ISwR包中的juul数据集。
+
+``` r
+> library(ISwR) # 载入包
+> attach(juul) #连接数据集
+> mean(igf1,na.rm=TRUE) # 求均值，剔除缺失值
+[1] 340
+> sum(!is.na(igf1)) # 剔除缺失值后，求和
+[1] 1018
+> summary(igf1) 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+     25     202     314     340     463     915     321 
+> summary(juul)
+      age        menarche        sex           igf1         tanner   
+ Min.   : 0   Min.   :1     Min.   :1.0   Min.   : 25   Min.   :1    
+ 1st Qu.: 9   1st Qu.:1     1st Qu.:1.0   1st Qu.:202   1st Qu.:1    
+ Median :13   Median :1     Median :2.0   Median :314   Median :2    
+ Mean   :15   Mean   :1     Mean   :1.5   Mean   :340   Mean   :3    
+ 3rd Qu.:17   3rd Qu.:2     3rd Qu.:2.0   3rd Qu.:463   3rd Qu.:5    
+ Max.   :83   Max.   :2     Max.   :2.0   Max.   :915   Max.   :5    
+ NA's   :5    NA's   :635   NA's   :5     NA's   :321   NA's   :240  
+    testvol   
+ Min.   : 1   
+ 1st Qu.: 1   
+ Median : 3   
+ Mean   : 8   
+ 3rd Qu.:15   
+ Max.   :30   
+ NA's   :859  
+> detach(juul) #剥离数据集
+```
+
+### 7.1.4 单数据分布类型的图形描述
+
+- 直方图。
+
+``` r
+> x <- rnorm(50)
+> hist(x)
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+``` r
+> mid.age <- c(2.5,7.5,13,16.5,17.5,19,22.5,44.5,70.5)
+> acc.count <- c(28,46,58,20,31,64,149,316,103)
+> age.acc <- rep(mid.age,acc.count)
+> brk <- c(0,5,10,16,17,18,20,25,60,80)
+> hist(age.acc,breaks=brk)
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+- 经验累积分布图形
+
+``` r
+> n <- length(x)
+> plot(sort(x),(1:n)/n,type="s",ylim=c(0,1))
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+- Q-Q图
+
+``` r
+> qqnorm(x)
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+- 箱式图
+
+``` r
+> par(mfrow=c(1,2))
+> boxplot(IgM)
+> boxplot(log(IgM))
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+> par(mfrow=c(1,1))
+```
+
+### 7.1.5 分组计算描述性统计量
+
+- **注意：年龄等连续变量有均值，但性别等分类变量没有均值，如需放在一起summary，则必须先将分类变量因子化。**
+
+``` r
+> # 因子化juul数据集（因子化方式参考 ?factor）
+> juul$sex <- factor(juul$sex,labels=c("M","F"))
+> juul$menarche <- factor(juul$menarche,labels=c("No","Yes"))
+> juul$tanner <- factor(juul$tanner,
++                       labels=c("I","II","III","IV","V"))
+> attach(juul)
+> summary(juul)
+      age     menarche     sex           igf1      tanner       testvol   
+ Min.   : 0   No  :369   M   :621   Min.   : 25   I   :515   Min.   : 1   
+ 1st Qu.: 9   Yes :335   F   :713   1st Qu.:202   II  :103   1st Qu.: 1   
+ Median :13   NA's:635   NA's:  5   Median :314   III : 72   Median : 3   
+ Mean   :15                         Mean   :340   IV  : 81   Mean   : 8   
+ 3rd Qu.:17                         3rd Qu.:463   V   :328   3rd Qu.:15   
+ Max.   :83                         Max.   :915   NA's:240   Max.   :30   
+ NA's   :5                          NA's   :321              NA's   :859  
+> detach(juul)
+```
+
+    #以下代码与上述5行代码等价
+    juul <- transform(juul,
+                      sex=factor(sex,labels=c("M","F")),
+                      menarche=factor(menarche,labels=c("No","Yes")),
+                      tanner=factor(tanner,labels=c("I","II","III","IV","V")))
+    attach(juul)
+    summary(juul)
+
+- 分组数据汇总统计量
+
+- tapply: 分组计算统计量
+
+``` r
+> attach(red.cell.folate)
+> tapply(folate,ventilation,mean)
+N2O+O2,24h  N2O+O2,op     O2,24h 
+       317        256        278 
+> tapply(folate,ventilation,sd)
+N2O+O2,24h  N2O+O2,op     O2,24h 
+        59         37         34 
+> tapply(folate,ventilation,length)
+N2O+O2,24h  N2O+O2,op     O2,24h 
+         8          9          5 
+> 
+> xbar <- tapply(folate, ventilation, mean)
+> s <- tapply(folate, ventilation, sd)
+> n <- tapply(folate, ventilation, length)
+> cbind(mean=xbar, std.dev=s, n=n)
+           mean std.dev n
+N2O+O2,24h  317      59 8
+N2O+O2,op   256      37 9
+O2,24h      278      34 5
+```
+
+``` r
+> juul <- transform(juul,
++                   sex=factor(sex,labels=c("M","F")),
++                   menarche=factor(menarche,labels=c("No","Yes")),
++                   tanner=factor(tanner,labels=c("I","II","III","IV","V")))
+> attach(juul)
+> tapply(igf1, tanner, mean, na.rm=TRUE) # 去除缺失值后
+  I  II III  IV   V 
+207 353 483 513 465 
+```
+
+- aggreate和by函数：分组计算统计量
+
+``` r
+> # aggregate方法一
+> aggregate(juul[c("age","igf1")],
++           list(sex=juul$sex), mean, na.rm=T)
+  sex age igf1
+1   M  15  311
+2   F  15  368
+> # aggregate方法二
+> aggregate(juul[c("age","igf1")], juul["sex"], mean, na.rm=T)
+  sex age igf1
+1   M  15  311
+2   F  15  368
+> # by函数
+> by(juul, juul["sex"], summary)
+sex: M
+      age     menarche   sex          igf1      tanner       testvol   
+ Min.   : 0   No  :  0   M:621   Min.   : 29   I   :291   Min.   : 1   
+ 1st Qu.: 9   Yes :  0   F:  0   1st Qu.:176   II  : 55   1st Qu.: 1   
+ Median :12   NA's:621           Median :280   III : 34   Median : 3   
+ Mean   :15                      Mean   :311   IV  : 41   Mean   : 8   
+ 3rd Qu.:17                      3rd Qu.:430   V   :124   3rd Qu.:15   
+ Max.   :83                      Max.   :915   NA's: 76   Max.   :30   
+                                 NA's   :145              NA's   :141  
+------------------------------------------------------------ 
+sex: F
+      age     menarche   sex          igf1      tanner       testvol   
+ Min.   : 0   No  :369   M:  0   Min.   : 25   I   :224   Min.   : NA  
+ 1st Qu.: 9   Yes :335   F:713   1st Qu.:233   II  : 48   1st Qu.: NA  
+ Median :13   NA's:  9           Median :352   III : 38   Median : NA  
+ Mean   :15                      Mean   :368   IV  : 40   Mean   :NaN  
+ 3rd Qu.:17                      3rd Qu.:483   V   :204   3rd Qu.: NA  
+ Max.   :75                      Max.   :914   NA's:159   Max.   : NA  
+                                 NA's   :176              NA's   :713  
+```
 
 - 代码清单7-6 使用`aggregate()`分组获取描述性统计量
 
@@ -260,7 +460,7 @@ kurtosis -1.455   0.56 -1.17
 
 - 这里的`dstats()`调用了代码清单7-2中的`mystats()`函数，将其应用于数据框的每一栏中。再通过`by()`函数则可得到am中每一水平的概括统计量。
 
-### 7.1.4 分组计算的扩展
+### 7.1.6 分组计算的扩展
 
 - doBy包和psych包也提供了分组计算描述性统计量的函数，它们未随基本安装发布，必须在首次使用前进行安装。doBy包中`summaryBy()`函数的使用格式为：
 
@@ -319,6 +519,50 @@ wt   0.17
 ```
 
 - 与前面的示例不同，`describeBy()`函数不允许指定任意函数，所以它的普适性较低。
+
+### 7.1.7 分组数据的图形描述
+
+- 直方图
+
+``` r
+> attach(energy)
+> expend.lean <- expend[stature=="lean"]
+> expend.obese <- expend[stature=="obese"] # energy 数据集中expend变量被分割成两个向量
+> 
+> par(mfrow=c(2,1))
+> hist(expend.lean,breaks=10,xlim=c(5,13),ylim=c(0,4),col="white")
+> hist(expend.obese,breaks=10,xlim=c(5,13),ylim=c(0,4),col="grey")
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+
+``` r
+> par(mfrow=c(1,1)) # 关闭两行一列构图，不影响后面作图
+```
+
+- 并联箱式图
+
+``` r
+> boxplot(expend ~ stature)
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+
+- 带状图
+
+``` r
+> opar <- par(mfrow=c(2,2), mex=0.8, mar=c(3,3,2,1)+.1)
+> stripchart(expend ~ stature)
+> stripchart(expend ~ stature, method="stack")
+> stripchart(expend ~ stature, method="jitter")
+> stripchart(expend ~ stature, method="jitter", jitter=.03)
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+
+``` r
+> par(opar)
+```
 
 ## 7.2 频数表和列联表
 
@@ -383,6 +627,132 @@ Improved
 - 由此可知，有50%的研究参与者获得了一定程度或者显著的改善(16.7+33.3)。
 
 #### 7.2.1.2 二维列联表
+
+- 案例1：
+
+``` r
+> caff.marital <- matrix(c(652,1537,598,242,36,46,38,21,218
++                          ,327,106,67),
++                        nrow=3,byrow=T)
+> caff.marital
+     [,1] [,2] [,3] [,4]
+[1,]  652 1537  598  242
+[2,]   36   46   38   21
+[3,]  218  327  106   67
+```
+
+``` r
+> colnames(caff.marital) <- c("0","1-150","151-300",">300")
+> rownames(caff.marital) <- c("Married","Prev.married","Single")
+> caff.marital
+               0 1-150 151-300 >300
+Married      652  1537     598  242
+Prev.married  36    46      38   21
+Single       218   327     106   67
+```
+
+``` r
+> names(dimnames(caff.marital)) <- c("marital","consumption")
+> caff.marital
+              consumption
+marital          0 1-150 151-300 >300
+  Married      652  1537     598  242
+  Prev.married  36    46      38   21
+  Single       218   327     106   67
+> as.data.frame(as.table(caff.marital))
+        marital consumption Freq
+1       Married           0  652
+2  Prev.married           0   36
+3        Single           0  218
+4       Married       1-150 1537
+5  Prev.married       1-150   46
+6        Single       1-150  327
+7       Married     151-300  598
+8  Prev.married     151-300   38
+9        Single     151-300  106
+10      Married        >300  242
+11 Prev.married        >300   21
+12       Single        >300   67
+```
+
+``` r
+> attach(juul)
+> table(sex) #juul dataset
+sex
+  M   F 
+621 713 
+> table(sex,menarche)
+   menarche
+sex  No Yes
+  M   0   0
+  F 369 335
+> table(menarche,tanner)
+        tanner
+menarche   I  II III  IV   V
+     No  221  43  32  14   2
+     Yes   1   1   5  26 202
+```
+
+``` r
+> xtabs(~ tanner + sex, data=juul)
+      sex
+tanner   M   F
+   I   291 224
+   II   55  48
+   III  34  38
+   IV   41  40
+   V   124 204
+```
+
+``` r
+> xtabs(~ dgn + diab + coma, data=stroke) # 用xtabs展示
+, , coma = No
+
+     diab
+dgn    No Yes
+  ICH  53   6
+  ID  143  21
+  INF 411  64
+  SAH  38   0
+
+, , coma = Yes
+
+     diab
+dgn    No Yes
+  ICH  19   1
+  ID   23   3
+  INF  23   2
+  SAH   9   0
+```
+
+``` r
+> ftable(coma + diab ~ dgn, data=stroke) # 用ftable展示（适合2个以上维度的数据展示）
+    coma  No     Yes    
+    diab  No Yes  No Yes
+dgn                     
+ICH       53   6  19   1
+ID       143  21  23   3
+INF      411  64  23   2
+SAH       38   0   9   0
+```
+
+``` r
+> caff.marital
+              consumption
+marital          0 1-150 151-300 >300
+  Married      652  1537     598  242
+  Prev.married  36    46      38   21
+  Single       218   327     106   67
+> t(caff.marital) # t函数用来转置（行列互换）
+           marital
+consumption Married Prev.married Single
+    0           652           36    218
+    1-150      1537           46    327
+    151-300     598           38    106
+    >300        242           21     67
+```
+
+- 案例2：
 
 - 对于二维列联表，`table()`函数的使用格式为：
 
@@ -486,6 +856,96 @@ Treatment None Some Marked
   Treated 0.31 0.50   0.75
   Sum     1.00 1.00   1.00
 ```
+
+- 案例3：边际表格和频数
+
+``` r
+> attach(juul)
+> tanner.sex <- table(tanner,sex)
+> tanner.sex
+      sex
+tanner   M   F
+   I   291 224
+   II   55  48
+   III  34  38
+   IV   41  40
+   V   124 204
+> margin.table(tanner.sex,1) #1代表行
+tanner
+  I  II III  IV   V 
+515 103  72  81 328 
+> margin.table(tanner.sex,2) #2代表列
+sex
+  M   F 
+545 554 
+> prop.table(tanner.sex,1)  # 相对频数，也就是比例
+      sex
+tanner    M    F
+   I   0.57 0.43
+   II  0.53 0.47
+   III 0.47 0.53
+   IV  0.51 0.49
+   V   0.38 0.62
+> tanner.sex/sum(tanner.sex) #对上述结果计算百分比
+      sex
+tanner     M     F
+   I   0.265 0.204
+   II  0.050 0.044
+   III 0.031 0.035
+   IV  0.037 0.036
+   V   0.113 0.186
+```
+
+``` r
+> total.caff <- margin.table(caff.marital,2)
+> total.caff
+consumption
+      0   1-150 151-300    >300 
+    906    1910     742     330 
+> barplot(total.caff, col="white")
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
+
+``` r
+> par(mfrow=c(2,2))
+> barplot(caff.marital, col="white")
+> barplot(t(caff.marital), col="white")
+> barplot(t(caff.marital), col="white", beside=T)
+> barplot(prop.table(t(caff.marital),2), col="white", beside=T)
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-47-1.png)<!-- -->
+
+``` r
+> par(mfrow=c(1,1))
+```
+
+``` r
+> barplot(prop.table(t(caff.marital),2),beside=T,
++         legend.text=colnames(caff.marital),
++         col=c("white","grey80","grey50","black"))
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-48-1.png)<!-- -->
+
+``` r
+> dotchart(t(caff.marital), lcolor="black")
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-49-1.png)<!-- -->
+
+``` r
+> opar <- par(mfrow=c(2,2),mex=0.8, mar=c(1,1,2,1))
+> slices <- c("white","grey80","grey50","black")
+> pie(caff.marital["Married",], main="Married", col=slices)
+> pie(caff.marital["Prev.married",],
++     main="Previously married", col=slices)
+> pie(caff.marital["Single",], main="Single", col=slices)
+> par(opar)
+```
+
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
 
 - 添加了各列的和。在表中可以看到，有显著改善患者中的25%是接受安慰剂治疗的。
 
@@ -728,7 +1188,7 @@ Cramer's V        : 0.39
 
 #### 7.3.1.1 Pearson、Spearman和Kendall相关
 
-- Pearson积差相关系数衡量了两个定量变量之间的线性相关程度。Spearman等级相关系数则衡量分级定序变量之间的相关程度。Kendall’s
+- Pearson积差相关系数衡量了两个定量变量之间的线性相关程度（**这两个变量必须是符合正态分布的连续变量**）。Spearman等级相关系数则衡量分级定序变量之间的相关程度。Kendall’s
   Tau相关系数也是一种非参数的等级相关度量。
 
 - `cor()`函数可以计算这三种相关系数，而`cov()`函数可用来计算协方差。两个函数的参数有很多，其中与相关系数的计算有关的参数可以简化为：`cor(x, use= , method= )`。
@@ -860,6 +1320,37 @@ HS Grad          0.50   0.00       0.00      0.0   0.00       0
 
 ## 7.4 t 检验
 
+- 案例1：
+
+``` r
+> daily.intake <- c(5260,5470,5640,6180,6390,6515,
++                   6805,7515,7515,8230,8770)
+> mean(daily.intake)
+[1] 6754
+> sd(daily.intake)
+[1] 1142
+> quantile(daily.intake)
+  0%  25%  50%  75% 100% 
+5260 5910 6515 7515 8770 
+```
+
+``` r
+> t.test(daily.intake,mu=7725) # mu是总体均数
+
+    One Sample t-test
+
+data:  daily.intake
+t = -3, df = 10, p-value = 0.02
+alternative hypothesis: true mean is not equal to 7725
+95 percent confidence interval:
+ 5986 7521
+sample estimates:
+mean of x 
+     6754 
+```
+
+- 案例2：
+
 - 安装MASS包。
 
 - 使用MASS包中的UScrime数据集。它包含了1960年美国47个州的刑罚制度对犯罪率影响的信息。我们感兴趣的结果变量为Prob(监禁的概率)、U1(14-24岁年龄段城市男性失业率)和U2(35-39岁年龄段城市男性失业率)。类别型变量So(指示该州是否位于南方的指示变量)将作为分组变量使用。
@@ -880,17 +1371,37 @@ HS Grad          0.50   0.00       0.00      0.0   0.00       0
 - 使用一个假设方差不等的双侧检验，比较了南方(group 1)和非南方(group
   0)各州的监禁概率：
 
-``` r
-> library(MASS)  
-> t.test(Prob ~ So, data=UScrime)
+- 方差齐性检验
 
-    Welch Two Sample t-test
+``` r
+> library(MASS)
+> var.test(Prob ~ So, data=UScrime)
+
+    F test to compare two variances
 
 data:  Prob by So
-t = -4, df = 25, p-value = 7e-04
+F = 0.6, num df = 30, denom df = 15, p-value = 0.3
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.24 1.44
+sample estimates:
+ratio of variances 
+              0.62 
+```
+
+- p-value =
+  0.3，大于0.05（**若P值\<于0.05，便拒绝方差整齐的假设**），说明方差具有齐性（相等）。
+
+``` r
+> t.test(Prob ~ So, data=UScrime,var.equal=TRUE)
+
+    Two Sample t-test
+
+data:  Prob by So
+t = -4, df = 45, p-value = 1e-04
 alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
 95 percent confidence interval:
- -0.039 -0.012
+ -0.037 -0.013
 sample estimates:
 mean in group 0 mean in group 1 
           0.039           0.064 
@@ -900,7 +1411,7 @@ mean in group 0 mean in group 1
 
 ### 7.4.2 非独立样本的 t 检验
 
-- 再举个例子，问：较年轻(14-24岁)男性的失业率是否比年长(35-39岁)男性的失业率更高？在这种情况下，这两组数据并不独立。在两组的观测之间相关时，获得的是一个非独立组设计(dependent
+- 案例1，问：较年轻(14-24岁)男性的失业率是否比年长(35-39岁)男性的失业率更高？在这种情况下，这两组数据并不独立。在两组的观测之间相关时，获得的是一个非独立组设计(dependent
   groups design)。前-后测设计(pre-post design)或重复测量设计(repeated
   measures
   design)同样也会产生非独立的组。非独立样本的t检验假定组间的差异呈正态分布。对于本例，检验的调用格式为：
@@ -934,11 +1445,45 @@ mean difference
 
 - 差异的均值(61.5)足够大，可以保证拒绝年长和年轻男性的平均失业率相同的假设。年轻男性的失业率更高。事实上，若总体均值相等，获取一个差异如此大的样本的概率小于2.2e–16。
 
-## 7.5 组间差异的非参数检验
+- 案例2：两个配对样本的 t 检验
+
+``` r
+> library(ISwR)
+> attach(intake)
+> intake  # 查看数据集内容
+    pre post
+1  5260 3910
+2  5470 4220
+3  5640 3885
+4  6180 5160
+5  6390 5645
+6  6515 4680
+7  6805 5265
+8  7515 5975
+9  7515 6790
+10 8230 6900
+11 8770 7335
+> post - pre # 绝经前后的差别
+ [1] -1350 -1250 -1755 -1020  -745 -1835 -1540 -1540  -725 -1330 -1435
+> t.test(pre, post, paired=T) # t.test(pre, post) #WRONG!这是两个独立样本的t检验
+
+    Paired t-test
+
+data:  pre and post
+t = 12, df = 10, p-value = 3e-07
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 1074 1567
+sample estimates:
+mean difference 
+           1320 
+```
+
+## 7.5 组间差异的非参数检验（秩和检验）
 
 ### 7.5.1 两组的比较
 
-- 若两组数据独立，可以使用Wilcoxon秩和检验(更广为人知的名字是`Mann-Whitney U`检验)来评估观测是否是从相同的概率分布中抽得的(即，在一个总体中获得更高得分的概率是否比另一个总体要大)。调用格式为：
+- 若两组数据独立，可以使用**Wilcoxon秩和检验**(更广为人知的名字是`Mann-Whitney U`检验)来评估观测是否是从相同的概率分布中抽得的(即，在一个总体中获得更高得分的概率是否比另一个总体要大)。调用格式为：
 
   `wilcox.test(y ~ x, data)`
 
@@ -982,7 +1527,7 @@ U1 U2
 ```
 
 ``` r
-> with(UScrime, wilcox.test(U1, U2, paired=TRUE))
+> with(UScrime, wilcox.test(U1, U2, paired=TRUE))  # 配对秩和检验
 
     Wilcoxon signed rank test with continuity correction
 
@@ -994,6 +1539,18 @@ alternative hypothesis: true location shift is not equal to 0
 - 再次得到了与配对t检验相同的结论。
 
 - 在本例中，含参的t检验和与其作用相同的非参数检验得到了相同的结论。当t检验的假设合理时，参数检验的功效更强(更容易发现存在的差异)。而非参数检验在假设非常不合理时(如对于等级有序数据)更适用。
+
+- 之前一个案例：
+
+``` r
+> wilcox.test(pre, post, paired=T) # 绝经前后的配对秩和检验
+
+    Wilcoxon signed rank test with continuity correction
+
+data:  pre and post
+V = 66, p-value = 0.004
+alternative hypothesis: true location shift is not equal to 0
+```
 
 ### 7.5.2 多于两组的比较
 
