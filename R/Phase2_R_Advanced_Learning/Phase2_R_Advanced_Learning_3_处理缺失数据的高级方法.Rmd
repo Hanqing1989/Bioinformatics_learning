@@ -1,0 +1,84 @@
+---
+title: "R语言进阶学习（第二阶段）——处理缺失数据的高级方法"
+output: 
+  github_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(options(digits=2),prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
+```
+
+Source：
+
+1.  《R语言实战（中文第二版）》
+
+2.  [【B站】从零开始学 R 语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
+
+
+# 10 方差分析
+
+## 10.1 处理缺失值的步骤
+
+
+
+
+## 10.2 识别缺失值
+
+
+
+
+## 10.3 探索缺失值模式
+
+
+
+
+
+### 10.3.1 列表显示缺失值
+
+
+
+
+### 10.3.2 图形探究缺失数据
+
+
+
+
+
+### 10.3.3 用相关性探索缺失值
+
+
+
+
+
+## 10.4 理解缺失数据的来由和影响
+
+
+
+
+## 10.5 理性处理不完整数据
+
+
+
+
+
+## 10.6 完整实例分析(行删除)
+
+
+
+
+## 10.7 多重插补
+
+
+
+
+## 10.8 处理缺失值的其他方法
+
+
+
+
+### 10.8.1 成对删除
+
+
+
+### 10.8.2 简单(非随机)插补

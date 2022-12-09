@@ -1,0 +1,83 @@
+---
+title: "R语言进阶学习（第二阶段）——方差分析"
+output: 
+  github_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(options(digits=2),prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
+```
+
+Source：
+
+1.  《R语言实战（中文第二版）》
+
+2.  [【B站】从零开始学 R 语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
+
+
+# 8 方差分析
+
+## 8.1 术语速成
+
+
+## 8.2 ANOVA模型拟合
+
+
+
+### 8.2.1 `aov()`函数
+
+
+
+
+### 8.2.2 表达式中各项的顺序
+
+
+
+## 8.3 单因素方差分析 
+
+
+
+### 8.3.1 多重比较
+
+
+### 8.3.2 评估检验的假设条件
+
+
+
+## 8.4 单因素协方差分析
+
+
+
+### 8.4.1 评估检验的假设条件
+
+
+
+### 8.4.2 结果可视化
+
+
+
+## 8.5 双因素方差分析
+
+
+
+
+## 8.6 重复测量方差分析
+
+
+
+
+## 8.7 多元方差分析
+
+
+
+### 8.7.1 评估假设检验
+
+
+
+### 8.7.2 稳健多元方差分析
+
+
+
+
+## 8.8 用回归来做 ANOVA
