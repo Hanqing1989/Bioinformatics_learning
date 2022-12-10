@@ -2,11 +2,11 @@
 title: "R语言进阶学习（第二阶段）——基本统计分析"
 output: 
   github_document:
-    toc: yes
+    toc: TRUE
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(options(digits=2),prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
+knitr::opts_chunk$set(prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
 ```
 
 Source：
@@ -870,6 +870,7 @@ kruskal.test(Illiteracy ~ state.region, data=states)
 ```{r}
 source("/Users/liang.hanqing/Documents/Git-local/Github_Bioinformatics_Learning/R/Phase1_R_Basic_Learning/wmc.txt") 
 states <- data.frame(state.region, state.x77) 
+options(digits = 3)
 wmc(Illiteracy ~ state.region, data=states, method="holm")
 ```
 

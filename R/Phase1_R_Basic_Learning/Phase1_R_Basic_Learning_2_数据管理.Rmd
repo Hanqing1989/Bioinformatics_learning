@@ -2,11 +2,11 @@
 title: "R语言基础学习（第一阶段）——数据管理"
 output: 
   github_document:
-    toc: yes
+    toc: TRUE
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(options(digits=2),prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
+knitr::opts_chunk$set(prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
 ```
 
 Source：
@@ -558,8 +558,11 @@ plot(x, y,
      xlab = "Normal Deviate",  
      ylab = "Density",   
      yaxs = "i" )
+options(digits = 2)
 pnorm(1.96) # 位于 z=1.96 左侧的标准正态曲线下方面积是多少?
+options(digits = 5)
 qnorm(.9, mean=500, sd=100) # 均值为 500,标准差为 100 的正态分布的 0.9 分位点值为多少?
+options(digits = 4)
 rnorm(50, mean=50, sd=10) # 生成 50 个均值为 50,标准差为 10 的正态随机数
 ```
 

@@ -2,11 +2,11 @@
 title: "R语言进阶学习（第二阶段）——聚类分析（含进化相关）"
 output: 
   github_document:
-    toc: yes
+    toc: TRUE
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(options(digits=2),prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
+knitr::opts_chunk$set(prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
 ```
 
 Source：

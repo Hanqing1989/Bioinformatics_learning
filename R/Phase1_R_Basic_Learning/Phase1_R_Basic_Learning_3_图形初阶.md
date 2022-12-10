@@ -670,18 +670,18 @@ Source：
 > states <- data.frame(state.region, state.x77) 
 > means <- aggregate(states$Illiteracy, by=list(state.region), FUN=mean) 
 > means
-        Group.1   x
-1     Northeast 1.0
-2         South 1.7
-3 North Central 0.7
-4          West 1.0
+        Group.1        x
+1     Northeast 1.000000
+2         South 1.737500
+3 North Central 0.700000
+4          West 1.023077
 > means <- means[order(means$x),]   # 将均值从小到大排序
 > means
-        Group.1   x
-3 North Central 0.7
-1     Northeast 1.0
-4          West 1.0
-2         South 1.7
+        Group.1        x
+3 North Central 0.700000
+1     Northeast 1.000000
+4          West 1.023077
+2         South 1.737500
 > barplot(means$x, names.arg=means$Group.1)  
 > title("Mean Illiteracy Rate")    # 添加标题
 ```
@@ -854,13 +854,13 @@ Source：
 ``` r
 > boxplot.stats(mtcars$mpg) # 输出用于构建图形的统计
 $stats
-[1] 10 15 19 23 34
+[1] 10.40 15.35 19.20 22.80 33.90
 
 $n
 [1] 32
 
 $conf
-[1] 17 21
+[1] 17.11916 21.28084
 
 $out
 numeric(0)

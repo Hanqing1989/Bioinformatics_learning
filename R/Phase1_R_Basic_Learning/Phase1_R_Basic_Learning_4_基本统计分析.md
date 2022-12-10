@@ -54,13 +54,13 @@ Source：
 ``` r
 > myvars <- c("mpg", "hp", "wt")  
 > head(mtcars[myvars])  # head()函数查看前六种车
-                  mpg  hp  wt
-Mazda RX4          21 110 2.6
-Mazda RX4 Wag      21 110 2.9
-Datsun 710         23  93 2.3
-Hornet 4 Drive     21 110 3.2
-Hornet Sportabout  19 175 3.4
-Valiant            18 105 3.5
+                   mpg  hp    wt
+Mazda RX4         21.0 110 2.620
+Mazda RX4 Wag     21.0 110 2.875
+Datsun 710        22.8  93 2.320
+Hornet 4 Drive    21.4 110 3.215
+Hornet Sportabout 18.7 175 3.440
+Valiant           18.1 105 3.460
 ```
 
 ### 7.1.1 方法云集
@@ -70,13 +70,13 @@ Valiant            18 105 3.5
 ``` r
 > myvars <- c("mpg", "hp", "wt") 
 > summary(mtcars[myvars])
-      mpg           hp            wt     
- Min.   :10   Min.   : 52   Min.   :1.5  
- 1st Qu.:15   1st Qu.: 96   1st Qu.:2.6  
- Median :19   Median :123   Median :3.3  
- Mean   :20   Mean   :147   Mean   :3.2  
- 3rd Qu.:23   3rd Qu.:180   3rd Qu.:3.6  
- Max.   :34   Max.   :335   Max.   :5.4  
+      mpg              hp              wt       
+ Min.   :10.40   Min.   : 52.0   Min.   :1.513  
+ 1st Qu.:15.43   1st Qu.: 96.5   1st Qu.:2.581  
+ Median :19.20   Median :123.0   Median :3.325  
+ Mean   :20.09   Mean   :146.7   Mean   :3.217  
+ 3rd Qu.:22.80   3rd Qu.:180.0   3rd Qu.:3.610  
+ Max.   :33.90   Max.   :335.0   Max.   :5.424  
 ```
 
 - `summary()`函数提供了最小值、最大值、四分位数和数值型变量的均值，以及因子向量和逻辑型向量的频数统计。
@@ -104,12 +104,12 @@ Valiant            18 105 3.5
 +   } 
 > myvars <- c("mpg", "hp", "wt") 
 > sapply(mtcars[myvars], mystats)
-           mpg     hp     wt
-n        32.00  32.00 32.000
-mean     20.09 146.69  3.217
-stdev     6.03  68.56  0.978
-skew      0.61   0.73  0.423
-kurtosis -0.37  -0.14 -0.023
+               mpg          hp          wt
+n        32.000000  32.0000000 32.00000000
+mean     20.090625 146.6875000  3.21725000
+stdev     6.026948  68.5628685  0.97845744
+skew      0.610655   0.7260237  0.42314646
+kurtosis -0.372766  -0.1355511 -0.02271075
 ```
 
 - 对于样本中的车型，每加仑汽油行驶英里数的平均值为20.1，标准差为6.0。分布呈现右偏(偏度+0.61)，并且较正态分布稍平(峰度–0.37)。
@@ -138,7 +138,7 @@ mpg
      .25      .50      .75      .90      .95 
    15.43    19.20    22.80    30.09    31.30 
 
-lowest : 10 13 14 15 15, highest: 26 27 30 32 34
+lowest : 10.4 13.3 14.3 14.7 15.0, highest: 26.0 27.3 30.4 32.4 33.9
 --------------------------------------------------------------------------------
 hp 
        n  missing distinct     Info     Mean      Gmd      .05      .10 
@@ -154,7 +154,7 @@ wt
      .25      .50      .75      .90      .95 
    2.581    3.325    3.610    4.048    5.293 
 
-lowest : 1.5 1.6 1.8 1.9 2.1, highest: 3.8 4.1 5.2 5.3 5.4
+lowest : 1.513 1.615 1.835 1.935 2.140, highest: 3.845 4.070 5.250 5.345 5.424
 --------------------------------------------------------------------------------
 ```
 
@@ -170,21 +170,21 @@ lowest : 1.5 1.6 1.8 1.9 2.1, highest: 3.8 4.1 5.2 5.3 5.4
 > library(pastecs)  
 > myvars <- c("mpg", "hp", "wt") 
 > stat.desc(mtcars[myvars])
-               mpg      hp     wt
-nbr.val       32.0   32.00  32.00
-nbr.null       0.0    0.00   0.00
-nbr.na         0.0    0.00   0.00
-min           10.4   52.00   1.51
-max           33.9  335.00   5.42
-range         23.5  283.00   3.91
-sum          642.9 4694.00 102.95
-median        19.2  123.00   3.33
-mean          20.1  146.69   3.22
-SE.mean        1.1   12.12   0.17
-CI.mean.0.95   2.2   24.72   0.35
-var           36.3 4700.87   0.96
-std.dev        6.0   68.56   0.98
-coef.var       0.3    0.47   0.30
+                     mpg           hp          wt
+nbr.val       32.0000000   32.0000000  32.0000000
+nbr.null       0.0000000    0.0000000   0.0000000
+nbr.na         0.0000000    0.0000000   0.0000000
+min           10.4000000   52.0000000   1.5130000
+max           33.9000000  335.0000000   5.4240000
+range         23.5000000  283.0000000   3.9110000
+sum          642.9000000 4694.0000000 102.9520000
+median        19.2000000  123.0000000   3.3250000
+mean          20.0906250  146.6875000   3.2172500
+SE.mean        1.0654240   12.1203173   0.1729685
+CI.mean.0.95   2.1729465   24.7195501   0.3527715
+var           36.3241028 4700.8669355   0.9573790
+std.dev        6.0269481   68.5628685   0.9784574
+coef.var       0.2999881    0.4674077   0.3041285
 ```
 
 - psych包（记得先安装）也拥有一个名为`describe()`的函数，它可以计算非缺失值的数量、平均数、标准差、中位数、截尾均值、绝对中位差、最小值、最大值、值域、偏度、峰度和平均值的标准误。
@@ -195,10 +195,10 @@ coef.var       0.3    0.47   0.30
 > library(psych)  
 > myvars <- c("mpg", "hp", "wt") 
 > describe(mtcars[myvars])
-    vars  n  mean    sd median trimmed   mad  min   max range skew kurtosis
-mpg    1 32  20.1  6.03   19.2    19.7  5.41 10.4  33.9  23.5 0.61    -0.37
-hp     2 32 146.7 68.56  123.0   141.2 77.10 52.0 335.0 283.0 0.73    -0.14
-wt     3 32   3.2  0.98    3.3     3.1  0.77  1.5   5.4   3.9 0.42    -0.02
+    vars  n   mean    sd median trimmed   mad   min    max  range skew kurtosis
+mpg    1 32  20.09  6.03  19.20   19.70  5.41 10.40  33.90  23.50 0.61    -0.37
+hp     2 32 146.69 68.56 123.00  141.19 77.10 52.00 335.00 283.00 0.73    -0.14
+wt     3 32   3.22  0.98   3.33    3.15  0.77  1.51   5.42   3.91 0.42    -0.02
        se
 mpg  1.07
 hp  12.12
@@ -217,29 +217,29 @@ wt   0.17
 > library(ISwR) # 载入包
 > attach(juul) #连接数据集
 > mean(igf1,na.rm=TRUE) # 求均值，剔除缺失值
-[1] 340
+[1] 340.168
 > sum(!is.na(igf1)) # 剔除缺失值后，求和
 [1] 1018
 > summary(igf1) 
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-     25     202     314     340     463     915     321 
+   25.0   202.2   313.5   340.2   462.8   915.0     321 
 > summary(juul)
-      age        menarche        sex           igf1         tanner   
- Min.   : 0   Min.   :1     Min.   :1.0   Min.   : 25   Min.   :1    
- 1st Qu.: 9   1st Qu.:1     1st Qu.:1.0   1st Qu.:202   1st Qu.:1    
- Median :13   Median :1     Median :2.0   Median :314   Median :2    
- Mean   :15   Mean   :1     Mean   :1.5   Mean   :340   Mean   :3    
- 3rd Qu.:17   3rd Qu.:2     3rd Qu.:2.0   3rd Qu.:463   3rd Qu.:5    
- Max.   :83   Max.   :2     Max.   :2.0   Max.   :915   Max.   :5    
- NA's   :5    NA's   :635   NA's   :5     NA's   :321   NA's   :240  
-    testvol   
- Min.   : 1   
- 1st Qu.: 1   
- Median : 3   
- Mean   : 8   
- 3rd Qu.:15   
- Max.   :30   
- NA's   :859  
+      age            menarche          sex             igf1      
+ Min.   : 0.170   Min.   :1.000   Min.   :1.000   Min.   : 25.0  
+ 1st Qu.: 9.053   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:202.2  
+ Median :12.560   Median :1.000   Median :2.000   Median :313.5  
+ Mean   :15.095   Mean   :1.476   Mean   :1.534   Mean   :340.2  
+ 3rd Qu.:16.855   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:462.8  
+ Max.   :83.000   Max.   :2.000   Max.   :2.000   Max.   :915.0  
+ NA's   :5        NA's   :635     NA's   :5       NA's   :321    
+     tanner        testvol      
+ Min.   :1.00   Min.   : 1.000  
+ 1st Qu.:1.00   1st Qu.: 1.000  
+ Median :2.00   Median : 3.000  
+ Mean   :2.64   Mean   : 7.896  
+ 3rd Qu.:5.00   3rd Qu.:15.000  
+ Max.   :5.00   Max.   :30.000  
+ NA's   :240    NA's   :859     
 > detach(juul) #剥离数据集
 ```
 
@@ -307,14 +307,22 @@ wt   0.17
 +                       labels=c("I","II","III","IV","V"))
 > attach(juul)
 > summary(juul)
-      age     menarche     sex           igf1      tanner       testvol   
- Min.   : 0   No  :369   M   :621   Min.   : 25   I   :515   Min.   : 1   
- 1st Qu.: 9   Yes :335   F   :713   1st Qu.:202   II  :103   1st Qu.: 1   
- Median :13   NA's:635   NA's:  5   Median :314   III : 72   Median : 3   
- Mean   :15                         Mean   :340   IV  : 81   Mean   : 8   
- 3rd Qu.:17                         3rd Qu.:463   V   :328   3rd Qu.:15   
- Max.   :83                         Max.   :915   NA's:240   Max.   :30   
- NA's   :5                          NA's   :321              NA's   :859  
+      age         menarche     sex           igf1        tanner   
+ Min.   : 0.170   No  :369   M   :621   Min.   : 25.0   I   :515  
+ 1st Qu.: 9.053   Yes :335   F   :713   1st Qu.:202.2   II  :103  
+ Median :12.560   NA's:635   NA's:  5   Median :313.5   III : 72  
+ Mean   :15.095                         Mean   :340.2   IV  : 81  
+ 3rd Qu.:16.855                         3rd Qu.:462.8   V   :328  
+ Max.   :83.000                         Max.   :915.0   NA's:240  
+ NA's   :5                              NA's   :321               
+    testvol      
+ Min.   : 1.000  
+ 1st Qu.: 1.000  
+ Median : 3.000  
+ Mean   : 7.896  
+ 3rd Qu.:15.000  
+ Max.   :30.000  
+ NA's   :859     
 > detach(juul)
 ```
 
@@ -334,10 +342,10 @@ wt   0.17
 > attach(red.cell.folate)
 > tapply(folate,ventilation,mean)
 N2O+O2,24h  N2O+O2,op     O2,24h 
-       317        256        278 
+  316.6250   256.4444   278.0000 
 > tapply(folate,ventilation,sd)
 N2O+O2,24h  N2O+O2,op     O2,24h 
-        59         37         34 
+  58.71709   37.12180   33.75648 
 > tapply(folate,ventilation,length)
 N2O+O2,24h  N2O+O2,op     O2,24h 
          8          9          5 
@@ -346,10 +354,10 @@ N2O+O2,24h  N2O+O2,op     O2,24h
 > s <- tapply(folate, ventilation, sd)
 > n <- tapply(folate, ventilation, length)
 > cbind(mean=xbar, std.dev=s, n=n)
-           mean std.dev n
-N2O+O2,24h  317      59 8
-N2O+O2,op   256      37 9
-O2,24h      278      34 5
+               mean  std.dev n
+N2O+O2,24h 316.6250 58.71709 8
+N2O+O2,op  256.4444 37.12180 9
+O2,24h     278.0000 33.75648 5
 ```
 
 ``` r
@@ -359,8 +367,8 @@ O2,24h      278      34 5
 +                   tanner=factor(tanner,labels=c("I","II","III","IV","V")))
 > attach(juul)
 > tapply(igf1, tanner, mean, na.rm=TRUE) # 去除缺失值后
-  I  II III  IV   V 
-207 353 483 513 465 
+       I       II      III       IV        V 
+207.4727 352.6714 483.2222 513.0172 465.3344 
 ```
 
 - aggreate和by函数：分组计算统计量
@@ -369,35 +377,35 @@ O2,24h      278      34 5
 > # aggregate方法一
 > aggregate(juul[c("age","igf1")],
 +           list(sex=juul$sex), mean, na.rm=T)
-  sex age igf1
-1   M  15  311
-2   F  15  368
+  sex      age     igf1
+1   M 15.38436 310.8866
+2   F 14.84363 368.1006
 > # aggregate方法二
 > aggregate(juul[c("age","igf1")], juul["sex"], mean, na.rm=T)
-  sex age igf1
-1   M  15  311
-2   F  15  368
+  sex      age     igf1
+1   M 15.38436 310.8866
+2   F 14.84363 368.1006
 > # by函数
 > by(juul, juul["sex"], summary)
 sex: M
-      age     menarche   sex          igf1      tanner       testvol   
- Min.   : 0   No  :  0   M:621   Min.   : 29   I   :291   Min.   : 1   
- 1st Qu.: 9   Yes :  0   F:  0   1st Qu.:176   II  : 55   1st Qu.: 1   
- Median :12   NA's:621           Median :280   III : 34   Median : 3   
- Mean   :15                      Mean   :311   IV  : 41   Mean   : 8   
- 3rd Qu.:17                      3rd Qu.:430   V   :124   3rd Qu.:15   
- Max.   :83                      Max.   :915   NA's: 76   Max.   :30   
-                                 NA's   :145              NA's   :141  
+      age        menarche   sex          igf1        tanner       testvol      
+ Min.   : 0.17   No  :  0   M:621   Min.   : 29.0   I   :291   Min.   : 1.000  
+ 1st Qu.: 8.85   Yes :  0   F:  0   1st Qu.:176.0   II  : 55   1st Qu.: 1.000  
+ Median :12.38   NA's:621           Median :280.0   III : 34   Median : 3.000  
+ Mean   :15.38                      Mean   :310.9   IV  : 41   Mean   : 7.896  
+ 3rd Qu.:16.77                      3rd Qu.:430.2   V   :124   3rd Qu.:15.000  
+ Max.   :83.00                      Max.   :915.0   NA's: 76   Max.   :30.000  
+                                    NA's   :145                NA's   :141     
 ------------------------------------------------------------ 
 sex: F
-      age     menarche   sex          igf1      tanner       testvol   
- Min.   : 0   No  :369   M:  0   Min.   : 25   I   :224   Min.   : NA  
- 1st Qu.: 9   Yes :335   F:713   1st Qu.:233   II  : 48   1st Qu.: NA  
- Median :13   NA's:  9           Median :352   III : 38   Median : NA  
- Mean   :15                      Mean   :368   IV  : 40   Mean   :NaN  
- 3rd Qu.:17                      3rd Qu.:483   V   :204   3rd Qu.: NA  
- Max.   :75                      Max.   :914   NA's:159   Max.   : NA  
-                                 NA's   :176              NA's   :713  
+      age        menarche   sex          igf1        tanner       testvol   
+ Min.   : 0.25   No  :369   M:  0   Min.   : 25.0   I   :224   Min.   : NA  
+ 1st Qu.: 9.30   Yes :335   F:713   1st Qu.:233.0   II  : 48   1st Qu.: NA  
+ Median :12.80   NA's:  9           Median :352.0   III : 38   Median : NA  
+ Mean   :14.84                      Mean   :368.1   IV  : 40   Mean   :NaN  
+ 3rd Qu.:16.93                      3rd Qu.:483.0   V   :204   3rd Qu.: NA  
+ Max.   :75.12                      Max.   :914.0   NA's:159   Max.   : NA  
+                                    NA's   :176                NA's   :713  
 ```
 
 - 代码清单7-6 使用`aggregate()`分组获取描述性统计量
@@ -405,13 +413,13 @@ sex: F
 ``` r
 > myvars <- c("mpg", "hp", "wt")  
 > aggregate(mtcars[myvars], by=list(am=mtcars$am), mean)
-  am mpg  hp  wt
-1  0  17 160 3.8
-2  1  24 127 2.4
+  am      mpg       hp       wt
+1  0 17.14737 160.2632 3.768895
+2  1 24.39231 126.8462 2.411000
 > aggregate(mtcars[myvars], by=list(am=mtcars$am), sd)
-  am mpg hp   wt
-1  0 3.8 54 0.78
-2  1 6.2 84 0.62
+  am      mpg       hp        wt
+1  0 3.833966 53.90820 0.7774001
+2  1 6.166504 84.06232 0.6169816
 ```
 
 - \*\*注意list(am=mtcars$am)的使用**。如果使用的是`list(mtcars$am)\`，则am列将被标注为Group.1而不是am。
@@ -442,20 +450,20 @@ sex: F
 > myvars <- c("mpg", "hp", "wt") 
 > by(mtcars[myvars], mtcars$am, dstats)
 mtcars$am: 0
-            mpg      hp    wt
-n        19.000  19.000 19.00
-mean     17.147 160.263  3.77
-stdev     3.834  53.908  0.78
-skew      0.014  -0.014  0.98
-kurtosis -0.803  -1.210  0.14
+                 mpg           hp         wt
+n        19.00000000  19.00000000 19.0000000
+mean     17.14736842 160.26315789  3.7688947
+stdev     3.83396639  53.90819573  0.7774001
+skew      0.01395038  -0.01422519  0.9759294
+kurtosis -0.80317826  -1.20969733  0.1415676
 ------------------------------------------------------------ 
 mtcars$am: 1
-            mpg     hp    wt
-n        13.000  13.00 13.00
-mean     24.392 126.85  2.41
-stdev     6.167  84.06  0.62
-skew      0.053   1.36  0.21
-kurtosis -1.455   0.56 -1.17
+                 mpg          hp         wt
+n        13.00000000  13.0000000 13.0000000
+mean     24.39230769 126.8461538  2.4110000
+stdev     6.16650381  84.0623243  0.6169816
+skew      0.05256118   1.3598859  0.2103128
+kurtosis -1.45535200   0.5634635 -1.1737358
 ```
 
 - 这里的`dstats()`调用了代码清单7-2中的`mystats()`函数，将其应用于数据框的每一栏中。再通过`by()`函数则可得到am中每一水平的概括统计量。
@@ -479,12 +487,12 @@ kurtosis -1.455   0.56 -1.17
 ``` r
 > library(doBy) 
 > summaryBy(mpg+hp+wt~am, data=mtcars, FUN=mystats)
-  am mpg.n mpg.mean mpg.stdev mpg.skew mpg.kurtosis hp.n hp.mean hp.stdev
-1  0    19       17       3.8    0.014         -0.8   19     160       54
-2  1    13       24       6.2    0.053         -1.5   13     127       84
-  hp.skew hp.kurtosis wt.n wt.mean wt.stdev wt.skew wt.kurtosis
-1  -0.014       -1.21   19     3.8     0.78    0.98        0.14
-2   1.360        0.56   13     2.4     0.62    0.21       -1.17
+  am mpg.n mpg.mean mpg.stdev   mpg.skew mpg.kurtosis hp.n  hp.mean hp.stdev
+1  0    19 17.14737  3.833966 0.01395038   -0.8031783   19 160.2632 53.90820
+2  1    13 24.39231  6.166504 0.05256118   -1.4553520   13 126.8462 84.06232
+      hp.skew hp.kurtosis wt.n  wt.mean  wt.stdev   wt.skew wt.kurtosis
+1 -0.01422519  -1.2096973   19 3.768895 0.7774001 0.9759294   0.1415676
+2  1.35988586   0.5634635   13 2.411000 0.6169816 0.2103128  -1.1737358
 ```
 
 - psych包中的`describeBy()`函数可计算和`describe()`相同的描述性统计量，只是按照一个或多个分组变量分层：
@@ -498,20 +506,20 @@ kurtosis -1.455   0.56 -1.17
 
  Descriptive statistics by group 
 am: 0
-    vars  n  mean    sd median trimmed   mad  min   max range  skew kurtosis
-mpg    1 19  17.1  3.83   17.3    17.1  3.11 10.4  24.4    14  0.01    -0.80
-hp     2 19 160.3 53.91  175.0   161.1 77.10 62.0 245.0   183 -0.01    -1.21
-wt     3 19   3.8  0.78    3.5     3.8  0.45  2.5   5.4     3  0.98     0.14
-       se
-mpg  0.88
-hp  12.37
-wt   0.18
+    vars  n   mean    sd median trimmed   mad   min    max  range  skew
+mpg    1 19  17.15  3.83  17.30   17.12  3.11 10.40  24.40  14.00  0.01
+hp     2 19 160.26 53.91 175.00  161.06 77.10 62.00 245.00 183.00 -0.01
+wt     3 19   3.77  0.78   3.52    3.75  0.45  2.46   5.42   2.96  0.98
+    kurtosis    se
+mpg    -0.80  0.88
+hp     -1.21 12.37
+wt      0.14  0.18
 ------------------------------------------------------------ 
 am: 1
-    vars  n  mean    sd median trimmed   mad  min   max range skew kurtosis
-mpg    1 13  24.4  6.17   22.8    24.4  6.67 15.0  33.9  18.9 0.05    -1.46
-hp     2 13 126.8 84.06  109.0   114.7 63.75 52.0 335.0 283.0 1.36     0.56
-wt     3 13   2.4  0.62    2.3     2.4  0.68  1.5   3.6   2.1 0.21    -1.17
+    vars  n   mean    sd median trimmed   mad   min    max  range skew kurtosis
+mpg    1 13  24.39  6.17  22.80   24.38  6.67 15.00  33.90  18.90 0.05    -1.46
+hp     2 13 126.85 84.06 109.00  114.73 63.75 52.00 335.00 283.00 1.36     0.56
+wt     3 13   2.41  0.62   2.32    2.39  0.68  1.51   3.57   2.06 0.21    -1.17
        se
 mpg  1.71
 hp  23.31
@@ -611,8 +619,8 @@ Improved
 ``` r
 > prop.table(mytable)  
 Improved
-  None   Some Marked 
-  0.50   0.17   0.33 
+     None      Some    Marked 
+0.5000000 0.1666667 0.3333333 
 ```
 
 - 或使用`prop.table()*100`转化为百分比：
@@ -620,8 +628,8 @@ Improved
 ``` r
 > prop.table(mytable)*100
 Improved
-  None   Some Marked 
-    50     17     33 
+    None     Some   Marked 
+50.00000 16.66667 33.33333 
 ```
 
 - 由此可知，有50%的研究参与者获得了一定程度或者显著的改善(16.7+33.3)。
@@ -785,9 +793,9 @@ Placebo Treated
 ``` r
 > prop.table(mytable, 1)
          Improved
-Treatment None Some Marked
-  Placebo 0.67 0.16   0.16
-  Treated 0.32 0.17   0.51
+Treatment      None      Some    Marked
+  Placebo 0.6744186 0.1627907 0.1627907
+  Treated 0.3170732 0.1707317 0.5121951
 ```
 
 - 观察表格可以发现，与接受安慰剂的个体中有显著改善的16%相比，接受治疗的个体中的51%的个体病情有了显著的改善。
@@ -804,9 +812,9 @@ Improved
 ``` r
 > prop.table(mytable, 2)
          Improved
-Treatment None Some Marked
-  Placebo 0.69 0.50   0.25
-  Treated 0.31 0.50   0.75
+Treatment      None      Some    Marked
+  Placebo 0.6904762 0.5000000 0.2500000
+  Treated 0.3095238 0.5000000 0.7500000
 ```
 
 - 各单元格所占比例可用如下语句获取:
@@ -814,9 +822,9 @@ Treatment None Some Marked
 ``` r
 > prop.table(mytable)
          Improved
-Treatment  None  Some Marked
-  Placebo 0.345 0.083  0.083
-  Treated 0.155 0.083  0.250
+Treatment       None       Some     Marked
+  Placebo 0.34523810 0.08333333 0.08333333
+  Treated 0.15476190 0.08333333 0.25000000
 ```
 
 - 可以使用`addmargins()`函数为这些表格添加边际和。例如，以下代码添加了各行的和与各列的和：
@@ -830,10 +838,10 @@ Treatment None Some Marked Sum
   Sum       42   14     28  84
 > addmargins(prop.table(mytable))
          Improved
-Treatment  None  Some Marked   Sum
-  Placebo 0.345 0.083  0.083 0.512
-  Treated 0.155 0.083  0.250 0.488
-  Sum     0.500 0.167  0.333 1.000
+Treatment       None       Some     Marked        Sum
+  Placebo 0.34523810 0.08333333 0.08333333 0.51190476
+  Treated 0.15476190 0.08333333 0.25000000 0.48809524
+  Sum     0.50000000 0.16666667 0.33333333 1.00000000
 ```
 
 - 在使用`addmargins()`时，默认行为是为表中所有的变量创建边际和。作为对照：
@@ -841,9 +849,9 @@ Treatment  None  Some Marked   Sum
 ``` r
 > addmargins(prop.table(mytable, 1), 2)
          Improved
-Treatment None Some Marked  Sum
-  Placebo 0.67 0.16   0.16 1.00
-  Treated 0.32 0.17   0.51 1.00
+Treatment      None      Some    Marked       Sum
+  Placebo 0.6744186 0.1627907 0.1627907 1.0000000
+  Treated 0.3170732 0.1707317 0.5121951 1.0000000
 ```
 
 - 仅添加了各行的和。类似地，
@@ -851,10 +859,10 @@ Treatment None Some Marked  Sum
 ``` r
 > addmargins(prop.table(mytable, 2), 1)
          Improved
-Treatment None Some Marked
-  Placebo 0.69 0.50   0.25
-  Treated 0.31 0.50   0.75
-  Sum     1.00 1.00   1.00
+Treatment      None      Some    Marked
+  Placebo 0.6904762 0.5000000 0.2500000
+  Treated 0.3095238 0.5000000 0.7500000
+  Sum     1.0000000 1.0000000 1.0000000
 ```
 
 - 案例3：边际表格和频数
@@ -880,20 +888,20 @@ sex
 545 554 
 > prop.table(tanner.sex,1)  # 相对频数，也就是比例
       sex
-tanner    M    F
-   I   0.57 0.43
-   II  0.53 0.47
-   III 0.47 0.53
-   IV  0.51 0.49
-   V   0.38 0.62
+tanner         M         F
+   I   0.5650485 0.4349515
+   II  0.5339806 0.4660194
+   III 0.4722222 0.5277778
+   IV  0.5061728 0.4938272
+   V   0.3780488 0.6219512
 > tanner.sex/sum(tanner.sex) #对上述结果计算百分比
       sex
-tanner     M     F
-   I   0.265 0.204
-   II  0.050 0.044
-   III 0.031 0.035
-   IV  0.037 0.036
-   V   0.113 0.186
+tanner          M          F
+   I   0.26478617 0.20382166
+   II  0.05004550 0.04367607
+   III 0.03093722 0.03457689
+   IV  0.03730664 0.03639672
+   V   0.11282985 0.18562329
 ```
 
 ``` r
@@ -1056,34 +1064,34 @@ Treatment None Some Marked
 
 ``` r
 > ftable(prop.table(mytable, c(1, 2)))   # 治疗情况(Treatment)×性别(Sex)的各类改善情况比例
-                 Improved  None  Some Marked
-Treatment Sex                               
-Placebo   Female          0.594 0.219  0.188
-          Male            0.909 0.000  0.091
-Treated   Female          0.222 0.185  0.593
-          Male            0.500 0.143  0.357
+                 Improved       None       Some     Marked
+Treatment Sex                                             
+Placebo   Female          0.59375000 0.21875000 0.18750000
+          Male            0.90909091 0.00000000 0.09090909
+Treated   Female          0.22222222 0.18518519 0.59259259
+          Male            0.50000000 0.14285714 0.35714286
 ```
 
 ``` r
 > ftable(addmargins(prop.table(mytable, c(1, 2)), 3))
-                 Improved  None  Some Marked   Sum
-Treatment Sex                                     
-Placebo   Female          0.594 0.219  0.188 1.000
-          Male            0.909 0.000  0.091 1.000
-Treated   Female          0.222 0.185  0.593 1.000
-          Male            0.500 0.143  0.357 1.000
+                 Improved       None       Some     Marked        Sum
+Treatment Sex                                                        
+Placebo   Female          0.59375000 0.21875000 0.18750000 1.00000000
+          Male            0.90909091 0.00000000 0.09090909 1.00000000
+Treated   Female          0.22222222 0.18518519 0.59259259 1.00000000
+          Male            0.50000000 0.14285714 0.35714286 1.00000000
 ```
 
 - 如果想得到百分比而不是比例，可以将结果表格乘以100。
 
 ``` r
 > ftable(addmargins(prop.table(mytable, c(1, 2)), 3)) * 100
-                 Improved  None  Some Marked   Sum
-Treatment Sex                                     
-Placebo   Female           59.4  21.9   18.8 100.0
-          Male             90.9   0.0    9.1 100.0
-Treated   Female           22.2  18.5   59.3 100.0
-          Male             50.0  14.3   35.7 100.0
+                 Improved       None       Some     Marked        Sum
+Treatment Sex                                                        
+Placebo   Female           59.375000  21.875000  18.750000 100.000000
+          Male             90.909091   0.000000   9.090909 100.000000
+Treated   Female           22.222222  18.518519  59.259259 100.000000
+          Male             50.000000  14.285714  35.714286 100.000000
 ```
 
 ### 7.2.2 独立性检验
@@ -1102,7 +1110,7 @@ Treated   Female           22.2  18.5   59.3 100.0
     Pearson's Chi-squared test
 
 data:  mytable
-X-squared = 13, df = 2, p-value = 0.001
+X-squared = 13.055, df = 2, p-value = 0.001463
 ```
 
 - 以上结果表明：治疗情况和改善情况不独立（患者接受的治疗和改善的水平看上去存在着某种关系(p\<0.01)）。
@@ -1114,7 +1122,7 @@ X-squared = 13, df = 2, p-value = 0.001
     Pearson's Chi-squared test
 
 data:  mytable
-X-squared = 5, df = 2, p-value = 0.09
+X-squared = 4.8407, df = 2, p-value = 0.08889
 ```
 
 - 以上结果表明：性别和改善情况独立（而患者性别和改善情况之间却不存在关系(p\>0.05)）。
@@ -1133,7 +1141,7 @@ X-squared = 5, df = 2, p-value = 0.09
     Fisher's Exact Test for Count Data
 
 data:  mytable
-p-value = 0.001
+p-value = 0.001393
 alternative hypothesis: two.sided
 ```
 
@@ -1150,7 +1158,7 @@ alternative hypothesis: two.sided
     Cochran-Mantel-Haenszel test
 
 data:  mytable
-Cochran-Mantel-Haenszel M^2 = 15, df = 2, p-value = 7e-04
+Cochran-Mantel-Haenszel M^2 = 14.632, df = 2, p-value = 0.0006647
 ```
 
 - 结果表明，患者接受的治疗与得到的改善在性别的每一水平下并不独立(分性别来看，用药治疗的患者较接受安慰剂的患者有了更多的改善)。
@@ -1169,8 +1177,8 @@ Likelihood Ratio 13.530  2 0.0011536
 Pearson          13.055  2 0.0014626
 
 Phi-Coefficient   : NA 
-Contingency Coeff.: 0.37 
-Cramer's V        : 0.39 
+Contingency Coeff.: 0.367 
+Cramer's V        : 0.394 
 ```
 
 - 总体来说，较大的值意味着较强的相关性。
@@ -1206,35 +1214,42 @@ Cramer's V        : 0.39
 ``` r
 > states<- state.x77[,1:6]  
 > cov(states)  # 计算方差和协方差
-           Population Income Illiteracy Life Exp Murder HS Grad
-Population   19931684 571230     292.87  -407.84 5663.5 -3551.5
-Income         571230 377573    -163.70   280.66 -521.9  3076.8
-Illiteracy        293   -164       0.37    -0.48    1.6    -3.2
-Life Exp         -408    281      -0.48     1.80   -3.9     6.3
-Murder           5664   -522       1.58    -3.87   13.6   -14.5
-HS Grad         -3552   3077      -3.24     6.31  -14.5    65.2
+              Population      Income   Illiteracy     Life Exp      Murder
+Population 19931683.7588 571229.7796  292.8679592 -407.8424612 5663.523714
+Income       571229.7796 377573.3061 -163.7020408  280.6631837 -521.894286
+Illiteracy      292.8680   -163.7020    0.3715306   -0.4815122    1.581776
+Life Exp       -407.8425    280.6632   -0.4815122    1.8020204   -3.869480
+Murder         5663.5237   -521.8943    1.5817755   -3.8694804   13.627465
+HS Grad       -3551.5096   3076.7690   -3.2354694    6.3126849  -14.549616
+                HS Grad
+Population -3551.509551
+Income      3076.768980
+Illiteracy    -3.235469
+Life Exp       6.312685
+Murder       -14.549616
+HS Grad       65.237894
 ```
 
 ``` r
 > cor(states) # 计算了Pearson积差相关系数
-           Population Income Illiteracy Life Exp Murder HS Grad
-Population      1.000   0.21       0.11   -0.068   0.34  -0.098
-Income          0.208   1.00      -0.44    0.340  -0.23   0.620
-Illiteracy      0.108  -0.44       1.00   -0.588   0.70  -0.657
-Life Exp       -0.068   0.34      -0.59    1.000  -0.78   0.582
-Murder          0.344  -0.23       0.70   -0.781   1.00  -0.488
-HS Grad        -0.098   0.62      -0.66    0.582  -0.49   1.000
+            Population     Income Illiteracy    Life Exp     Murder     HS Grad
+Population  1.00000000  0.2082276  0.1076224 -0.06805195  0.3436428 -0.09848975
+Income      0.20822756  1.0000000 -0.4370752  0.34025534 -0.2300776  0.61993232
+Illiteracy  0.10762237 -0.4370752  1.0000000 -0.58847793  0.7029752 -0.65718861
+Life Exp   -0.06805195  0.3402553 -0.5884779  1.00000000 -0.7808458  0.58221620
+Murder      0.34364275 -0.2300776  0.7029752 -0.78084575  1.0000000 -0.48797102
+HS Grad    -0.09848975  0.6199323 -0.6571886  0.58221620 -0.4879710  1.00000000
 ```
 
 ``` r
 > cor(states, method="spearman") # 计算了Spearman等级相关系数
-           Population Income Illiteracy Life Exp Murder HS Grad
-Population       1.00   0.12       0.31    -0.10   0.35   -0.38
-Income           0.12   1.00      -0.31     0.32  -0.22    0.51
-Illiteracy       0.31  -0.31       1.00    -0.56   0.67   -0.65
-Life Exp        -0.10   0.32      -0.56     1.00  -0.78    0.52
-Murder           0.35  -0.22       0.67    -0.78   1.00   -0.44
-HS Grad         -0.38   0.51      -0.65     0.52  -0.44    1.00
+           Population     Income Illiteracy   Life Exp     Murder    HS Grad
+Population  1.0000000  0.1246098  0.3130496 -0.1040171  0.3457401 -0.3833649
+Income      0.1246098  1.0000000 -0.3145948  0.3241050 -0.2174623  0.5104809
+Illiteracy  0.3130496 -0.3145948  1.0000000 -0.5553735  0.6723592 -0.6545396
+Life Exp   -0.1040171  0.3241050 -0.5553735  1.0000000 -0.7802406  0.5239410
+Murder      0.3457401 -0.2174623  0.6723592 -0.7802406  1.0000000 -0.4367330
+HS Grad    -0.3833649  0.5104809 -0.6545396  0.5239410 -0.4367330  1.0000000
 ```
 
 #### 7.3.1.2 偏相关
@@ -1249,7 +1264,7 @@ HS Grad         -0.38   0.51      -0.65     0.52  -0.44    1.00
 [1] "Population" "Income"     "Illiteracy" "Life Exp"   "Murder"    
 [6] "HS Grad"   
 > pcor(c(1,5,2,3,6), cov(states))
-[1] 0.35
+[1] 0.3462724
 ```
 
 - 本例中，在控制了收入、文盲率和高中毕业率的影响时，人口和谋杀率之间的相关系数为0.346。偏相关系数常用于社会科学的研究中。
@@ -1270,13 +1285,13 @@ HS Grad         -0.38   0.51      -0.65     0.52  -0.44    1.00
     Pearson's product-moment correlation
 
 data:  states[, 3] and states[, 5]
-t = 7, df = 48, p-value = 1e-08
+t = 6.8479, df = 48, p-value = 1.258e-08
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.53 0.82
+ 0.5279280 0.8207295
 sample estimates:
-cor 
-0.7 
+      cor 
+0.7029752 
 ```
 
 - 这段代码检验了预期寿命和谋杀率的Pearson相关系数为0的原假设。假设总体的相关度为0，则预计在一千万次中只会有少于一次的机会见到0.703这样大的样本相关度(即p=1.258e–08)。由于这种情况几乎不可能发生，所以可以拒绝原假设，从而支持了要研究的猜想，即预期寿命和谋杀率之间的总体相关度不为0。然而`cor.test()`每次只能检验一种相关关系。但psych包中提供的`corr.test()`函数可以为Pearson、Spearman或Kendall相关计算相关矩阵和显著性水平。
@@ -1326,9 +1341,9 @@ HS Grad          0.50   0.00       0.00      0.0   0.00       0
 > daily.intake <- c(5260,5470,5640,6180,6390,6515,
 +                   6805,7515,7515,8230,8770)
 > mean(daily.intake)
-[1] 6754
+[1] 6753.636
 > sd(daily.intake)
-[1] 1142
+[1] 1142.123
 > quantile(daily.intake)
   0%  25%  50%  75% 100% 
 5260 5910 6515 7515 8770 
@@ -1340,13 +1355,13 @@ HS Grad          0.50   0.00       0.00      0.0   0.00       0
     One Sample t-test
 
 data:  daily.intake
-t = -3, df = 10, p-value = 0.02
+t = -2.8208, df = 10, p-value = 0.01814
 alternative hypothesis: true mean is not equal to 7725
 95 percent confidence interval:
- 5986 7521
+ 5986.348 7520.925
 sample estimates:
 mean of x 
-     6754 
+ 6753.636 
 ```
 
 - 案例2：
@@ -1380,13 +1395,13 @@ mean of x
     F test to compare two variances
 
 data:  Prob by So
-F = 0.6, num df = 30, denom df = 15, p-value = 0.3
+F = 0.624, num df = 30, denom df = 15, p-value = 0.2646
 alternative hypothesis: true ratio of variances is not equal to 1
 95 percent confidence interval:
- 0.24 1.44
+ 0.2360299 1.4396653
 sample estimates:
 ratio of variances 
-              0.62 
+         0.6240006 
 ```
 
 - p-value =
@@ -1398,13 +1413,13 @@ ratio of variances
     Two Sample t-test
 
 data:  Prob by So
-t = -4, df = 45, p-value = 1e-04
+t = -4.2021, df = 45, p-value = 0.0001236
 alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
 95 percent confidence interval:
- -0.037 -0.013
+ -0.03727856 -0.01312153
 sample estimates:
 mean in group 0 mean in group 1 
-          0.039           0.064 
+     0.03851265      0.06371269 
 ```
 
 - 可以拒绝南方各州和非南方各州拥有相同监禁概率的假设(p\<0.001)。
@@ -1423,9 +1438,9 @@ mean in group 0 mean in group 1
 ``` r
 > library(MASS)  
 > sapply(UScrime[c("U1","U2")], function(x)(c(mean=mean(x),sd=sd(x))))
-     U1   U2
-mean 95 34.0
-sd   18  8.4
+           U1       U2
+mean 95.46809 33.97872
+sd   18.02878  8.44545
 ```
 
 ``` r
@@ -1434,13 +1449,13 @@ sd   18  8.4
     Paired t-test
 
 data:  U1 and U2
-t = 32, df = 46, p-value <2e-16
+t = 32.407, df = 46, p-value < 2.2e-16
 alternative hypothesis: true mean difference is not equal to 0
 95 percent confidence interval:
- 58 65
+ 57.67003 65.30870
 sample estimates:
 mean difference 
-             61 
+       61.48936 
 ```
 
 - 差异的均值(61.5)足够大，可以保证拒绝年长和年轻男性的平均失业率相同的假设。年轻男性的失业率更高。事实上，若总体均值相等，获取一个差异如此大的样本的概率小于2.2e–16。
@@ -1470,13 +1485,13 @@ mean difference
     Paired t-test
 
 data:  pre and post
-t = 12, df = 10, p-value = 3e-07
+t = 11.941, df = 10, p-value = 3.059e-07
 alternative hypothesis: true mean difference is not equal to 0
 95 percent confidence interval:
- 1074 1567
+ 1074.072 1566.838
 sample estimates:
 mean difference 
-           1320 
+       1320.455 
 ```
 
 ## 7.5 组间差异的非参数检验（秩和检验）
@@ -1498,10 +1513,10 @@ mean difference
 ``` r
 > with(UScrime, by(Prob, So, median))
 So: 0
-[1] 0.038
+[1] 0.038201
 ------------------------------------------------------------ 
 So: 1
-[1] 0.056
+[1] 0.055552
 ```
 
 ``` r
@@ -1510,7 +1525,7 @@ So: 1
     Wilcoxon rank sum exact test
 
 data:  Prob by So
-W = 81, p-value = 8e-05
+W = 81, p-value = 8.488e-05
 alternative hypothesis: true location shift is not equal to 0
 ```
 
@@ -1532,7 +1547,7 @@ U1 U2
     Wilcoxon signed rank test with continuity correction
 
 data:  U1 and U2
-V = 1128, p-value = 2e-09
+V = 1128, p-value = 2.464e-09
 alternative hypothesis: true location shift is not equal to 0
 ```
 
@@ -1548,7 +1563,7 @@ alternative hypothesis: true location shift is not equal to 0
     Wilcoxon signed rank test with continuity correction
 
 data:  pre and post
-V = 66, p-value = 0.004
+V = 66, p-value = 0.00384
 alternative hypothesis: true location shift is not equal to 0
 ```
 
@@ -1583,7 +1598,7 @@ alternative hypothesis: true location shift is not equal to 0
     Kruskal-Wallis rank sum test
 
 data:  Illiteracy by state.region
-Kruskal-Wallis chi-squared = 23, df = 3, p-value = 5e-05
+Kruskal-Wallis chi-squared = 22.672, df = 3, p-value = 4.726e-05
 ```
 
 - 显著性检验的结果意味着美国四个地区的文盲率各不相同(p\<0.001) 。
@@ -1595,24 +1610,25 @@ Kruskal-Wallis chi-squared = 23, df = 3, p-value = 5e-05
 ``` r
 > source("/Users/liang.hanqing/Documents/Git-local/Github_Bioinformatics_Learning/R/Phase1_R_Basic_Learning/wmc.txt") 
 > states <- data.frame(state.region, state.x77) 
+> options(digits = 3)
 > wmc(Illiteracy ~ state.region, data=states, method="holm")
 Descriptive Statistics
 
-        West North Central Northeast South
-n      13.00         12.00       9.0 16.00
-median  0.60          0.70       1.1  1.75
-mad     0.15          0.15       0.3  0.59
+         West North Central Northeast  South
+n      13.000        12.000     9.000 16.000
+median  0.600         0.700     1.100  1.750
+mad     0.148         0.148     0.297  0.593
 
 Multiple Comparisons (Wilcoxon Rank Sum Tests)
 Probability Adjustment = holm
 
-        Group.1       Group.2  W       p    
-1          West North Central 88 8.7e-01    
-2          West     Northeast 46 8.7e-01    
-3          West         South 39 1.8e-02   *
-4 North Central     Northeast 20 5.4e-02   .
-5 North Central         South  2 8.1e-05 ***
-6     Northeast         South 18 1.2e-02   *
+        Group.1       Group.2    W        p    
+1          West North Central 88.0 8.67e-01    
+2          West     Northeast 46.5 8.67e-01    
+3          West         South 39.0 1.79e-02   *
+4 North Central     Northeast 20.5 5.36e-02   .
+5 North Central         South  2.0 8.05e-05 ***
+6     Northeast         South 18.0 1.19e-02   *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
