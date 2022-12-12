@@ -1,0 +1,46 @@
+---
+title: "R语言进阶学习（第二阶段）——lattice高级绘图"
+output: 
+  github_document:
+    toc: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
+```
+
+Source：
+
+1.  《R语言实战（中文第二版）》
+
+# 13 使用 lattice 进行高级绘图
+
+
+## 13.1 lattice 包
+
+
+
+## 13.2 调节变量
+
+
+
+## 13.3 面板函数
+
+
+## 13.4 分组变量
+
+
+
+## 13.5 图形参数
+
+
+
+## 13.6 自定义图形条带
+
+
+
+## 13.7 页面布局
+
+
+## 13.8 深入学习
+
