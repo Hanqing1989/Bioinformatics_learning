@@ -28,6 +28,11 @@ R语言进阶学习（第二阶段）——方差分析
     多元方差分析</a>
     - <a href="#5_171-评估假设检验" id="toc-5_171-评估假设检验">5_1.7.1
       评估假设检验</a>
+  - <a href="#5_18-组间差异的非参数检验秩和检验"
+    id="toc-5_18-组间差异的非参数检验秩和检验">5_1.8
+    组间差异的非参数检验（秩和检验）</a>
+    - <a href="#5_181-多于两组的比较" id="toc-5_181-多于两组的比较">5_1.8.1
+      多于两组的比较</a>
 
 Source：
 
@@ -564,6 +569,34 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 从以上任意一幅图都可以看出，魁北克省的植物比密西西比州的植物二氧化碳吸收率高，而且随着CO2浓度的升高，差异越来越明显。
 
+- 重复测量方差分析案例2
+
+``` r
+> Example8_12  <- read.table ("example8_12.csv", header=TRUE, sep=",")
+> attach(Example8_12)
+> type  <-factor(type, order=FALSE) # order=FALSE表明该因子对象内是无序关系
+> time  <-factor(time, order=FALSE)
+> subject  <-factor(subject, order=FALSE)
+> fit <- aov(rate ~type*time +Error(subject/time))
+> summary(fit)
+
+Error: subject
+          Df Sum Sq Mean Sq F value  Pr(>F)    
+type       1   2.94   2.937     394 4.3e-08 ***
+Residuals  8   0.06   0.007                    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Error: subject:time
+          Df Sum Sq Mean Sq F value  Pr(>F)    
+time       3  0.805  0.2684    51.4 1.3e-10 ***
+type:time  3  0.596  0.1985    38.0 2.8e-09 ***
+Residuals 24  0.125  0.0052                    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> detach(Example8_12)
+```
+
 ## 5_1.7 多元方差分析
 
 - 当因变量(结果变量)不止一个时，可用多元方差分析(MANOVA)对它们同时进行分析。以MASS包中的UScereal数据集为例(Venables,Ripley(1999))，我们将研究美国谷物中的卡路里、脂肪和糖含量是否会因为储存架位置的不同而发生变化；其中1代表底层货架，2代表中层货架，3代表顶层货架。卡路里、脂肪和糖含量是因变量，货架是三水平(1、2、3)的自变量。
@@ -650,7 +683,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > abline(a=0,b=1) 
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 - 若数据服从多元正态分布，那么点将落在直线上。
 
@@ -669,7 +702,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +      cex=1, pos=2, col="red")
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 - 可以通过identify()函数(参见P176)交互性地对图中的点进行鉴别，也可以直接把点的名称直接标上。从图形上看，观测点“Wheaties
   Honey
@@ -684,7 +717,7 @@ Projection to the first and second robust principal components.
 Proportion of total variation (explained variance): 0.979
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 ``` r
 > outliers
@@ -695,4 +728,221 @@ $outliers
 [37] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
 [49] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [61] FALSE FALSE FALSE FALSE FALSE
+```
+
+## 5_1.8 组间差异的非参数检验（秩和检验）
+
+### 5_1.8.1 多于两组的比较
+
+- 如果无法满足ANOVA设计的假设，那么可以使用非参数方法来评估组间的差异。如果各组独立，则Kruskal-Wallis检验将是一种实用的方法。如果各组不独立(如重复测量设计或随机区组设计)，那么Friedman检验会更合适。
+
+- Kruskal-Wallis检验的调用格式为：
+
+  `kruskal.test(y ~ A, data)`
+
+  - 其中的y是一个数值型结果变量，A是一个拥有两个或更多水平的分组变量(grouping
+    variable)。(若有两个水平,则它与Mann-Whitney U检验等价。)
+
+- 而Friedman检验的调用格式为：
+
+  `friedman.test(y ~ A | B, data)`
+
+  - 其中的y是数值型结果变量，A是一个分组变量，而B是一个用以认定匹配观测的区组变量(blocking
+    variable)。
+
+- 在以上两例中：data皆为可选参数，它指定了包含这些变量的矩阵或数据框。
+
+- 利用Kruskal-Wallis检验回答文盲率的问题。
+
+- 首先，将地区的名称添加到数据集中，这些信息包含在随R基础安装分发的state.region数据集中。
+
+``` r
+> states <- data.frame(state.region, state.x77)
+> kruskal.test(Illiteracy ~ state.region, data=states)
+
+    Kruskal-Wallis rank sum test
+
+data:  Illiteracy by state.region
+Kruskal-Wallis chi-squared = 23, df = 3, p-value = 5e-05
+```
+
+- 显著性检验的结果意味着美国四个地区的文盲率各不相同(p\<0.001) 。
+
+- 代码清单7-17 通过这个函数比较了美国四个区域的文盲率
+
+- `从www.statmethods.net/RiA/wmc.txt`上下载到一个包含`wmc()`函数的文本文件
+
+``` r
+> source("/Users/liang.hanqing/Documents/Git-local/Github_Bioinformatics_Learning/R/Phase1_R_Basic_Learning/wmc.txt") 
+> states <- data.frame(state.region, state.x77) 
+> options(digits = 3)
+> wmc(Illiteracy ~ state.region, data=states, method="holm")
+Descriptive Statistics
+
+         West North Central Northeast  South
+n      13.000        12.000     9.000 16.000
+median  0.600         0.700     1.100  1.750
+mad     0.148         0.148     0.297  0.593
+
+Multiple Comparisons (Wilcoxon Rank Sum Tests)
+Probability Adjustment = holm
+
+        Group.1       Group.2    W        p    
+1          West North Central 88.0 8.67e-01    
+2          West     Northeast 46.5 8.67e-01    
+3          West         South 39.0 1.79e-02   *
+4 North Central     Northeast 20.5 5.36e-02   .
+5 North Central         South  2.0 8.05e-05 ***
+6     Northeast         South 18.0 1.19e-02   *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+- `source()`函数下载并执行了定义`wmc()`函数的R脚本。函数的形式是`wmc(y ~ A,data,method)`，其中y是数值输出变量，A是分组变量，data是包含这些变量的数据框，method指定限制I类误差的方法。
+
+- `wmc()`函数首先给出了样本量、样本中位数、每组的绝对中位差。其中，西部地区(West)的文盲率最低，南部地区(South)文盲率最高。然后,函数生成了六组统计比较(南部与中北部(North
+  Central)、西部与东北部(Northeast)、西部与南部、中北部与东北部、中北部与南部、东北部与南部)。可以从双侧p值(p)看到，南部与其他三个区域有明显差别，但当显著性水平p\<0.05时，其他三个区域间并没有统计显著的差别。
+
+- 案例2：
+
+``` r
+> example14_11  <- read.table ("example14_11.csv", header=TRUE, sep=",")
+> attach(example14_11)
+> group <-factor(group)
+> kruskal.test(rate ~ group)
+
+    Kruskal-Wallis rank sum test
+
+data:  rate by group
+Kruskal-Wallis chi-squared = 10, df = 2, p-value = 0.008
+> library(nparcomp) # 非参数多重比较包
+> nparcomp(rate ~ group, data=example14_11, alternative = "two.sided")
+
+ #------Nonparametric Multiple Comparisons for relative contrast effects-----# 
+ 
+ - Alternative Hypothesis:  True relative contrast effect p is not equal to 1/2 
+ - Type of Contrast : Tukey 
+ - Confidence level: 95 % 
+ - Method = Logit - Transformation 
+ - Estimation Method: Pairwise rankings 
+ 
+ #---------------------------Interpretation----------------------------------# 
+ p(a,b) > 1/2 : b tends to be larger than a 
+ #---------------------------------------------------------------------------# 
+ 
+$Data.Info
+  Sample Size
+1      1    5
+2      2    5
+3      3    5
+
+$Contrast
+       1  2 3
+2 - 1 -1  1 0
+3 - 1 -1  0 1
+3 - 2  0 -1 1
+
+$Analysis
+  Comparison Estimator Lower Upper Statistic p.Value
+1 p( 1 , 2 )     0.080 0.004 0.645     -1.92   0.155
+2 p( 1 , 3 )     0.001 0.000 0.007     -8.45   0.000
+3 p( 2 , 3 )     0.160 0.016 0.690     -1.61   0.286
+
+$Overall
+  Quantile p.Value
+1     2.38       0
+
+$input
+$input$formula
+rate ~ group
+
+$input$data
+   group rate
+1      1 32.5
+2      2 16.0
+3      3  6.5
+4      1 35.5
+5      2 20.5
+6      3  9.0
+7      1 40.5
+8      2 22.5
+9      3 12.5
+10     1 46.0
+11     2 29.0
+12     3 18.0
+13     1 49.0
+14     2 36.0
+15     3 24.0
+
+$input$type
+[1] "Tukey"
+
+$input$conf.level
+[1] 0.95
+
+$input$alternative
+[1] "two.sided"
+
+$input$asy.method
+[1] "logit"  "probit" "normal" "mult.t"
+
+$input$plot.simci
+[1] FALSE
+
+$input$control
+NULL
+
+$input$info
+[1] TRUE
+
+$input$rounds
+[1] 3
+
+$input$contrast.matrix
+NULL
+
+$input$correlation
+[1] FALSE
+
+$input$weight.matrix
+[1] FALSE
+
+
+$text.Output
+[1] "True relative contrast effect p is not equal to 1/2"
+
+$connames
+[1] "p( 1 , 2 )" "p( 1 , 3 )" "p( 2 , 3 )"
+
+$AsyMethod
+[1] "Logit - Transformation"
+
+attr(,"class")
+[1] "nparcomp"
+> detach(example14_11)
+```
+
+- 主要看\$Analysis，各组数据的比较结果。
+
+- friedman.test案例3：
+
+- 安装PMCMRplus包。
+
+``` r
+> example14_18  <- read.table ("example14_18.csv", header=TRUE, sep=",")
+> attach(example14_18)
+> options(digits = 6)
+> friedman.test (rate~ treat|block)
+
+    Friedman rank sum test
+
+data:  rate and treat and block
+Friedman chi-squared = 15.15, df = 3, p-value = 0.00169
+> library(PMCMRplus)
+> PMCMRplus::frdAllPairsNemenyiTest(rate,treat,block)
+  1      2      3     
+2 0.7675 -      -     
+3 0.0732 0.4666 -     
+4 0.0019 0.0443 0.6510
+> detach(example14_18)
 ```

@@ -41,8 +41,6 @@ R语言进阶学习（第二阶段）——基本统计分析
     组间差异的非参数检验（秩和检验）</a>
     - <a href="#4_151-两组的比较" id="toc-4_151-两组的比较">4_1.5.1
       两组的比较</a>
-    - <a href="#4_152-多于两组的比较" id="toc-4_152-多于两组的比较">4_1.5.2
-      多于两组的比较</a>
 
 Source：
 
@@ -1572,74 +1570,3 @@ data:  pre and post
 V = 66, p-value = 0.00384
 alternative hypothesis: true location shift is not equal to 0
 ```
-
-### 4_1.5.2 多于两组的比较
-
-- 如果无法满足ANOVA设计的假设，那么可以使用非参数方法来评估组间的差异。如果各组独立，则Kruskal-Wallis检验将是一种实用的方法。如果各组不独立(如重复测量设计或随机区组设计)，那么Friedman检验会更合适。
-
-- Kruskal-Wallis检验的调用格式为：
-
-  `kruskal.test(y ~ A, data)`
-
-  - 其中的y是一个数值型结果变量，A是一个拥有两个或更多水平的分组变量(grouping
-    variable)。(若有两个水平,则它与Mann-Whitney U检验等价。)
-
-- 而Friedman检验的调用格式为：
-
-  `friedman.test(y ~ A | B, data)`
-
-  - 其中的y是数值型结果变量，A是一个分组变量，而B是一个用以认定匹配观测的区组变量(blocking
-    variable)。
-
-- 在以上两例中：data皆为可选参数，它指定了包含这些变量的矩阵或数据框。
-
-- 利用Kruskal-Wallis检验回答文盲率的问题。
-
-- 首先，将地区的名称添加到数据集中，这些信息包含在随R基础安装分发的state.region数据集中。
-
-``` r
-> states <- data.frame(state.region, state.x77)
-> kruskal.test(Illiteracy ~ state.region, data=states)
-
-    Kruskal-Wallis rank sum test
-
-data:  Illiteracy by state.region
-Kruskal-Wallis chi-squared = 22.672, df = 3, p-value = 4.726e-05
-```
-
-- 显著性检验的结果意味着美国四个地区的文盲率各不相同(p\<0.001) 。
-
-- 代码清单7-17 通过这个函数比较了美国四个区域的文盲率
-
-- `从www.statmethods.net/RiA/wmc.txt`上下载到一个包含`wmc()`函数的文本文件
-
-``` r
-> source("/Users/liang.hanqing/Documents/Git-local/Github_Bioinformatics_Learning/R/Phase1_R_Basic_Learning/wmc.txt") 
-> states <- data.frame(state.region, state.x77) 
-> options(digits = 3)
-> wmc(Illiteracy ~ state.region, data=states, method="holm")
-Descriptive Statistics
-
-         West North Central Northeast  South
-n      13.000        12.000     9.000 16.000
-median  0.600         0.700     1.100  1.750
-mad     0.148         0.148     0.297  0.593
-
-Multiple Comparisons (Wilcoxon Rank Sum Tests)
-Probability Adjustment = holm
-
-        Group.1       Group.2    W        p    
-1          West North Central 88.0 8.67e-01    
-2          West     Northeast 46.5 8.67e-01    
-3          West         South 39.0 1.79e-02   *
-4 North Central     Northeast 20.5 5.36e-02   .
-5 North Central         South  2.0 8.05e-05 ***
-6     Northeast         South 18.0 1.19e-02   *
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-- `source()`函数下载并执行了定义`wmc()`函数的R脚本。函数的形式是`wmc(y ~ A,data,method)`，其中y是数值输出变量，A是分组变量，data是包含这些变量的数据框，method指定限制I类误差的方法。
-
-- `wmc()`函数首先给出了样本量、样本中位数、每组的绝对中位差。其中，西部地区(West)的文盲率最低，南部地区(South)文盲率最高。然后,函数生成了六组统计比较(南部与中北部(North
-  Central)、西部与东北部(Northeast)、西部与南部、中北部与东北部、中北部与南部、东北部与南部)。可以从双侧p值(p)看到，南部与其他三个区域有明显差别，但当显著性水平p\<0.05时，其他三个区域间并没有统计显著的差别。
