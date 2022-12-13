@@ -13,11 +13,11 @@ Source：
 
 1.  《R语言实战（中文第二版）》
 
-# 12 使用 ggplot2 进行高级绘图
+# 9_1 使用 ggplot2 进行高级绘图
 
 -   在开始画图之前，必须确保在计算机上安装可ggplot2包和car包。同时也需要安装gridExtra包。这个包可以将多个ggplot2所绘图形放在一个图中。
 
-## 12.1 ggplot2 包介绍
+## 9_1.1 ggplot2 包介绍
 
 -   在ggplot2中，图是采用串联起来(+)号函数创建的。每个函数修改属于自己的部分。下面给出了一个最简单的例子：
 
@@ -65,7 +65,7 @@ ggplot(data=mtcars, aes(x=hp, y=mpg,
 
 -   上图为包含变速箱类型(自动对手动)和发动机装置(V型发动机与直列式发动机)每个组合的分离的散点图。每个点的颜色和形状表示该汽车发动机汽缸的数量。在本例中，am和vs是刻面变量，cyl是分组变量。
 
-## 12.2 用几何函数指定图的类型
+## 9_1.2 用几何函数指定图的类型
 
 -   `ggplot()`函数指定要绘制的数据源和变量，几何函数则指定这些变量如何在视觉上进行表示(使用点、条、线和阴影区)。下表列出了比较常见的几何函数，以及经常使用的选项。
 
@@ -118,14 +118,9 @@ ggplot(singer, aes(x=voice.part, y=height)) + geom_boxplot()
 
 -   使用Salaries数据集来验证这些选项的使用，代码如下：
 
-```{r}
+```{r fig.height=7, fig.width=7}
 library(car)
 attach(Salaries)
-head(Salaries)
-```
-
-```{r fig.height=7, fig.width=7}
-data(Salaries, package="car")
 library(ggplot2) 
 ggplot(Salaries, aes(x=rank, y=salary)) +    
   geom_boxplot(fill="cornflowerblue",    
@@ -148,7 +143,7 @@ ggplot(singer, aes(x=voice.part, y=height)) +
 
 -   该代码把箱线图和小提琴图结合在一起形成一个新的图形(上图)。箱线图展示了在singer数据框中每个音部的25%、50%和75%分位数得分和任意的异常值。对于每个声部身高范围上的得分分布，小提琴图展示了更多视觉线索。
 
-## 12.3 分组
+## 9_1.3 分组
 
 -   为了理解数据，在一个图中画出两个或更多组的观察值通常是很有帮助的。在R中，组通常用分类变量的水平(因子)来定义。分组是通过ggplot2图将一个或多个带有诸如形状、颜色、填充、尺寸和线类型的视觉特征的分组变量来完成的。`ggplot()`声明中的`aes()`函数负责分配变量(图形的视觉特征)，所以这是一个分配分组变量的自然的地方。
 
@@ -204,7 +199,7 @@ ggplot(Salaries, aes(x=rank, fill="red")) + geom_bar()
 
 -   在第一个例子中，sex变量通过条形图中的填充颜色来展示。在第二个例子中，每个条形图都用红色来填充。在第三个例子，ggplot2假定"red"是变量的名字，并且你得到一个意想不到(不希望)的结果。通常来说，变量应该设在`aes()`函数内，分配常数应该在`aes()`函数外。
 
-## 12.4 刻面
+## 9_1.4 刻面
 
 -   如果组在图中并排出现而不是重叠为单一的图形,关系就是清晰的。可以使用`facet_wrap()`函数和`facet_grid()`函数创建网格图形(在ggplot2中也称刻面图)。下表给出了相关的语法，其中var、rowvar和colvar是因子。
 
@@ -250,7 +245,7 @@ ggplot(data=singer, aes(x=height, fill=voice.part)) +
 
 -   上图为各声部歌手身高的刻面密度图。值得注意的是横向排列便于组间比较。虽然颜色不是必要的，但它们可以帮助区分图形。
 
-## 12.5 添加光滑曲线
+## 9_1.5 添加光滑曲线
 
 -   可以使用`geom_smooth()`函数来添加一系列的平滑曲线和和置信区域。
 
@@ -285,9 +280,9 @@ ggplot(data=Salaries, aes(x=yrs.since.phd, y=salary,
 
 -   上图为男性和女性博士毕业年数和薪水之间的散点图，带有二次拟合曲线。对男性来说，曲线从0增加至约30年然后下降。对女性来说，拟合曲线从0到40年一直呈上升趋势。在数据集中没有女性获得博士学位超过40年。对于数据集中的大部分范围，男性能拿到更高的薪水。
 
-## 12.6 修改 ggplot2 图形的外观
+## 9_1.6 修改 ggplot2 图形的外观
 
-### 12.6.1 坐标轴
+### 9_1.6.1 坐标轴
 
 -   用于自定义坐标轴的函数：
 
@@ -315,7 +310,7 @@ ggplot(data=Salaries, aes(x=rank, y=salary, fill=sex)) +
 
 - 上图为按学术等级和性别分组的薪资水平的箱线图。坐标轴文本已经自定义。很明显，平均收入随着学术排名的上升而上升，在每个学术等级中男性的薪资水平高于女性。
 
-### 12.6.2 图例
+### 9_1.6.2 图例
 
 - 当更改图例的标题时，必须考虑图例是否基于颜色、填充、尺寸、形状或它们的组合。标题的位置由`theme()`函数中的`legend.position`选项控制。可能的值包括"left"、"top"、"right"(默认值)和"bottom"。也可以在图中给定的位置指定一个二元素向量。
 
@@ -339,7 +334,7 @@ ggplot(data=Salaries, aes(x=rank, y=salary, fill=sex)) +
 
 - 在这个例子中，图例的左上角是分别距离左侧边缘10%和底部边缘80%的部分。如果想删除图例，可以使用`legend.position="none"`。
 
-### 12.7.3 标尺
+### 9_1.6.3 标尺
 
 - ggplot2包使用标尺把数据空间的观察值映射到可视化的空间中。标尺既可以应用到连续的变量，也可以应用到离散的变量。连续型的标尺可以映射数值型的变量到图的其他特征。
 
@@ -380,7 +375,7 @@ library(RColorBrewer)
 display.brewer.all()
 ```
 
-### 12.6.4 主题
+### 9_1.6.4 主题
 
 - `theme()`函数中的选项可以让我们调整字体、背景、颜色和网格线等。主题可以使用一次，也可以保存起来应用到多个图中。
 
@@ -410,6 +405,39 @@ ggplot(Salaries, aes(x=rank, y=salary, fill=sex)) +
 
 - 主题mytheme指定了图的标题应该为粗斜体的棕色14号字。轴的标题为粗斜体的棕色10号字。坐标轴标签应为加粗的深蓝色9号字。画图区域有白色的填充和深蓝色的边框。主水平网格应该是灰色的实线，次水平网格应该是灰色的虚线，垂直网格不输出，图例展示在图的顶部。`theme()`函数给了我们把控最后图形的控制权。可以参考`help(theme)`来查看更多关于选项的信息。
 
-### 12.6.5 多重图
+### 9_1.6.5 多重图
 
-## 12.7 保存图形
+- 使用图形参数`mfrow`和基本函数`layout()`把两个或更多的基本图放到单个图形中，这种方法在ggplot2包中不适用。将多个ggplot2包的图形放到单个图形中最简单的方式是使用gridExtra包中的`grid.arrange()`函数。在使用前需要事先安装这个包`(install.packages("gridExtra"))`。
+
+- 创建三个ggplot2图并把它们放在单个图形中：
+
+```{r}
+library(car)
+attach(Salaries)
+library(ggplot2) 
+p1 <- ggplot(data=Salaries, aes(x=rank)) + geom_bar() 
+p2 <- ggplot(data=Salaries, aes(x=sex)) + geom_bar() 
+p3 <- ggplot(data=Salaries, aes(x=yrs.since.phd, y=salary)) + geom_point()  
+# 用grid.arrange()函数保存到单个图形中
+library(gridExtra) 
+grid.arrange(p1, p2, p3, ncol=3)
+```
+
+## 9_1.7 保存图形
+
+- `ggsave()`函数能更方便地保存它。它的选项包括保存哪幅图形，保存在哪里和以什么形式保存。例如：
+
+```{r}
+myplot <- ggplot(data=mtcars, aes(x=mpg)) + geom_histogram() 
+ggsave(file="mygraph-9_1.7.png", plot=myplot, width=5, height=4)
+```
+
+- 在当前路径下将myplot保存为名为mygraph-9_1.7.png的5英寸×4英寸(12.7厘米×10.2厘米)PNG格式的图片。可以通过设定文件扩展名为ps、tex、jpeg、pdf、tiff、png、bmp、svg或wmf来保存为不同的格式。wmf文件仅限在装有Windows系统的计算机中保存。 
+
+- 如果忽略plot=选项，最近创建的图形会被保存。下列代码是有效的，并把图形保存到磁盘：
+
+```{r}
+ggplot(data=mtcars, aes(x=mpg)) + geom_histogram() 
+ggsave(file="mygraph-9_1.7.pdf")
+```
+

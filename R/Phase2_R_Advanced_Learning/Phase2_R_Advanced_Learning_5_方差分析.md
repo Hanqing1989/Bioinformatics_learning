@@ -1,30 +1,32 @@
 R语言进阶学习（第二阶段）——方差分析
 ================
 
-- <a href="#8-方差分析" id="toc-8-方差分析">8 方差分析</a>
-  - <a href="#81-术语速成" id="toc-81-术语速成">8.1 术语速成</a>
-  - <a href="#82-anova模型拟合" id="toc-82-anova模型拟合">8.2
+- <a href="#5_1-方差分析" id="toc-5_1-方差分析">5_1 方差分析</a>
+  - <a href="#5_11-术语速成" id="toc-5_11-术语速成">5_1.1 术语速成</a>
+  - <a href="#5_12-anova模型拟合" id="toc-5_12-anova模型拟合">5_1.2
     ANOVA模型拟合</a>
-    - <a href="#821-aov函数" id="toc-821-aov函数">8.2.1
+    - <a href="#5_121-aov函数" id="toc-5_121-aov函数">5_1.2.1
       <code>aov()</code>函数</a>
-    - <a href="#822-表达式中各项的顺序" id="toc-822-表达式中各项的顺序">8.2.2
-      表达式中各项的顺序</a>
-  - <a href="#83-单因素方差分析" id="toc-83-单因素方差分析">8.3
+    - <a href="#5_122-表达式中各项的顺序"
+      id="toc-5_122-表达式中各项的顺序">5_1.2.2 表达式中各项的顺序</a>
+  - <a href="#5_13-单因素方差分析" id="toc-5_13-单因素方差分析">5_1.3
     单因素方差分析</a>
-    - <a href="#831-多重比较" id="toc-831-多重比较">8.3.1 多重比较</a>
-    - <a href="#832-评估检验的假设条件" id="toc-832-评估检验的假设条件">8.3.2
-      评估检验的假设条件</a>
-  - <a href="#84-单因素协方差分析" id="toc-84-单因素协方差分析">8.4
+    - <a href="#5_131-多重比较" id="toc-5_131-多重比较">5_1.3.1 多重比较</a>
+    - <a href="#5_132-评估检验的假设条件"
+      id="toc-5_132-评估检验的假设条件">5_1.3.2 评估检验的假设条件</a>
+  - <a href="#5_14-单因素协方差分析" id="toc-5_14-单因素协方差分析">5_1.4
     单因素协方差分析</a>
-    - <a href="#841-评估检验的假设条件" id="toc-841-评估检验的假设条件">8.4.1
-      评估检验的假设条件</a>
-    - <a href="#842-结果可视化" id="toc-842-结果可视化">8.4.2 结果可视化</a>
-  - <a href="#85-双因素方差分析" id="toc-85-双因素方差分析">8.5
+    - <a href="#5_141-评估检验的假设条件"
+      id="toc-5_141-评估检验的假设条件">5_1.4.1 评估检验的假设条件</a>
+    - <a href="#5_142-结果可视化" id="toc-5_142-结果可视化">5_1.4.2
+      结果可视化</a>
+  - <a href="#5_15-双因素方差分析" id="toc-5_15-双因素方差分析">5_1.5
     双因素方差分析</a>
-  - <a href="#86-重复测量方差分析" id="toc-86-重复测量方差分析">8.6
+  - <a href="#5_16-重复测量方差分析" id="toc-5_16-重复测量方差分析">5_1.6
     重复测量方差分析</a>
-  - <a href="#87-多元方差分析" id="toc-87-多元方差分析">8.7 多元方差分析</a>
-    - <a href="#871-评估假设检验" id="toc-871-评估假设检验">8.7.1
+  - <a href="#5_17-多元方差分析" id="toc-5_17-多元方差分析">5_1.7
+    多元方差分析</a>
+    - <a href="#5_171-评估假设检验" id="toc-5_171-评估假设检验">5_1.7.1
       评估假设检验</a>
 
 Source：
@@ -34,11 +36,11 @@ Source：
 2.  [【B站】从零开始学 R
     语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
 
-# 8 方差分析
+# 5_1 方差分析
 
 - 本章需要使用car、gplots、HH、rrcov、multcomp、effects、MASS和mvoutlier包。运行后面的代码示例时，请确保已安装以上这些包。
 
-## 8.1 术语速成
+## 5_1.1 术语速成
 
 - 以焦虑症治疗为例，现有两种治疗方案：认知行为疗法 (CBT)
   和眼动脱敏再加工法 (EMDR)。
@@ -59,9 +61,9 @@ Source：
 
 - 本案例中，BDI为协变量，该设计为**协方差分析(ANCOVA)**。以上设计只记录了单个因变量情况(STAI)，为增强研究的有效性，可以对焦虑症进行其他的测量(比如家庭评分、医师评分,以及焦虑症对日常行为的影响评价)。当因变量不止一个时，设计被称作**多元方差分析(MANOVA)**，若协变量也存在，那么就叫**多元协方差分析(MANCOVA)**。
 
-## 8.2 ANOVA模型拟合
+## 5_1.2 ANOVA模型拟合
 
-### 8.2.1 `aov()`函数
+### 5_1.2.1 `aov()`函数
 
 - `aov()`函数的语法为`aov(formula,data=dataframe)`，下表列举了表达式中可以使用的特殊符号，y是因变量，字母A、B、C代表因子。
 
@@ -85,7 +87,7 @@ Source：
   | 单因素组内 ANOVA                                   | y \~ A + Error(Subject/A)      |
   | 含单个组内因子(W)和单个组间因子(B)的重复测量 ANOVA | y \~ B \* W + Error(Subject/W) |
 
-### 8.2.2 表达式中各项的顺序
+### 5_1.2.2 表达式中各项的顺序
 
 - 表达式中效应的顺序在两种情况下会造成影响：(a)因子不止一个，并且是非平衡设计；(b)存在协变量。
 
@@ -97,7 +99,7 @@ Source：
 
 - 请注意car包中的`Anova()`函数(不要与标准`anova()`函数混淆)提供了使用类型Ⅱ或类型Ⅲ方法的选项，而`aov()`函数使用的是类型I方法。若想使结果与其他软件(如SAS和SPSS)提供的结果保持一致，可以使用`Anova()`函数，细节可参考`help(Anova, package="car")`。
 
-## 8.3 单因素方差分析
+## 5_1.3 单因素方差分析
 
 - 单因素方差分析比较的是：分类因子定义的两个或多个组别中的因变量均值。
 
@@ -154,7 +156,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +           main="Mean Plot\nwith 95% CI")  
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
 > detach(cholesterol) # 卸载数据集
@@ -162,7 +164,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - gplots包中的`plotmeans()`可以用来绘制**带有置信区间的组均值图形**。上图展示了带有95%的置信区间的各疗法均值，可以清楚看到它们之间的差异。
 
-### 8.3.1 多重比较
+### 5_1.3.1 多重比较
 
 - 虽然ANOVA对各疗法的F检验表明五种药物疗法效果不同，但是并没有告诉你哪种疗法与其他疗法不同。多重比较可以解决这个问题。
 
@@ -193,7 +195,7 @@ drugE-drugD    5.59  1.485  9.69 0.003
 > plot(TukeyHSD(fit))
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-7-1.png)<!-- --> -
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-7-1.png)<!-- --> -
 图形中置信区间包含0的疗法说明差异不显著(p\>0.5)。
 
 - 【重点掌握】multcomp包中的`glht()`函数提供了多重均值比较更为全面的方法，既适用于线性模型(如本章各例)，也适用于广义线性模型。下面的代码重现了Tukey
@@ -206,13 +208,13 @@ drugE-drugD    5.59  1.485  9.69 0.003
 > plot(cld(tuk, level=.05),col="lightgrey")
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 - 上面的代码中，为适合字母阵列摆放，par语句增大了顶部边界面积。cld()函数中的level选项设置了使用的显著水平(0.05，即本例中的95%的置信区间)。有相同字母的组(用箱线图表示)说明均值差异不显著。可以看到，1time和2times差异不显著(有相同的字母a)，2times和4times差异也不显著(有相同的字母b)，而1time和4times差异显著(它们没有共同的字母)。
 
 - 从结果来看，使用降低胆固醇的药物时，一天四次5mg剂量比一天一次20mg剂量效果更佳，也优于候选药物drugD，但药物drugE比其他所有药物和疗法都更优。
 
-### 8.3.2 评估检验的假设条件
+### 5_1.3.2 评估检验的假设条件
 
 - 在单因素方差分析中，假设因变量服从正态分布，各组方差相等。
 
@@ -225,7 +227,7 @@ drugE-drugD    5.59  1.485  9.69 0.003
 +        simulate=TRUE, main="Q-Q Plot", labels=FALSE)
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
     [1] 19 38
 
@@ -258,7 +260,7 @@ Largest |rstudent|:
 
 - 从输出结果来看，并没有证据说明胆固醇数据中含有离群点(当p\>1时将产生NA)。因此根据Q-Q图、Bartlett检验和离群点检验，该数据似乎可以用ANOVA模型拟合得很好。
 
-## 8.4 单因素协方差分析
+## 5_1.4 单因素协方差分析
 
 - 单因素协方差分析(ANCOVA)扩展了单因素方差分析(ANOVA)，包含一个或多个定量的协变量。
 
@@ -346,7 +348,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 - 对照c(3, -1, -1,
   -1)设定第一组和其他三组的均值进行比较。假设检验的t统计量(2.581)在p\<0.05水平下显著，因此，可以得出未用药组比其他用药条件下的出生体重高的结论。其他对照可用`rbind()`函数添加(详见help(glht))。
 
-### 8.4.1 评估检验的假设条件
+### 5_1.4.1 评估检验的假设条件
 
 - **ANCOVA与ANOVA相同，都需要正态性和同方差性假设。**
 
@@ -372,7 +374,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 可以看到交互效应不显著，支持了斜率相等的假设。若假设不成立，可以尝试变换协变量或因变量，或使用能对每个斜率独立解释的模型，或使用不需要假设回归斜率同质性的非参数ANCOVA方法。sm包中的`sm.ancova()`函数为后者提供了一个例子。
 
-### 8.4.2 结果可视化
+### 5_1.4.2 结果可视化
 
 - HH包中的`ancova()`函数可以绘制因变量、协变量和因子之间的关系图。
 
@@ -390,11 +392,11 @@ Residuals 69 1151.3   16.69
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 - 从图中可以看到，用怀孕时间来预测出生体重的回归线相互平行，只是截距项不同。随着怀孕时间增加，幼崽出生体重也会增加。另外，还可以看到0剂量组截距项最大，5剂量组截距项最小。由于上面的设置，直线会保持平行，若用`ancova(weight ~ gesttime*dose)`，生成的图形将允许斜率和截距项依据组别而发生变化，这对可视化那些违背回归斜率同质性的实例非常有用。
 
-## 8.5 双因素方差分析
+## 5_1.5 双因素方差分析
 
 - 在双因素方差分析中，受试者被分配到两因子的交叉类别组中。以基础安装中的ToothGrowth数据集为例，随机分配60只豚鼠，分别采用两种喂食方法(橙汁或维生素C)，各喂食方法中抗坏血酸含量有三种水平(0.5mg、1mg或2mg)，每种处理方式组合都被分配10只豚鼠，牙齿长度为因变量。
 
@@ -455,7 +457,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +                  main = "Interaction between Dose and Supplement Type")
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
 > detach(ToothGrowth)
@@ -475,7 +477,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +           xlab="Treatment and Dose Combination")
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ``` r
 > detach(ToothGrowth)
@@ -491,7 +493,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > interaction2wt(len~supp*dose)
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 ``` r
 > detach(ToothGrowth)
@@ -503,7 +505,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
   - 3、对于2mg剂量的抗坏血酸，两种喂食方法下牙齿长度增长相同。
 - 三种绘图方法中更推荐HH包中的`interaction2wt()`函数，因为它能展示任意复杂度设计(双因素方差分析、三因素方差分析等)的主效应(箱线图)和交互效应。
 
-## 8.6 重复测量方差分析
+## 5_1.6 重复测量方差分析
 
 - **所谓重复测量方差分析, 即受试者被测量不止一次。**
 
@@ -549,7 +551,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +                             main="Interaction Plot for Plant Type and Concentration")) 
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 ``` r
 > boxplot(uptake ~ Type*conc, data=w1b1, col=(c("gold", "green")),     
@@ -558,11 +560,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +         xlab=" ")
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-27-2.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-27-2.png)<!-- -->
 
 - 从以上任意一幅图都可以看出，魁北克省的植物比密西西比州的植物二氧化碳吸收率高，而且随着CO2浓度的升高，差异越来越明显。
 
-## 8.7 多元方差分析
+## 5_1.7 多元方差分析
 
 - 当因变量(结果变量)不止一个时，可用多元方差分析(MANOVA)对它们同时进行分析。以MASS包中的UScereal数据集为例(Venables,Ripley(1999))，我们将研究美国谷物中的卡路里、脂肪和糖含量是否会因为储存架位置的不同而发生变化；其中1代表底层货架，2代表中层货架，3代表顶层货架。卡路里、脂肪和糖含量是因变量，货架是三水平(1、2、3)的自变量。
 
@@ -627,7 +629,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 从上述结果可以看到，三组中每种营养成分的测量值都是不同的。另外，还可以用均值比较步骤(比如TukeyHSD)来判断对于每个因变量,哪种货架与其他货架都是不同的。
 
-### 8.7.1 评估假设检验
+### 5_1.7.1 评估假设检验
 
 - 单因素多元方差分析有两个前提假设，一个是多元正态性，一个是方差-协方差矩阵同质性。
 
@@ -648,7 +650,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > abline(a=0,b=1) 
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 - 若数据服从多元正态分布，那么点将落在直线上。
 
@@ -667,7 +669,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +      cex=1, pos=2, col="red")
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 - 可以通过identify()函数(参见P176)交互性地对图中的点进行鉴别，也可以直接把点的名称直接标上。从图形上看，观测点“Wheaties
   Honey
@@ -682,7 +684,7 @@ Projection to the first and second robust principal components.
 Proportion of total variation (explained variance): 0.979
 ```
 
-![](Phase2_R_Advanced_Learning_1_方差分析_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 ``` r
 > outliers

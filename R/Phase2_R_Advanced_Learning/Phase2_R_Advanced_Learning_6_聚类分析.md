@@ -1,16 +1,19 @@
 R语言进阶学习（第二阶段）——聚类分析）
 ================
 
-- <a href="#9-聚类分析" id="toc-9-聚类分析">9 聚类分析</a>
-  - <a href="#91-聚类分析的一般步骤" id="toc-91-聚类分析的一般步骤">9.1
-    聚类分析的一般步骤</a>
-  - <a href="#92-计算距离" id="toc-92-计算距离">9.2 计算距离</a>
-  - <a href="#93-层次聚类分析" id="toc-93-层次聚类分析">9.3 层次聚类分析</a>
-  - <a href="#94-划分聚类分析" id="toc-94-划分聚类分析">9.4 划分聚类分析</a>
-    - <a href="#941-k-均值聚类" id="toc-941-k-均值聚类">9.4.1 K 均值聚类</a>
-    - <a href="#942-围绕中心点的划分" id="toc-942-围绕中心点的划分">9.4.2
-      围绕中心点的划分</a>
-  - <a href="#95-避免不存在的类" id="toc-95-避免不存在的类">9.5
+- <a href="#6_1-聚类分析" id="toc-6_1-聚类分析">6_1 聚类分析</a>
+  - <a href="#6_11-聚类分析的一般步骤"
+    id="toc-6_11-聚类分析的一般步骤">6_1.1 聚类分析的一般步骤</a>
+  - <a href="#6_12-计算距离" id="toc-6_12-计算距离">6_1.2 计算距离</a>
+  - <a href="#6_13-层次聚类分析" id="toc-6_13-层次聚类分析">6_1.3
+    层次聚类分析</a>
+  - <a href="#6_14-划分聚类分析" id="toc-6_14-划分聚类分析">6_1.4
+    划分聚类分析</a>
+    - <a href="#6_141-k-均值聚类" id="toc-6_141-k-均值聚类">6_1.4.1 K
+      均值聚类</a>
+    - <a href="#6_142-围绕中心点的划分"
+      id="toc-6_142-围绕中心点的划分">6_1.4.2 围绕中心点的划分</a>
+  - <a href="#6_15-避免不存在的类" id="toc-6_15-避免不存在的类">6_1.5
     避免不存在的类</a>
 
 Source：
@@ -20,11 +23,11 @@ Source：
 2.  [【B站】从零开始学 R
     语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
 
-# 9 聚类分析
+# 6_1 聚类分析
 
 - 本章需要的包：cluster、NbClust、flexclust、fMultivar、ggplot2和rattle。
 
-## 9.1 聚类分析的一般步骤
+## 6_1.1 聚类分析的一般步骤
 
 - 1)  选择合适的变量。
 
@@ -56,7 +59,7 @@ Source：
 
 - 11) 验证结果。验证聚类方案相当于问：“这种划分并不是因为数据集或聚类方法的某种特性，而是确实给出了一个某种程度上有实际意义的结果吗？”如果采用不同的聚类方法或不同的样本，是否会产生相同的类？fpc、clv和clValid包包含了评估聚类解的稳定性的函数。
 
-## 9.2 计算距离
+## 6_1.2 计算距离
 
 - 聚类分析的第一步都是度量样本单元间的距离、相异性或相似性。
 
@@ -87,7 +90,7 @@ BEEF STEAK           35.2     130.9       45.8        0.0
 
 - 观测值之间的距离越大，异质性越大。观测值和它自己之间的距离是0。不出所料，`dist()`函数计算出的红烧牛肉和汉堡之间的距离与手算一致。
 
-## 9.3 层次聚类分析
+## 6_1.3 层次聚类分析
 
 - 聚类就是每一次把两类聚成新的一类，直到所有的类聚成单个类为止，算法如下：
 
@@ -125,7 +128,7 @@ BEEF STEAK           35.2     130.9       45.8        0.0
 > plot(fit.average, hang=-1, cex=.8, main="Average Linkage Clustering")
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 - 树状图应该从下往上读，它展示了这些条目如何被结合成类。每个观测值起初自成一类，然后相距最近的两类(beef
   braised和smoked ham)合并。其次，pork roast和pork simmered合并，chicken
@@ -148,7 +151,7 @@ BEEF STEAK           35.2     130.9       45.8        0.0
 +               min.nc=2, max.nc=15, method="average") 
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
     *** : The Hubert index is a graphical method of determining the number of clusters.
                     In the plot of Hubert index, we seek a significant knee that corresponds to a 
@@ -156,7 +159,7 @@ BEEF STEAK           35.2     130.9       45.8        0.0
                     index second differences plot. 
      
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
     *** : The D index is a graphical method of determining the number of clusters. 
                     In the plot of D index, we seek a significant knee (the significant peak in Dindex
@@ -192,7 +195,7 @@ BEEF STEAK           35.2     130.9       45.8        0.0
 +         main="Number of Clusters Chosen by 26 Criteria")
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-5-1.png)<!-- --> -
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-5-1.png)<!-- --> -
 这里，四个评判准则赞同聚类个数为2，四个判定准则赞同聚类个数为3，等等从“投票”个数最多的聚类个数(2、3、5和15)中选择其中一个，使得解释最有意义。下面的代码清单展示了五类聚类的方案：
 
 - 代码清单16-3 获取最终的聚类方案
@@ -236,7 +239,7 @@ clusters
 > rect.hclust(fit.average, k=5)
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 - sardines canned形成自己的类，因为钙比其他食物组要高得多。beef
   heart也是单独成类，是因为富含蛋白质和铁。clams类是低蛋白和高铁的。从beef
@@ -246,11 +249,11 @@ clusters
 
 - 当需要嵌套聚类和有意义的层次结构时，层次聚类或许特别有用。在生物科学中这种情况很常见。在某种意义上分层算法是贪婪的，一旦一个观测值被分配给一个类，它就不能在后面的过程中被重新分配。另外，**层次聚类难以应用到有数百甚至数千观测值的大样本中**。不过划分方法可以在大样本情况下做得很好。
 
-## 9.4 划分聚类分析
+## 6_1.4 划分聚类分析
 
 - 在划分方法中，观测值被分为K组并根据给定的规则改组成最有粘性的类。
 
-### 9.4.1 K 均值聚类
+### 6_1.4.1 K 均值聚类
 
 - 最常见的划分方法是K均值聚类分析。从概念上讲，K均值算法如下：
 
@@ -317,7 +320,7 @@ clusters
 > wssplot(df) 
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
 > library(NbClust) 
@@ -326,7 +329,7 @@ clusters
 > nc <- NbClust(df, min.nc=2, max.nc=15, method="kmeans")  
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
 
     *** : The Hubert index is a graphical method of determining the number of clusters.
                     In the plot of Hubert index, we seek a significant knee that corresponds to a 
@@ -334,7 +337,7 @@ clusters
                     index second differences plot. 
      
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-10-3.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-10-3.png)<!-- -->
 
     *** : The D index is a graphical method of determining the number of clusters. 
                     In the plot of D index, we seek a significant knee (the significant peak in Dindex
@@ -368,7 +371,7 @@ clusters
 +         main="Number of Clusters Chosen by 26 Criteria")  
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 > set.seed(1234) 
@@ -406,7 +409,7 @@ clusters
 3          0.45             1.1   7.2 0.69      1.7     619
 ```
 
-### 9.4.2 围绕中心点的划分
+### 6_1.4.2 围绕中心点的划分
 
 - 因为K均值聚类方法是基于均值的，所以它对异常值是敏感的。一个更稳健的方法是围绕中心点的划分(PAM)。与其用质心(变量均值向量)表示类，不如用一个最有代表性的观测值来表示(称为中心点)。K均值聚类一般使用欧几里得距离，而PAM可以使用任意的距离来计算。因此，PAM可以容纳混合数据类型，并且不仅限于连续变量。
 
@@ -454,7 +457,7 @@ clusters
 > clusplot(fit.pam, main="Bivariate Cluster Plot") # 画出聚类的方案
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 - 注意，这里得到的中心点是葡萄酒数据集中实际的观测值。每个类用包含其所有点的最小面积的椭圆表示。
 
@@ -492,7 +495,7 @@ clusters
 - 调整的兰德指数为两种划分提供了一种衡量两个分区之间的协定，即调整后机会的量度。它的变化范围是从–1(不同意)到1
   (完全同意)。K均值算出葡萄酒品种类型和类的解决方案之间的协定是0.9。
 
-## 9.5 避免不存在的类
+## 6_1.5 避免不存在的类
 
 ``` r
 > library(fMultivar) 
@@ -502,7 +505,7 @@ clusters
 > plot(df1, main="Bivariate Normal Distribution with rho=0.5")
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 - fMultivar包中的`rnorm2d()`函数用来从相关系数为0.5的二元正态分布中抽取1000个观测值。所得的曲线显示在上图中。很显然，数据中没有类。
 
@@ -519,14 +522,14 @@ clusters
 > wssplot(df1) 
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 > library(NbClust)
 > nc <- NbClust(df1, min.nc=2, max.nc=15, method="kmeans")
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
 
     *** : The Hubert index is a graphical method of determining the number of clusters.
                     In the plot of Hubert index, we seek a significant knee that corresponds to a 
@@ -534,7 +537,7 @@ clusters
                     index second differences plot. 
      
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-18-3.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-18-3.png)<!-- -->
 
     *** : The D index is a graphical method of determining the number of clusters. 
                     In the plot of D index, we seek a significant knee (the significant peak in Dindex
@@ -566,7 +569,7 @@ clusters
 +         main="Number of Clusters Chosen by 26 Criteria")
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 - `wssplot()`函数建议聚类的个数是2，然而NbClust函数返回的准则多数支持2类或3类。如果利用PAM法进行双聚类分析：
 
@@ -579,7 +582,7 @@ clusters
 +   geom_point() + ggtitle("Clustering of Bivariate Normal Data")
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 - 很明显划分是人为的。实际上在这里没有真实的类。那么如何避免这种错误呢？虽然并非万无一失，但在NbClust包中的立方聚类规则(Cubic
   Cluster Criteria,CCC)往往可以揭示不存在的结构。代码是：
@@ -589,7 +592,7 @@ clusters
 +      xlab="Number of clusters", col="blue")
 ```
 
-![](Phase2_R_Advanced_Learning_2_聚类分析_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_6_聚类分析_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 - 当CCC的值为负并且对于两类或是更多的类递减时，就是典型的单峰分布。
 

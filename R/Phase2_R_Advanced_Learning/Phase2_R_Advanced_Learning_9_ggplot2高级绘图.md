@@ -1,34 +1,34 @@
 R语言进阶学习（第二阶段）——ggplot2高级绘图
 ================
 
-- <a href="#12-使用-ggplot2-进行高级绘图"
-  id="toc-12-使用-ggplot2-进行高级绘图">12 使用 ggplot2 进行高级绘图</a>
-  - <a href="#121-ggplot2-包介绍" id="toc-121-ggplot2-包介绍">12.1 ggplot2
-    包介绍</a>
-  - <a href="#122-用几何函数指定图的类型"
-    id="toc-122-用几何函数指定图的类型">12.2 用几何函数指定图的类型</a>
-  - <a href="#123-分组" id="toc-123-分组">12.3 分组</a>
-  - <a href="#124-刻面" id="toc-124-刻面">12.4 刻面</a>
-  - <a href="#125-添加光滑曲线" id="toc-125-添加光滑曲线">12.5
+- <a href="#9_1-使用-ggplot2-进行高级绘图"
+  id="toc-9_1-使用-ggplot2-进行高级绘图">9_1 使用 ggplot2 进行高级绘图</a>
+  - <a href="#9_11-ggplot2-包介绍" id="toc-9_11-ggplot2-包介绍">9_1.1
+    ggplot2 包介绍</a>
+  - <a href="#9_12-用几何函数指定图的类型"
+    id="toc-9_12-用几何函数指定图的类型">9_1.2 用几何函数指定图的类型</a>
+  - <a href="#9_13-分组" id="toc-9_13-分组">9_1.3 分组</a>
+  - <a href="#9_14-刻面" id="toc-9_14-刻面">9_1.4 刻面</a>
+  - <a href="#9_15-添加光滑曲线" id="toc-9_15-添加光滑曲线">9_1.5
     添加光滑曲线</a>
-  - <a href="#126-修改-ggplot2-图形的外观"
-    id="toc-126-修改-ggplot2-图形的外观">12.6 修改 ggplot2 图形的外观</a>
-    - <a href="#1261-坐标轴" id="toc-1261-坐标轴">12.6.1 坐标轴</a>
-    - <a href="#1262-图例" id="toc-1262-图例">12.6.2 图例</a>
-    - <a href="#1273-标尺" id="toc-1273-标尺">12.7.3 标尺</a>
-    - <a href="#1264-主题" id="toc-1264-主题">12.6.4 主题</a>
-    - <a href="#1265-多重图" id="toc-1265-多重图">12.6.5 多重图</a>
-  - <a href="#127-保存图形" id="toc-127-保存图形">12.7 保存图形</a>
+  - <a href="#9_16-修改-ggplot2-图形的外观"
+    id="toc-9_16-修改-ggplot2-图形的外观">9_1.6 修改 ggplot2 图形的外观</a>
+    - <a href="#9_161-坐标轴" id="toc-9_161-坐标轴">9_1.6.1 坐标轴</a>
+    - <a href="#9_162-图例" id="toc-9_162-图例">9_1.6.2 图例</a>
+    - <a href="#9_163-标尺" id="toc-9_163-标尺">9_1.6.3 标尺</a>
+    - <a href="#9_164-主题" id="toc-9_164-主题">9_1.6.4 主题</a>
+    - <a href="#9_165-多重图" id="toc-9_165-多重图">9_1.6.5 多重图</a>
+  - <a href="#9_17-保存图形" id="toc-9_17-保存图形">9_1.7 保存图形</a>
 
 Source：
 
 1.  《R语言实战（中文第二版）》
 
-# 12 使用 ggplot2 进行高级绘图
+# 9_1 使用 ggplot2 进行高级绘图
 
 - 在开始画图之前，必须确保在计算机上安装可ggplot2包和car包。同时也需要安装gridExtra包。这个包可以将多个ggplot2所绘图形放在一个图中。
 
-## 12.1 ggplot2 包介绍
+## 9_1.1 ggplot2 包介绍
 
 - 在ggplot2中，图是采用串联起来(+)号函数创建的。每个函数修改属于自己的部分。下面给出了一个最简单的例子：
 
@@ -39,7 +39,7 @@ Source：
 +   labs(title="Automobile Data", x="Weight", y="Miles Per Gallon")
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 - 分解作图的步骤：`ggplot()`初始化图形并且指顶要用到的数据来源(mtcars)和变量(wt、mpg)。`aes()`函数的功能是指定每个变量扮演的角色(aes代表aesthetics，即如何用视觉形式呈现信息)。在这里，变量wt的值映射到沿x轴的距离，变量mpg的值映射到沿y轴的距离。
 
@@ -55,7 +55,7 @@ Source：
 +   labs(title="Automobile Data", x="Weight", y="Miles Per Gallon")
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 - 选用geom_point()函数来设置点的形状为三角形(pch=17)，点的大小加倍(size=2)，并使颜色为蓝色(color=“blue”)。geom_smooth()函数增加了一条”平滑”曲线。这里需要线性拟合(method=“lm”)，并且产生一条红色(color=“red”)虚线(linetype=2)，线条尺寸为1(size=1)。默认情况下，平滑的曲线包括在95%的置信区间(较暗带)内。
 
@@ -78,11 +78,11 @@ Source：
 +        x="Horsepower", y="Miles Per Gallon")
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 - 上图为包含变速箱类型(自动对手动)和发动机装置(V型发动机与直列式发动机)每个组合的分离的散点图。每个点的颜色和形状表示该汽车发动机汽缸的数量。在本例中，am和vs是刻面变量，cyl是分组变量。
 
-## 12.2 用几何函数指定图的类型
+## 9_1.2 用几何函数指定图的类型
 
 - `ggplot()`函数指定要绘制的数据源和变量，几何函数则指定这些变量如何在视觉上进行表示(使用点、条、线和阴影区)。下表列出了比较常见的几何函数，以及经常使用的选项。
 
@@ -123,7 +123,7 @@ Source：
 > ggplot(singer, aes(x=height)) + geom_histogram()
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 - 生成箱线图的代码：
 
@@ -131,7 +131,7 @@ Source：
 > ggplot(singer, aes(x=voice.part, y=height)) + geom_boxplot()
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 - 上图中，低音歌唱家比高音歌唱家身高更高。虽然性别没有测量在内，但是它也许起了很大的作用。
 
@@ -142,18 +142,6 @@ Source：
 ``` r
 > library(car)
 > attach(Salaries)
-> head(Salaries)
-       rank discipline yrs.since.phd yrs.service  sex salary
-1      Prof          B            19          18 Male 139750
-2      Prof          B            20          16 Male 173200
-3  AsstProf          B             4           3 Male  79750
-4      Prof          B            45          39 Male 115000
-5      Prof          B            40          41 Male 141500
-6 AssocProf          B             6           6 Male  97000
-```
-
-``` r
-> data(Salaries, package="car")
 > library(ggplot2) 
 > ggplot(Salaries, aes(x=rank, y=salary)) +    
 +   geom_boxplot(fill="cornflowerblue",    
@@ -162,7 +150,7 @@ Source：
 +   geom_rug(side="l", color="black")
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 - 上图显示了不同学术地位对应薪水的缺口箱线图。实际的观察值(教师)是重叠的，因而给予一定的透明度以避免遮挡箱线图。它们还抖动以减少重叠。最后，一个地毯图设置在左侧以指示薪水的一般扩散。可以看到助理教授、副教授和教授的工资有显著的不同(有一个在箱形图槽口没有重叠)。此外，在薪水方面等级越高方差越大；教授的薪水变化很大。事实上，至少有一位教授的薪水低于副教授；有三位教授的工资非常高，成为了异常点(由教授箱线图的黑点可以看出)。
 
@@ -176,11 +164,11 @@ Source：
 +   geom_boxplot(fill="lightgreen", width=.2)
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 - 该代码把箱线图和小提琴图结合在一起形成一个新的图形(上图)。箱线图展示了在singer数据框中每个音部的25%、50%和75%分位数得分和任意的异常值。对于每个声部身高范围上的得分分布，小提琴图展示了更多视觉线索。
 
-## 12.3 分组
+## 9_1.3 分组
 
 - 为了理解数据，在一个图中画出两个或更多组的观察值通常是很有帮助的。在R中，组通常用分类变量的水平(因子)来定义。分组是通过ggplot2图将一个或多个带有诸如形状、颜色、填充、尺寸和线类型的视觉特征的分组变量来完成的。`ggplot()`声明中的`aes()`函数负责分配变量(图形的视觉特征)，所以这是一个分配分组变量的自然的地方。
 
@@ -193,7 +181,7 @@ Source：
 +   geom_density(alpha=.3)
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 - 在同一幅图中画出了三条密度曲线(每条曲线代表一个学术等级)并用不同的颜色来区分。填充的设置有些透明度
   (alpha),
@@ -208,7 +196,7 @@ Source：
 +                      shape=sex)) + geom_point()
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 - 在上图中，学术等级用点的颜色来表示(红色代表助理教授,绿色代表副教授,蓝色代表教授)。除此之外，性别用点的形状来表示(圆形代表女性，三角形代表男性)。如果看到的是灰度图像，颜色差异可能很难看出来，最好尝试运行一下自己的代码。需要注意图例还是自动产生的。从图中可以看出，薪水随着毕业年数的增加而增加，但是它们之间的关系绝对不是线性的。
 
@@ -219,21 +207,21 @@ Source：
 +   geom_bar(position="stack") + labs(title='position="stack"')  
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
 > ggplot(Salaries, aes(x=rank, fill=sex)) +   
 +   geom_bar(position="dodge") + labs(title='position="dodge"')  
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
 
 ``` r
 > ggplot(Salaries, aes(x=rank, fill=sex)) +      
 +   geom_bar(position="fill") + labs(title='position="fill"')
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-10-3.png)<!-- -->
 
 - 从前两个图中可以明显看出教授的人数大于其他学术等级的人数。除此之外，女性教授的人数比女性助理教授和副教授的人数要多。第三个图表示即使女性的总数更大，但是女性教授在教授中的比重远远小于其他两组。
 
@@ -244,7 +232,7 @@ Source：
 +   geom_bar(position="fill") + labs(title='position="fill"',y="proportion")
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 - 选项可以通过不同的方式使用，这取决于它们发生在`aes()`函数的内部还是外部。
 
@@ -252,23 +240,23 @@ Source：
 > ggplot(Salaries, aes(x=rank, fill=sex))+ geom_bar() 
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 > ggplot(Salaries, aes(x=rank)) + geom_bar(fill="red") 
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
 
 ``` r
 > ggplot(Salaries, aes(x=rank, fill="red")) + geom_bar()
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-13-3.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-12-3.png)<!-- -->
 
 - 在第一个例子中，sex变量通过条形图中的填充颜色来展示。在第二个例子中，每个条形图都用红色来填充。在第三个例子，ggplot2假定”red”是变量的名字，并且你得到一个意想不到(不希望)的结果。通常来说，变量应该设在`aes()`函数内，分配常数应该在`aes()`函数外。
 
-## 12.4 刻面
+## 9_1.4 刻面
 
 - 如果组在图中并排出现而不是重叠为单一的图形,关系就是清晰的。可以使用`facet_wrap()`函数和`facet_grid()`函数创建网格图形(在ggplot2中也称刻面图)。下表给出了相关的语法，其中var、rowvar和colvar是因子。
 
@@ -290,7 +278,7 @@ Source：
 +   facet_wrap(~voice.part, nrow=4)
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 - 上图展示了各声部歌手身高的分布。把八个分布分为并排的小图可以方便比较。
 
@@ -302,7 +290,7 @@ Source：
 +                      shape=rank)) + geom_point() + facet_grid(.~sex)
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 - 上图包含了相同的信息，但是独立的刻面图使其更容易理解。
 
@@ -316,11 +304,11 @@ Source：
 +   facet_grid(voice.part~.)
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 - 上图为各声部歌手身高的刻面密度图。值得注意的是横向排列便于组间比较。虽然颜色不是必要的，但它们可以帮助区分图形。
 
-## 12.5 添加光滑曲线
+## 9_1.5 添加光滑曲线
 
 - 可以使用`geom_smooth()`函数来添加一系列的平滑曲线和和置信区域。
 
@@ -341,7 +329,7 @@ Source：
 +   geom_smooth() + geom_point()
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 - 上图为博士毕业年数与目前薪水之间的关系，加上了一个带有95%置信区间的光滑曲线。图形显示经验和薪水之间不是线性的关系，至少在毕业时间很长的时候是这样。
 
@@ -355,13 +343,13 @@ Source：
 +   geom_point(size=2)
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 - 上图为男性和女性博士毕业年数和薪水之间的散点图，带有二次拟合曲线。对男性来说，曲线从0增加至约30年然后下降。对女性来说，拟合曲线从0到40年一直呈上升趋势。在数据集中没有女性获得博士学位超过40年。对于数据集中的大部分范围，男性能拿到更高的薪水。
 
-## 12.6 修改 ggplot2 图形的外观
+## 9_1.6 修改 ggplot2 图形的外观
 
-### 12.6.1 坐标轴
+### 9_1.6.1 坐标轴
 
 - 用于自定义坐标轴的函数：
 
@@ -387,11 +375,11 @@ Source：
 +   labs(title="Faculty Salary by Rank and Sex", x="", y="")
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 - 上图为按学术等级和性别分组的薪资水平的箱线图。坐标轴文本已经自定义。很明显，平均收入随着学术排名的上升而上升，在每个学术等级中男性的薪资水平高于女性。
 
-### 12.6.2 图例
+### 9_1.6.2 图例
 
 - 当更改图例的标题时，必须考虑图例是否基于颜色、填充、尺寸、形状或它们的组合。标题的位置由`theme()`函数中的`legend.position`选项控制。可能的值包括”left”、“top”、“right”(默认值)和”bottom”。也可以在图中给定的位置指定一个二元素向量。
 
@@ -413,11 +401,11 @@ Source：
 +   theme(legend.position=c(.1,.8))
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 - 在这个例子中，图例的左上角是分别距离左侧边缘10%和底部边缘80%的部分。如果想删除图例，可以使用`legend.position="none"`。
 
-### 12.7.3 标尺
+### 9_1.6.3 标尺
 
 - ggplot2包使用标尺把数据空间的观察值映射到可视化的空间中。标尺既可以应用到连续的变量，也可以应用到离散的变量。连续型的标尺可以映射数值型的变量到图的其他特征。
 
@@ -428,7 +416,7 @@ Source：
 +        title="Bubble Chart", size="Engine\nDisplacement")
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 - `aes()`函数的参数`size=disp`生成连续型变量disp(发动机排量)的标尺，并使用它来控制点的尺寸。结果见上图所示的气泡图。从该图中可以看出汽车里程随重量和发动机排量的降低而降低。
 
@@ -441,7 +429,7 @@ Source：
 +   geom_point(size=2)
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 - 上图为薪水与助理教授、副教授、教授经验对比的散点图。点的颜色是人为指定的如果是色弱(比如分不清橙色和紫色)，可以通过`scale_color_brewer()`和`scale_fill_brewer()`函数来预先指定分得清的颜色集。
 
@@ -449,7 +437,7 @@ Source：
 > ggplot(data=Salaries, aes(x=yrs.since.phd, y=salary, color=rank)) +        scale_color_brewer(palette="Set1") + geom_point(size=2)
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 - 把palette=“Set1”用其他的值(例如”Set2”、“Set3”、“Pastel1”、“Pastel2”、“Paired”、“Dark2”或”Accent”)来代替将会产生不同的颜色方案。为了得到可获得的颜色集，可以使用：
 
@@ -464,9 +452,9 @@ Source：
 > display.brewer.all()
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
-### 12.6.4 主题
+### 9_1.6.4 主题
 
 - `theme()`函数中的选项可以让我们调整字体、背景、颜色和网格线等。主题可以使用一次，也可以保存起来应用到多个图中。
 
@@ -494,10 +482,49 @@ Source：
 +   mytheme
 ```
 
-![](Phase2_R_Advanced_Learning_5_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 - 主题mytheme指定了图的标题应该为粗斜体的棕色14号字。轴的标题为粗斜体的棕色10号字。坐标轴标签应为加粗的深蓝色9号字。画图区域有白色的填充和深蓝色的边框。主水平网格应该是灰色的实线，次水平网格应该是灰色的虚线，垂直网格不输出，图例展示在图的顶部。`theme()`函数给了我们把控最后图形的控制权。可以参考`help(theme)`来查看更多关于选项的信息。
 
-### 12.6.5 多重图
+### 9_1.6.5 多重图
 
-## 12.7 保存图形
+- 使用图形参数`mfrow`和基本函数`layout()`把两个或更多的基本图放到单个图形中，这种方法在ggplot2包中不适用。将多个ggplot2包的图形放到单个图形中最简单的方式是使用gridExtra包中的`grid.arrange()`函数。在使用前需要事先安装这个包`(install.packages("gridExtra"))`。
+
+- 创建三个ggplot2图并把它们放在单个图形中：
+
+``` r
+> library(car)
+> attach(Salaries)
+> library(ggplot2) 
+> p1 <- ggplot(data=Salaries, aes(x=rank)) + geom_bar() 
+> p2 <- ggplot(data=Salaries, aes(x=sex)) + geom_bar() 
+> p3 <- ggplot(data=Salaries, aes(x=yrs.since.phd, y=salary)) + geom_point()  
+> # 用grid.arrange()函数保存到单个图形中
+> library(gridExtra) 
+> grid.arrange(p1, p2, p3, ncol=3)
+```
+
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+
+## 9_1.7 保存图形
+
+- `ggsave()`函数能更方便地保存它。它的选项包括保存哪幅图形，保存在哪里和以什么形式保存。例如：
+
+``` r
+> myplot <- ggplot(data=mtcars, aes(x=mpg)) + geom_histogram() 
+> ggsave(file="mygraph-9_1.7.png", plot=myplot, width=5, height=4)
+```
+
+- 在当前路径下将myplot保存为名为mygraph-9_1.7.png的5英寸×4英寸(12.7厘米×10.2厘米)PNG格式的图片。可以通过设定文件扩展名为ps、tex、jpeg、pdf、tiff、png、bmp、svg或wmf来保存为不同的格式。wmf文件仅限在装有Windows系统的计算机中保存。
+
+- 如果忽略plot=选项，最近创建的图形会被保存。下列代码是有效的，并把图形保存到磁盘：
+
+``` r
+> ggplot(data=mtcars, aes(x=mpg)) + geom_histogram() 
+```
+
+![](Phase2_R_Advanced_Learning_9_ggplot2高级绘图_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+
+``` r
+> ggsave(file="mygraph-9_1.7.pdf")
+```

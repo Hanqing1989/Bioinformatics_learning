@@ -1,28 +1,28 @@
 R语言进阶学习（第二阶段）——中级绘图
 ================
 
-- <a href="#11-中级绘图" id="toc-11-中级绘图">11 中级绘图</a>
-  - <a href="#111-散点图" id="toc-111-散点图">11.1 散点图</a>
-    - <a href="#1111-散点图矩阵" id="toc-1111-散点图矩阵">11.1.1
+- <a href="#8_1-中级绘图" id="toc-8_1-中级绘图">8_1 中级绘图</a>
+  - <a href="#8_11-散点图" id="toc-8_11-散点图">8_1.1 散点图</a>
+    - <a href="#8_111-散点图矩阵" id="toc-8_111-散点图矩阵">8_1.1.1
       散点图矩阵</a>
-    - <a href="#1112-高密度散点图" id="toc-1112-高密度散点图">11.1.2
+    - <a href="#8_112-高密度散点图" id="toc-8_112-高密度散点图">8_1.1.2
       高密度散点图</a>
-    - <a href="#1113-三维散点图" id="toc-1113-三维散点图">11.1.3
+    - <a href="#8_113-三维散点图" id="toc-8_113-三维散点图">8_1.1.3
       三维散点图</a>
-    - <a href="#1114-旋转三维散点图" id="toc-1114-旋转三维散点图">11.1.4
+    - <a href="#8_114-旋转三维散点图" id="toc-8_114-旋转三维散点图">8_1.1.4
       旋转三维散点图</a>
-    - <a href="#1115-气泡图" id="toc-1115-气泡图">11.1.5 气泡图</a>
-  - <a href="#112-折线图" id="toc-112-折线图">11.2 折线图</a>
-  - <a href="#113-相关图" id="toc-113-相关图">11.3 相关图</a>
-  - <a href="#114-马赛克图" id="toc-114-马赛克图">11.4 马赛克图</a>
+    - <a href="#8_115-气泡图" id="toc-8_115-气泡图">8_1.1.5 气泡图</a>
+  - <a href="#8_12-折线图" id="toc-8_12-折线图">8_1.2 折线图</a>
+  - <a href="#8_13-相关图" id="toc-8_13-相关图">8_1.3 相关图</a>
+  - <a href="#8_14-马赛克图" id="toc-8_14-马赛克图">8_1.4 马赛克图</a>
 
 Source：
 
 1.  《R语言实战（中文第二版）》
 
-# 11 中级绘图
+# 8_1 中级绘图
 
-## 11.1 散点图
+## 8_1.1 散点图
 
 - R中创建散点图的基础函数是plot(x,
   y)，其中，x和y是数值型向量，代表着图形中的(x, y)点。
@@ -39,7 +39,7 @@ Source：
 > lines(lowess(wt,mpg), col="blue", lwd=2, lty=2)
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 - 代码清单11-1中的代码加载了mtcars数据框，创建了一幅基本的散点图，图形的符号是实心圆圈。与预期结果相同，随着车重的增加，每加仑英里数减少，虽然它们不是完美的线性关系。`abline()`函数用来添加最佳拟合的线性直线，而`lowess()`函数则用来添加一条平滑曲线。该平滑曲线拟合是一种基于局部加权多项式回归的非参数方法。
 
@@ -58,12 +58,12 @@ Source：
 + )
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 - 此处，`scatterplot()`函数用来绘制四缸、六缸和八缸汽车每加仑英里数对车重的图形。表达式`mpg ~ wt | cyl`表示按条件绘图(即按cyl的水平分别绘制mpg和wt的关系图)。默认地，各子集会通过颜色和图形符号加以区分，并同时绘制线性拟合和平滑拟合曲线。span参数控制loess曲线中的平滑量。它的参数值越大，拟合得就越好。此图中可以看到,给定Toyata
   Corolla和Fiat128的车重，通常每加仑燃油可行驶得更远。`legend.plot`选项表明在左上边界添加图例，而mpg和weight的边界箱线图可通过boxplots选项来绘制。总之，`scatterplot()`函数还有许多特性值得探究，比如本节未讨论的稳健性选项和数据集中度椭圆选项。更多细节可参见`help(scatterplot)`。
 
-### 11.1.1 散点图矩阵
+### 8_1.1.1 散点图矩阵
 
 - `pairs()`函数可以创建基础的散点图矩阵。下面的代码生成了一个散点图矩阵，包含mpg、disp、drat和wt四个变量：
 
@@ -72,7 +72,7 @@ Source：
 +       main="Basic Scatter Plot Matrix")
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 - 图中包含\~右边的所有变量。在上图中，可以看到所有指定变量间的二元关系。例如，mpg和disp的散点图可在两变量的行列交叉处找到。值得注意的是，主对角线的上方和下方的六幅散点图是相同的，这也是为了方便摆放图形的缘故。通过调整参数，可以只展示下三角或者上三角的图形。例如，选项`upper.panel = NULL`将只生成下三角的图形。
 
@@ -82,7 +82,7 @@ Source：
 +       upper.panel = NULL)
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 - car包中的`scatterplotMatrix()`函数也可以生成散点图矩阵，并有以下可选操作：
 
@@ -101,13 +101,13 @@ Source：
 +                   main="Scatter Plot Matrix via car Package")
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 - 可以看到线性和平滑(loess)拟合曲线被默认添加，主对角线处添加了核密度曲线和轴须图。`spread = FALSE`选项表示不添加展示分散度和对称信息的直线，`smoother.args=list(lty=2)`设定平滑(loess)拟合曲线使用虚线而不是实线。
 
 - R提供了许多其他的方式来创建散点图矩阵。包括：glus包中的`cpars()`函数，TeachingDemos包中的`pairs2()`函数，HH包中的`xysplom()`函数，ResourceSelection包中的`kepairs()`函数和SMPracticals包中的`pairs.mod()`函数。每个包都加入了自己独特的曲线。
 
-### 11.1.2 高密度散点图
+### 8_1.1.2 高密度散点图
 
 - 当数据点重叠很严重时，用散点图来观察变量关系就显得”力不从心”了。下面是一个人为设计的例子，其中10000个观测点分布在两个重叠的数据群中：
 
@@ -124,7 +124,7 @@ Source：
 +      plot(x, y, pch=19, main="Scatter Plot with 10,000 Observations"))
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 - 在上图中，数据点的重叠导致识别x与y间的关系变得异常困难。针对这种情况，可以使用封箱、颜色和透明度来指明图中任意点上重叠点的数目。`smoothScatter()`函数可利用核密度估计生成用颜色密度来表示点分布的散点图。代码如下：
 
@@ -133,7 +133,7 @@ Source：
 +      smoothScatter(x, y, main="Scatter Plot Colored by Smoothed Densities"))
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 - 与上面的方法不同，hexbin包中的`hexbin()`函数将二元变量的封箱放到六边形单元格中(图形比名称更直观)。示例如下：
 
@@ -145,13 +145,13 @@ Source：
 +   })
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 - 用六边形封箱图展示的各点上覆盖观测点数目的散点图。通过图例，数据的集中度很容易计算和观察。
 
 - 综上可见，基础包中的`smoothScatter()`函数以及IDPmisc包中的`ipairs()`函数都可以对大数据集创建可读性较好的散点图矩阵。通过`?smoothScatter`和`?ipairs`可获得更多的示例。
 
-### 11.1.3 三维散点图
+### 8_1.1.3 三维散点图
 
 - 散点图和散点图矩阵展示的都是二元变量关系。倘若想一次对三个定量变量的交互关系进行可视化，可以使用三维散点图。例如，想研究汽车英里数、车重和排量间的关系，可用scatterplot3d包中的`scatterplot3d()`函数来绘制它们的关系。格式如下：
 
@@ -166,7 +166,7 @@ Source：
 +               main="Basic 3D Scatter Plot")
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 - `satterplot3d()`函数提供了许多选项，包括设置图形符号、轴、颜色、线条、网格线、突出显示和角度等功能。例如代码：
 
@@ -180,7 +180,7 @@ Source：
 +               main="3D Scatter Plot with Vertical Lines")
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 - 生成一幅突出显示效果的三维散点图，增强了纵深感，添加了连接点与水平面的垂直线。
 
@@ -198,11 +198,11 @@ Source：
 > s3d$plane3d(fit)
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 - 图形利用多元回归方程，对通过车重和排量预测每加仑英里数进行了可视化处理。平面代表预测值，图中的点是实际值。平面到点的垂直距离表示残差值。若点在平面之上则表明它的预测值被低估了，而点在平面之下则表明它的预测值被高估了。
 
-### 11.1.4 旋转三维散点图
+### 8_1.1.4 旋转三维散点图
 
 - 安装rgl包
 
@@ -228,7 +228,7 @@ Source：
 
 - `scatter3d()`函数可包含各种回归曲面，比如线性、二次、平滑和附加等类型。图形默认添加线性平面。另外，函数中还有可用于交互式识别点的选项。通过`help(scatter3d)`可获得函数的更多细节。
 
-### 11.1.5 气泡图
+### 8_1.1.5 气泡图
 
 - 气泡图(bubble
   plot)：先创建一个二维散点图，然后用点的大小来代表第三个变量的值。可用`symbols()`函数来创建气泡图。该函数可以在指定的(x,
@@ -257,7 +257,7 @@ Source：
 > text(wt, mpg, rownames(mtcars), cex=0.6) # text()函数是可选函数,此处用来添加各个汽车的名称
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 > detach(mtcars)
@@ -269,7 +269,7 @@ Source：
 
 - 虽然散点图很简单，但是它们能以最直接的方式展示数据，发现可能会被忽略的隐藏关系。
 
-## 11.2 折线图
+## 8_1.2 折线图
 
 - 如果将散点图上的点从左往右连接起来，就会得到一个折线图。以基础安装中的Orange数据集为例，它包含五种橘树的树龄和年轮数据。现要考察第一种橘树的生长情况，下方，左图为散点图，右图为折线图。可以看到，折线图是一个刻画变动的优秀工具。
 
@@ -290,7 +290,7 @@ Source：
 +      type="b")
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
 > par(opar)
@@ -358,13 +358,13 @@ Source：
 +        )
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 - `plot()`函数先用来创建空图形，只设定了轴标签和轴范围，并没有绘制任何数据点，每种橘树独有的折线和点都是随后通过`lines()`函数来添加的。可以看到，Tree
   4和Tree 5在整个时间段中一直保持着最快的生长速度，而且Tree
   5在大约664天的时候超过了Tree 4。
 
-## 11.3 相关图
+## 8_1.3 相关图
 
 - 以mtcars数据框中的变量相关性为例，它含有11个变量，对每个变量都测量了32辆汽车。利用下面的代码，可以获得该数据的相关系数：
 
@@ -396,7 +396,7 @@ carb -0.55  0.53  0.39  0.75 -0.091  0.43 -0.656 -0.57  0.058  0.27  1.000
 +          main="Corrgram of mtcars intercorrelations")
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 - 先从下三角单元格(在主对角线下方的单元格)开始解释这幅图形。默认地，蓝色和从左下指向右上的斜杠表示单元格中的两个变量呈正相关。反过来，红色和从左上指向右下的斜杠表示变量呈负相关。色彩越深，饱和度越高，说明变量相关性越大。相关性接近于0的单元格基本无色。本图为了将有相似相关模式的变量聚集在一起，对矩阵的行和列都重新进行了排序(使用主成分法)
   。从图中含阴影的单元格中可以看到：gear、am、drat和mpg相互间呈正相关，wt、disp、hp和carb相互间也呈正相关。但第一组变量与第二组变量呈负相关。还可以看到carb和am、vs和gear、vs和am以及drat和qsec四组变量间的相关性很弱。
@@ -429,7 +429,7 @@ carb -0.55  0.53  0.39  0.75 -0.091  0.43 -0.656 -0.57  0.058  0.27  1.000
 +          and ellipses")
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 - 上图是mtcars数据框中变量的相关系数图。下三角区域包含平滑拟合曲线和置信椭圆，上三角区域包含散点图。主对角面板包含变量最小和最大值。矩阵的行和列利用主成分分析法进行了重排序。
 
@@ -440,7 +440,7 @@ carb -0.55  0.53  0.39  0.75 -0.091  0.43 -0.656 -0.57  0.058  0.27  1.000
 +          main="Car Mileage Data (unsorted)")
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 - 上图为mtcars数据框中变量的相关系数图。下三角区域的阴影代表相关系数的大小和正负，变量按初始顺序排列，上三角区域留白。
 
@@ -456,9 +456,9 @@ carb -0.55  0.53  0.39  0.75 -0.091  0.43 -0.656 -0.57  0.058  0.27  1.000
 +          main="A Corrgram (or Horse) of a Different Color")
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
-## 11.4 马赛克图
+## 8_1.4 马赛克图
 
 - 在马赛克图中，嵌套矩形面积正比于单元格频率，其中该频率即多维列联表中的频率。颜色和/或阴影可表示拟合模型的残差值。
 
@@ -503,7 +503,7 @@ Crew  Male   Child            0   0
 > mosaic(Titanic, shade=TRUE, legend=TRUE)
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 - 和：
 
@@ -512,7 +512,7 @@ Crew  Male   Child            0   0
 > mosaic(~Class+Sex+Age+Survived, data=Titanic, shade=TRUE, legend=TRUE)
 ```
 
-![](Phase2_R_Advanced_Learning_4_中级绘图_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_8_中级绘图_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 - 都将生成一样的图，但表达式版本的代码可对图形中变量的选择和摆放拥有更多的控制权。
 
