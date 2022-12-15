@@ -3,7 +3,7 @@ title: "R语言基础学习（第一阶段）——图形初阶"
 output:
   html_document:
     toc: TRUE
-    keep_md: TRUE
+  keep_github_document: TRUE
   github_document:
     toc: TRUE
 ---

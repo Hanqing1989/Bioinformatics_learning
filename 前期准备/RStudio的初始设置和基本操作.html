@@ -503,12 +503,12 @@ HTML、Word或PDF文件，步骤如下：</p>
 <ul>
 <li>安装xtable包<code>(install.packages(&quot;xtable&quot;))</code>。这个包中的<code>xtable()</code>函数用美观的方式格式化报告中的数据框和矩阵。<code>xtable()</code>也可以对<code>lm()</code>、<code>glm()</code>、<code>aov()</code>、<code>table()</code>、<code>ts()</code>和<code>coxph()</code>返回的对象进行格式化。载入这个包后，可以用<code>methods(xtable)</code>来查看它能格式化的所有对象列表。</li>
 </ul></li>
-<li><p>如需同时输出Markdown和HTML文档，可在R
+<li><p>如需同时输出Github的Markdown和HTML文档，可在R
 Markdown文档开头的YAML文件进行永久性设置，参考格式如下：</p>
 <pre><code>output:
 html_document:
   toc: TRUE
-  keep_md: TRUE
+  keep_github_document: TRUE
 github_document:
   toc: TRUE</code></pre></li>
 </ul>

@@ -1,6 +1,9 @@
 ---
 title: "chapter1_R基础和ggplot2包介绍"
-output: 
+output:
+  html_document:
+    toc: TRUE
+  keep_github_document: TRUE
   github_document:
     toc: TRUE
 ---
@@ -187,7 +190,7 @@ p + geom_point() + scale_x_continuous(limits = c(0,8))
 p + scale_colour_manual(values = c('red','blue'))
 ```
 
-- 注：正常输出图片“fig.1.8.png”。
+- 注：实际正常输出图片“fig.1.6.png”到目录文件夹中。
 
 - 每当我们修改了标度以后，引导元素也发生了变化。对于x标度，引导元素为x轴上的刻度线。对于颜色标度，引导元素则为图例。
 

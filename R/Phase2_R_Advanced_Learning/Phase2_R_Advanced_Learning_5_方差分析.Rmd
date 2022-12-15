@@ -3,7 +3,7 @@ title: "R语言进阶学习（第二阶段）——方差分析"
 output:
   html_document:
     toc: TRUE
-    keep_md: TRUE
+  keep_github_document: TRUE
   github_document:
     toc: TRUE
 ---

@@ -6,8 +6,6 @@ output:
   keep_github_document: TRUE
   github_document:
     toc: TRUE
-  
-  
 ---
 
 # 1 连接 Rstudio 与 Github 进行版本控制
@@ -82,13 +80,13 @@ RStudio 的详细使用教程（如图形和表格的输入和输出，表格内
 - 在处理文档的时候，运行R代码，格式化输出，然后把输出嵌入到最后生成的文档当中。可以用这个方式来生成 HTML、Word或PDF文件，步骤如下：
   - 安装xtable包`(install.packages("xtable"))`。这个包中的`xtable()`函数用美观的方式格式化报告中的数据框和矩阵。`xtable()`也可以对`lm()`、`glm()`、`aov()`、`table()`、`ts()`和`coxph()`返回的对象进行格式化。载入这个包后，可以用`methods(xtable)`来查看它能格式化的所有对象列表。
 
-- 如需同时输出Markdown和HTML文档，可在R Markdown文档开头的YAML文件进行永久性设置，参考格式如下：
+- 如需同时输出Github的Markdown和HTML文档，可在R Markdown文档开头的YAML文件进行永久性设置，参考格式如下：
 
   ```
   output:
   html_document:
     toc: TRUE
-    keep_md: TRUE
+    keep_github_document: TRUE
   github_document:
     toc: TRUE
     ```

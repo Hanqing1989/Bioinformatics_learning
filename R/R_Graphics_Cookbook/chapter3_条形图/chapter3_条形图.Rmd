@@ -1,6 +1,9 @@
 ---
 title: "chapter3_条形图"
-output: 
+output:
+  html_document:
+    toc: TRUE
+  keep_github_document: TRUE
   github_document:
     toc: TRUE
 ---
