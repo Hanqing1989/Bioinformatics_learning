@@ -3,7 +3,6 @@ title: "R语言基础学习（第一阶段）——初识R语言"
 output:
   html_document:
     toc: TRUE
-  keep_github_document: TRUE
   github_document:
     toc: TRUE
 ---

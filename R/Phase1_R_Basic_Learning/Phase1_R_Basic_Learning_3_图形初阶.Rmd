@@ -1,11 +1,10 @@
 ---
 title: "R语言基础学习（第一阶段）——图形初阶"
 output:
-  html_document:
-    toc: TRUE
-  keep_github_document: TRUE
   github_document:
-    toc: TRUE
+    toc: yes
+  html_document:
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}

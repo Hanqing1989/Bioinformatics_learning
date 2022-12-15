@@ -1,29 +1,61 @@
----
-title: "R语言进阶学习（第二阶段）——基本统计分析"
-output:
-  html_document:
-    toc: TRUE
-    keep_md: TRUE
-  github_document:
-    toc: TRUE
----
+R语言进阶学习（第二阶段）——基本统计分析
+================
 
-
+- <a href="#4_1-基本统计分析" id="toc-4_1-基本统计分析">4_1
+  基本统计分析</a>
+  - <a href="#4_11-描述性统计分析" id="toc-4_11-描述性统计分析">4_1.1
+    描述性统计分析</a>
+    - <a href="#4_111-方法云集" id="toc-4_111-方法云集">4_1.1.1 方法云集</a>
+    - <a href="#4_112-更多方法" id="toc-4_112-更多方法">4_1.1.2 更多方法</a>
+    - <a href="#4_113-单组数据汇总统计量"
+      id="toc-4_113-单组数据汇总统计量">4_1.1.3 单组数据汇总统计量</a>
+    - <a href="#4_114-单数据分布类型的图形描述"
+      id="toc-4_114-单数据分布类型的图形描述">4_1.1.4
+      单数据分布类型的图形描述</a>
+    - <a href="#4_115-分组计算描述性统计量"
+      id="toc-4_115-分组计算描述性统计量">4_1.1.5 分组计算描述性统计量</a>
+    - <a href="#4_116-分组计算的扩展" id="toc-4_116-分组计算的扩展">4_1.1.6
+      分组计算的扩展</a>
+    - <a href="#4_117-分组数据的图形描述"
+      id="toc-4_117-分组数据的图形描述">4_1.1.7 分组数据的图形描述</a>
+  - <a href="#4_12-频数表和列联表" id="toc-4_12-频数表和列联表">4_1.2
+    频数表和列联表</a>
+    - <a href="#4_121-生成频数表" id="toc-4_121-生成频数表">4_1.2.1
+      生成频数表</a>
+    - <a href="#4_122-独立性检验" id="toc-4_122-独立性检验">4_1.2.2
+      独立性检验</a>
+    - <a href="#4_123-相关性的度量" id="toc-4_123-相关性的度量">4_1.2.3
+      相关性的度量</a>
+  - <a href="#4_13-相关" id="toc-4_13-相关">4_1.3 相关</a>
+    - <a href="#4_131-相关的类型" id="toc-4_131-相关的类型">4_1.3.1
+      相关的类型</a>
+    - <a href="#4_132-相关性的显著性检验"
+      id="toc-4_132-相关性的显著性检验">4_1.3.2 相关性的显著性检验</a>
+  - <a href="#4_14-t-检验" id="toc-4_14-t-检验">4_1.4 t 检验</a>
+    - <a href="#4_141-独立样本的-t-检验"
+      id="toc-4_141-独立样本的-t-检验">4_1.4.1 独立样本的 t 检验</a>
+    - <a href="#4_142-非独立样本的-t-检验"
+      id="toc-4_142-非独立样本的-t-检验">4_1.4.2 非独立样本的 t 检验</a>
+  - <a href="#4_15-组间差异的非参数检验秩和检验"
+    id="toc-4_15-组间差异的非参数检验秩和检验">4_1.5
+    组间差异的非参数检验（秩和检验）</a>
+    - <a href="#4_151-两组的比较" id="toc-4_151-两组的比较">4_1.5.1
+      两组的比较</a>
 
 Source：
 
 1.  《R语言实战（中文第二版）》
 
-2.  [【B站】从零开始学 R 语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
+2.  [【B站】从零开始学 R
+    语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
 
 # 4_1 基本统计分析
 
 ## 4_1.1 描述性统计分析
 
--   本节中，关注分析连续型变量的中心趋势、变化性和分布形状的方法。使用(mtcars)数据集，关注焦点是每加仑汽油行驶英里数(mpg)、马力(hp)和车重(wt)。
+- 本节中，关注分析连续型变量的中心趋势、变化性和分布形状的方法。使用(mtcars)数据集，关注焦点是每加仑汽油行驶英里数(mpg)、马力(hp)和车重(wt)。
 
-
-```r
+``` r
 > myvars <- c("mpg", "hp", "wt")  
 > head(mtcars[myvars])  # head()函数查看前六种车
                    mpg  hp    wt
@@ -37,10 +69,9 @@ Valiant           18.1 105 3.460
 
 ### 4_1.1.1 方法云集
 
--   代码清单7-1 通过`summary()`计算描述性统计量
+- 代码清单7-1 通过`summary()`计算描述性统计量
 
-
-```r
+``` r
 > myvars <- c("mpg", "hp", "wt") 
 > summary(mtcars[myvars])
       mpg              hp              wt       
@@ -52,18 +83,19 @@ Valiant           18.1 105 3.460
  Max.   :33.90   Max.   :335.0   Max.   :5.424  
 ```
 
--   `summary()`函数提供了最小值、最大值、四分位数和数值型变量的均值，以及因子向量和逻辑型向量的频数统计。
+- `summary()`函数提供了最小值、最大值、四分位数和数值型变量的均值，以及因子向量和逻辑型向量的频数统计。
 
--   `apply()`函数或`sapply()`函数计算所选择的任意描述性统计量。对于`sapply()`函数，其使用格式为：
+- `apply()`函数或`sapply()`函数计算所选择的任意描述性统计量。对于`sapply()`函数，其使用格式为：
 
-    `sapply(x, FUN, options)`
+  `sapply(x, FUN, options)`
 
--   其中的x是数据框(或矩阵)，FUN为一个任意的函数。如果指定了options，它们将被传递给FUN。可以在这里插入的典型函数有`mean()`、`sd()`、`var()`、`min()`、`max()`、`median()`、`length()`、`range()`和`quantile()`。函数`fivenum()`可返回图基五数总括(Tukey's five-number summary，即最小值、下四分位数、中位数、上四分位数和最大值)。
+- 其中的x是数据框(或矩阵)，FUN为一个任意的函数。如果指定了options，它们将被传递给FUN。可以在这里插入的典型函数有`mean()`、`sd()`、`var()`、`min()`、`max()`、`median()`、`length()`、`range()`和`quantile()`。函数`fivenum()`可返回图基五数总括(Tukey’s
+  five-number
+  summary，即最小值、下四分位数、中位数、上四分位数和最大值)。
 
--   代码清单7-2 通过`sapply()`计算描述性统计量
+- 代码清单7-2 通过`sapply()`计算描述性统计量
 
-
-```r
+``` r
 > mystats <- function(x, na.omit=FALSE){         
 +   if (na.omit)                     
 +     x <- x[!is.na(x)]              
@@ -84,20 +116,19 @@ skew      0.610655   0.7260237  0.42314646
 kurtosis -0.372766  -0.1355511 -0.02271075
 ```
 
--   对于样本中的车型，每加仑汽油行驶英里数的平均值为20.1，标准差为6.0。分布呈现右偏(偏度+0.61)，并且较正态分布稍平(峰度--0.37)。
+- 对于样本中的车型，每加仑汽油行驶英里数的平均值为20.1，标准差为6.0。分布呈现右偏(偏度+0.61)，并且较正态分布稍平(峰度–0.37)。
 
--   **注意，如果你只希望单纯地忽略缺失值，那么应当使用`sapply(mtcars[myvars], mystats, na.omit=TRUE)`。**
+- **注意，如果你只希望单纯地忽略缺失值，那么应当使用`sapply(mtcars[myvars], mystats, na.omit=TRUE)`。**
 
 ### 4_1.1.2 更多方法
 
--   Hmisc、pastecs和psych包提供了计算描述性统计量的函数，在首次使用之前先进行安装。
+- Hmisc、pastecs和psych包提供了计算描述性统计量的函数，在首次使用之前先进行安装。
 
--   Hmisc包中的`describe()`函数可返回变量和观测的数量、缺失值和唯一值的数目、平均值、分位，以及五个最大的值和五个最小的值。
+- Hmisc包中的`describe()`函数可返回变量和观测的数量、缺失值和唯一值的数目、平均值、分位，以及五个最大的值和五个最小的值。
 
--   代码清单7-3 通过Hmisc包中的`describe()`函数计算描述性统计量
+- 代码清单7-3 通过Hmisc包中的`describe()`函数计算描述性统计量
 
-
-```r
+``` r
 > library(Hmisc) 
 > myvars <- c("mpg", "hp", "wt") 
 > describe(mtcars[myvars])
@@ -131,16 +162,15 @@ lowest : 1.513 1.615 1.835 1.935 2.140, highest: 3.845 4.070 5.250 5.345 5.424
 --------------------------------------------------------------------------------
 ```
 
--   pastecs包中有一个名为`stat.desc()`的函数，它可以计算种类繁多的描述性统计量。使用格式为：
+- pastecs包中有一个名为`stat.desc()`的函数，它可以计算种类繁多的描述性统计量。使用格式为：
 
-    `stat.desc(x, basic=TRUE, desc=TRUE, norm=FALSE, p=0.95)`
+  `stat.desc(x, basic=TRUE, desc=TRUE, norm=FALSE, p=0.95)`
 
--   其中的x是一个数据框或时间序列。若`basic=TRUE`(默认值)，则计算其中所有值、空值、缺失值的数量，以及最小值、最大值、值域，还有总和。若`desc=TRUE`(同样也是默认值)，则计算中位数、平均数、平均数的标准误、平均数置信度为95%的置信区间、方差、标准差以及变异系数。最后，若`norm=TRUE`(不是默认的)，则返回正态分布统计量，包括偏度和峰度(以及它们的统计显著程度)和Shapiro-Wilk正态检验结果。这里使用了p值来计算平均数的置信区间(默认置信度为0.95)。
+- 其中的x是一个数据框或时间序列。若`basic=TRUE`(默认值)，则计算其中所有值、空值、缺失值的数量，以及最小值、最大值、值域，还有总和。若`desc=TRUE`(同样也是默认值)，则计算中位数、平均数、平均数的标准误、平均数置信度为95%的置信区间、方差、标准差以及变异系数。最后，若`norm=TRUE`(不是默认的)，则返回正态分布统计量，包括偏度和峰度(以及它们的统计显著程度)和Shapiro-Wilk正态检验结果。这里使用了p值来计算平均数的置信区间(默认置信度为0.95)。
 
--   代码清单7-4 通过pastecs包中的`stat.desc()`函数计算描述性统计量
+- 代码清单7-4 通过pastecs包中的`stat.desc()`函数计算描述性统计量
 
-
-```r
+``` r
 > library(pastecs)  
 > myvars <- c("mpg", "hp", "wt") 
 > stat.desc(mtcars[myvars])
@@ -161,12 +191,11 @@ std.dev        6.0269481   68.5628685   0.9784574
 coef.var       0.2999881    0.4674077   0.3041285
 ```
 
--   psych包（记得先安装）也拥有一个名为`describe()`的函数，它可以计算非缺失值的数量、平均数、标准差、中位数、截尾均值、绝对中位差、最小值、最大值、值域、偏度、峰度和平均值的标准误。
+- psych包（记得先安装）也拥有一个名为`describe()`的函数，它可以计算非缺失值的数量、平均数、标准差、中位数、截尾均值、绝对中位差、最小值、最大值、值域、偏度、峰度和平均值的标准误。
 
--   代码清单7-5 通过psych包中的`describe()`计算描述性统计量
+- 代码清单7-5 通过psych包中的`describe()`计算描述性统计量
 
-
-```r
+``` r
 > library(psych)  
 > myvars <- c("mpg", "hp", "wt") 
 > describe(mtcars[myvars])
@@ -188,8 +217,7 @@ wt   0.17
 
 - ISwR包中的juul数据集。
 
-
-```r
+``` r
 > library(ISwR) # 载入包
 > attach(juul) #连接数据集
 > mean(igf1,na.rm=TRUE) # 求均值，剔除缺失值
@@ -223,16 +251,14 @@ wt   0.17
 
 - 直方图。
 
-
-```r
+``` r
 > x <- rnorm(50)
 > hist(x)
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-
-```r
+``` r
 > mid.age <- c(2.5,7.5,13,16.5,17.5,19,22.5,44.5,70.5)
 > acc.count <- c(28,46,58,20,31,64,149,316,103)
 > age.acc <- rep(mid.age,acc.count)
@@ -240,49 +266,44 @@ wt   0.17
 > hist(age.acc,breaks=brk)
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 - 经验累积分布图形
 
-
-```r
+``` r
 > n <- length(x)
 > plot(sort(x),(1:n)/n,type="s",ylim=c(0,1))
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 - Q-Q图
 
-
-```r
+``` r
 > qqnorm(x)
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 - 箱式图
 
-
-```r
+``` r
 > par(mfrow=c(1,2))
 > boxplot(IgM)
 > boxplot(log(IgM))
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
-```r
+``` r
 > par(mfrow=c(1,1))
 ```
-
 
 ### 4_1.1.5 分组计算描述性统计量
 
 - **注意：年龄等连续变量有均值，但性别等分类变量没有均值，如需放在一起summary，则必须先将分类变量因子化。**
 
-
-```r
+``` r
 > # 因子化juul数据集（因子化方式参考 ?factor）
 > juul$sex <- factor(juul$sex,labels=c("M","F"))
 > juul$menarche <- factor(juul$menarche,labels=c("No","Yes"))
@@ -309,22 +330,19 @@ wt   0.17
 > detach(juul)
 ```
 
-```
-#以下代码与上述5行代码等价
-juul <- transform(juul,
-                  sex=factor(sex,labels=c("M","F")),
-                  menarche=factor(menarche,labels=c("No","Yes")),
-                  tanner=factor(tanner,labels=c("I","II","III","IV","V")))
-attach(juul)
-summary(juul)
-```
+    #以下代码与上述5行代码等价
+    juul <- transform(juul,
+                      sex=factor(sex,labels=c("M","F")),
+                      menarche=factor(menarche,labels=c("No","Yes")),
+                      tanner=factor(tanner,labels=c("I","II","III","IV","V")))
+    attach(juul)
+    summary(juul)
 
 - 分组数据汇总统计量
 
 - tapply: 分组计算统计量
 
-
-```r
+``` r
 > attach(red.cell.folate)
 > tapply(folate,ventilation,mean)
 N2O+O2,24h  N2O+O2,op     O2,24h 
@@ -346,8 +364,7 @@ N2O+O2,op  256.4444 37.12180 9
 O2,24h     278.0000 33.75648 5
 ```
 
-
-```r
+``` r
 > juul <- transform(juul,
 +                   sex=factor(sex,labels=c("M","F")),
 +                   menarche=factor(menarche,labels=c("No","Yes")),
@@ -360,8 +377,7 @@ O2,24h     278.0000 33.75648 5
 
 - aggreate和by函数：分组计算统计量
 
-
-```r
+``` r
 > # aggregate方法一
 > aggregate(juul[c("age","igf1")],
 +           list(sex=juul$sex), mean, na.rm=T)
@@ -396,10 +412,9 @@ sex: F
                                     NA's   :176                NA's   :713  
 ```
 
--   代码清单7-6 使用`aggregate()`分组获取描述性统计量
+- 代码清单7-6 使用`aggregate()`分组获取描述性统计量
 
-
-```r
+``` r
 > myvars <- c("mpg", "hp", "wt")  
 > aggregate(mtcars[myvars], by=list(am=mtcars$am), mean)
   am      mpg       hp       wt
@@ -411,20 +426,20 @@ sex: F
 2  1 6.166504 84.06232 0.6169816
 ```
 
--   \*\*注意list(am=mtcars$am)的使用**。如果使用的是`list(mtcars$am)\`，则am列将被标注为Group.1而不是am。
+- \*\*注意list(am=mtcars$am)的使用**。如果使用的是`list(mtcars$am)\`，则am列将被标注为Group.1而不是am。
 
--   如果有多个分组变量, 可以使用`by=list(name1=groupvar1,name2=groupvar2,...,nameN=groupvarN)`这样的语句。
+- 如果有多个分组变量,
+  可以使用`by=list(name1=groupvar1,name2=groupvar2,...,nameN=groupvarN)`这样的语句。
 
--   可以使用`by()`函数可以一次返回若干个统计量。格式为：
+- 可以使用`by()`函数可以一次返回若干个统计量。格式为：
 
-    `by(data, INDICES, FUN)`
+  `by(data, INDICES, FUN)`
 
--   其中data是一个数据框或矩阵，INDICES是一个因子或因子组成的列表，定义了分组，FUN是任意函数。
+- 其中data是一个数据框或矩阵，INDICES是一个因子或因子组成的列表，定义了分组，FUN是任意函数。
 
--   代码清单7-7 使用`by()`分组计算描述性统计量
+- 代码清单7-7 使用`by()`分组计算描述性统计量
 
-
-```r
+``` r
 > mystats <- function(x, na.omit=FALSE){         
 +   if (na.omit)                     
 +     x <- x[!is.na(x)]              
@@ -455,27 +470,25 @@ skew      0.05256118   1.3598859  0.2103128
 kurtosis -1.45535200   0.5634635 -1.1737358
 ```
 
--   这里的`dstats()`调用了代码清单7-2中的`mystats()`函数，将其应用于数据框的每一栏中。再通过`by()`函数则可得到am中每一水平的概括统计量。
+- 这里的`dstats()`调用了代码清单7-2中的`mystats()`函数，将其应用于数据框的每一栏中。再通过`by()`函数则可得到am中每一水平的概括统计量。
 
 ### 4_1.1.6 分组计算的扩展
 
--   doBy包和psych包也提供了分组计算描述性统计量的函数，它们未随基本安装发布，必须在首次使用前进行安装。doBy包中`summaryBy()`函数的使用格式为：
+- doBy包和psych包也提供了分组计算描述性统计量的函数，它们未随基本安装发布，必须在首次使用前进行安装。doBy包中`summaryBy()`函数的使用格式为：
 
-    `summaryBy(formula, data=dataframe, FUN=function)`
+  `summaryBy(formula, data=dataframe, FUN=function)`
 
--   其中的formula接受以下的格式：
+- 其中的formula接受以下的格式：
 
-```{=html}
 <!-- -->
-```
+
     `var1 + var2 + var3 + ... + varN ~ groupvar1 + groupvar2 + ... + groupvarN`
 
--   在\~左侧的变量是需要分析的数值型变量,而右侧的变量是类别型的分组变量。function可为任何内建或用户自编的R函数。
+- 在\~左侧的变量是需要分析的数值型变量,而右侧的变量是类别型的分组变量。function可为任何内建或用户自编的R函数。
 
--   代码清单7-8 使用doBy包中的`summaryBy()`分组计算概述统计量
+- 代码清单7-8 使用doBy包中的`summaryBy()`分组计算概述统计量
 
-
-```r
+``` r
 > library(doBy) 
 > summaryBy(mpg+hp+wt~am, data=mtcars, FUN=mystats)
   am mpg.n mpg.mean mpg.stdev   mpg.skew mpg.kurtosis hp.n  hp.mean hp.stdev
@@ -486,12 +499,11 @@ kurtosis -1.45535200   0.5634635 -1.1737358
 2  1.35988586   0.5634635   13 2.411000 0.6169816 0.2103128  -1.1737358
 ```
 
--   psych包中的`describeBy()`函数可计算和`describe()`相同的描述性统计量，只是按照一个或多个分组变量分层：
+- psych包中的`describeBy()`函数可计算和`describe()`相同的描述性统计量，只是按照一个或多个分组变量分层：
 
--   代码清单7-9 使用psych包中的`describeBy()`分组计算概述统计量
+- 代码清单7-9 使用psych包中的`describeBy()`分组计算概述统计量
 
-
-```r
+``` r
 > library(psych) 
 > myvars <- c("mpg", "hp", "wt") 
 > describeBy(mtcars[myvars], list(am=mtcars$am))
@@ -518,14 +530,13 @@ hp  23.31
 wt   0.17
 ```
 
--   与前面的示例不同，`describeBy()`函数不允许指定任意函数，所以它的普适性较低。
+- 与前面的示例不同，`describeBy()`函数不允许指定任意函数，所以它的普适性较低。
 
 ### 4_1.1.7 分组数据的图形描述
 
 - 直方图
 
-
-```r
+``` r
 > attach(energy)
 > expend.lean <- expend[stature=="lean"]
 > expend.obese <- expend[stature=="obese"] # energy 数据集中expend变量被分割成两个向量
@@ -535,25 +546,23 @@ wt   0.17
 > hist(expend.obese,breaks=10,xlim=c(5,13),ylim=c(0,4),col="grey")
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
-```r
+``` r
 > par(mfrow=c(1,1)) # 关闭两行一列构图，不影响后面作图
 ```
 
 - 并联箱式图
 
-
-```r
+``` r
 > boxplot(expend ~ stature)
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 - 带状图
 
-
-```r
+``` r
 > opar <- par(mfrow=c(2,2), mex=0.8, mar=c(3,3,2,1)+.1)
 > stripchart(expend ~ stature)
 > stripchart(expend ~ stature, method="stack")
@@ -561,20 +570,20 @@ wt   0.17
 > stripchart(expend ~ stature, method="jitter", jitter=.03)
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
-```r
+``` r
 > par(opar)
 ```
 
 ## 4_1.2 频数表和列联表
 
--   安装vcd包和gmodels包。
+- 安装vcd包和gmodels包。
 
--   本节中的数据来自vcd包中的Arthritis数据集。这份数据来自Kock & Edward(1988)，表示了一项风湿性关节炎新疗法的双盲临床实验的结果。前6个观测是这样的：
+- 本节中的数据来自vcd包中的Arthritis数据集。这份数据来自Kock &
+  Edward(1988)，表示了一项风湿性关节炎新疗法的双盲临床实验的结果。前6个观测是这样的：
 
-
-```r
+``` r
 > library(vcd) 
 > head(Arthritis)
   ID Treatment  Sex Age Improved
@@ -589,20 +598,19 @@ wt   0.17
 ### 4_1.2.1 生成频数表
 
 | 函数                         | 描述                                                |
-|--------------------------|----------------------------------------------|
-| table(var1, var2, ..., varN) | 使用 N 个类别型变量(因子)创建一个 N 维列联表。      |
+|------------------------------|-----------------------------------------------------|
+| table(var1, var2, …, varN)   | 使用 N 个类别型变量(因子)创建一个 N 维列联表。      |
 | xtabs(formula, data)         | 根据一个公式和一个矩阵或数据框创建一个 N 维列联表。 |
 | prop.table(table, margins)   | 依 margins 定义的边际列表将表中条目表示为分数形式。 |
 | margin.table(table, margins) | 依 margins 定义的边际列表计算表中条目的和。         |
 | addmargins(table, margins)   | 将概述边 margins(默认是求和结果)放入表中。          |
-| ftable(table)                | 创建一个紧凑的"平铺"式列联表。                      |
+| ftable(table)                | 创建一个紧凑的”平铺”式列联表。                      |
 
 #### 4_1.2.1.1 一维列联表
 
--   可以使用`table()`函数生成简单的频数统计表。
+- 可以使用`table()`函数生成简单的频数统计表。
 
-
-```r
+``` r
 > mytable <- with(Arthritis, table(Improved)) 
 > mytable
 Improved
@@ -610,34 +618,31 @@ Improved
     42     14     28 
 ```
 
--   可以用`prop.table()`将这些频数转化为比例值：
+- 可以用`prop.table()`将这些频数转化为比例值：
 
-
-```r
+``` r
 > prop.table(mytable)  
 Improved
      None      Some    Marked 
 0.5000000 0.1666667 0.3333333 
 ```
 
--   或使用`prop.table()*100`转化为百分比：
+- 或使用`prop.table()*100`转化为百分比：
 
-
-```r
+``` r
 > prop.table(mytable)*100
 Improved
     None     Some   Marked 
 50.00000 16.66667 33.33333 
 ```
 
--   由此可知，有50%的研究参与者获得了一定程度或者显著的改善(16.7+33.3)。
+- 由此可知，有50%的研究参与者获得了一定程度或者显著的改善(16.7+33.3)。
 
 #### 4_1.2.1.2 二维列联表
 
 - 案例1：
 
-
-```r
+``` r
 > caff.marital <- matrix(c(652,1537,598,242,36,46,38,21,218
 +                          ,327,106,67),
 +                        nrow=3,byrow=T)
@@ -648,7 +653,7 @@ Improved
 [3,]  218  327  106   67
 ```
 
-```r
+``` r
 > colnames(caff.marital) <- c("0","1-150","151-300",">300")
 > rownames(caff.marital) <- c("Married","Prev.married","Single")
 > caff.marital
@@ -658,7 +663,7 @@ Prev.married  36    46      38   21
 Single       218   327     106   67
 ```
 
-```r
+``` r
 > names(dimnames(caff.marital)) <- c("marital","consumption")
 > caff.marital
               consumption
@@ -682,8 +687,7 @@ marital          0 1-150 151-300 >300
 12       Single        >300   67
 ```
 
-
-```r
+``` r
 > attach(juul)
 > table(sex) #juul dataset
 sex
@@ -701,7 +705,7 @@ menarche   I  II III  IV   V
      Yes   1   1   5  26 202
 ```
 
-```r
+``` r
 > xtabs(~ tanner + sex, data=juul)
       sex
 tanner   M   F
@@ -712,8 +716,7 @@ tanner   M   F
    V   124 204
 ```
 
-
-```r
+``` r
 > xtabs(~ dgn + diab + coma, data=stroke) # 用xtabs展示
 , , coma = No
 
@@ -734,7 +737,7 @@ dgn    No Yes
   SAH   9   0
 ```
 
-```r
+``` r
 > ftable(coma + diab ~ dgn, data=stroke) # 用ftable展示（适合2个以上维度的数据展示）
     coma  No     Yes    
     diab  No Yes  No Yes
@@ -745,8 +748,7 @@ INF      411  64  23   2
 SAH       38   0   9   0
 ```
 
-
-```r
+``` r
 > caff.marital
               consumption
 marital          0 1-150 151-300 >300
@@ -764,18 +766,17 @@ consumption Married Prev.married Single
 
 - 案例2：
 
--   对于二维列联表，`table()`函数的使用格式为：
+- 对于二维列联表，`table()`函数的使用格式为：
 
-    `mytable <- table(A, B)`
+  `mytable <- table(A, B)`
 
--   其中的A是行变量，B是列变量。除此之外，`xtabs()`函数还可使用公式风格的输入创建列联表，格式为：
+- 其中的A是行变量，B是列变量。除此之外，`xtabs()`函数还可使用公式风格的输入创建列联表，格式为：
 
-    `mytable <- xtabs(~ A + B, data=mydata)`
+  `mytable <- xtabs(~ A + B, data=mydata)`
 
-    -   其中的mydata是一个矩阵或数据框。总的来说，要进行交叉分类的变量应出现在公式的右侧(即\~符号的右方)，以+作为分隔符。若某个变量写在公式的左侧，则其为一个频数向量(在数据已经被表格化时很有用)。
+  - 其中的mydata是一个矩阵或数据框。总的来说，要进行交叉分类的变量应出现在公式的右侧(即\~符号的右方)，以+作为分隔符。若某个变量写在公式的左侧，则其为一个频数向量(在数据已经被表格化时很有用)。
 
-
-```r
+``` r
 > mytable <- xtabs(~ Treatment+Improved, data=Arthritis) 
 > mytable
          Improved
@@ -784,18 +785,16 @@ Treatment None Some Marked
   Treated   13    7     21
 ```
 
--   可以使用`margin.table()`和`prop.table()`函数分别生成边际频数和比例。行和与行比例可以这样计算（下标1指代`table()`语句中的第一个变量）：
+- 可以使用`margin.table()`和`prop.table()`函数分别生成边际频数和比例。行和与行比例可以这样计算（下标1指代`table()`语句中的第一个变量）：
 
-
-```r
+``` r
 > margin.table(mytable, 1)
 Treatment
 Placebo Treated 
      43      41 
 ```
 
-
-```r
+``` r
 > prop.table(mytable, 1)
          Improved
 Treatment      None      Some    Marked
@@ -803,20 +802,18 @@ Treatment      None      Some    Marked
   Treated 0.3170732 0.1707317 0.5121951
 ```
 
--   观察表格可以发现，与接受安慰剂的个体中有显著改善的16%相比，接受治疗的个体中的51%的个体病情有了显著的改善。
+- 观察表格可以发现，与接受安慰剂的个体中有显著改善的16%相比，接受治疗的个体中的51%的个体病情有了显著的改善。
 
--   列和与列比例可以这样计算（这里的下标2指代`table()`语句中的第二个变量）：
+- 列和与列比例可以这样计算（这里的下标2指代`table()`语句中的第二个变量）：
 
-
-```r
+``` r
 > margin.table(mytable, 2)
 Improved
   None   Some Marked 
     42     14     28 
 ```
 
-
-```r
+``` r
 > prop.table(mytable, 2)
          Improved
 Treatment      None      Some    Marked
@@ -824,10 +821,9 @@ Treatment      None      Some    Marked
   Treated 0.3095238 0.5000000 0.7500000
 ```
 
--   各单元格所占比例可用如下语句获取:
+- 各单元格所占比例可用如下语句获取:
 
-
-```r
+``` r
 > prop.table(mytable)
          Improved
 Treatment       None       Some     Marked
@@ -835,10 +831,9 @@ Treatment       None       Some     Marked
   Treated 0.15476190 0.08333333 0.25000000
 ```
 
--   可以使用`addmargins()`函数为这些表格添加边际和。例如，以下代码添加了各行的和与各列的和：
+- 可以使用`addmargins()`函数为这些表格添加边际和。例如，以下代码添加了各行的和与各列的和：
 
-
-```r
+``` r
 > addmargins(mytable)
          Improved
 Treatment None Some Marked Sum
@@ -853,10 +848,9 @@ Treatment       None       Some     Marked        Sum
   Sum     0.50000000 0.16666667 0.33333333 1.00000000
 ```
 
--   在使用`addmargins()`时，默认行为是为表中所有的变量创建边际和。作为对照：
+- 在使用`addmargins()`时，默认行为是为表中所有的变量创建边际和。作为对照：
 
-
-```r
+``` r
 > addmargins(prop.table(mytable, 1), 2)
          Improved
 Treatment      None      Some    Marked       Sum
@@ -864,10 +858,9 @@ Treatment      None      Some    Marked       Sum
   Treated 0.3170732 0.1707317 0.5121951 1.0000000
 ```
 
--   仅添加了各行的和。类似地，
+- 仅添加了各行的和。类似地，
 
-
-```r
+``` r
 > addmargins(prop.table(mytable, 2), 1)
          Improved
 Treatment      None      Some    Marked
@@ -878,8 +871,7 @@ Treatment      None      Some    Marked
 
 - 案例3：边际表格和频数
 
-
-```r
+``` r
 > attach(juul)
 > tanner.sex <- table(tanner,sex)
 > tanner.sex
@@ -916,8 +908,7 @@ tanner          M          F
    V   0.11282985 0.18562329
 ```
 
-
-```r
+``` r
 > total.caff <- margin.table(caff.marital,2)
 > total.caff
 consumption
@@ -926,10 +917,9 @@ consumption
 > barplot(total.caff, col="white")
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
 
-
-```r
+``` r
 > par(mfrow=c(2,2))
 > barplot(caff.marital, col="white")
 > barplot(t(caff.marital), col="white")
@@ -937,27 +927,27 @@ consumption
 > barplot(prop.table(t(caff.marital),2), col="white", beside=T)
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-47-1.png)<!-- -->
 
-```r
+``` r
 > par(mfrow=c(1,1))
 ```
 
-```r
+``` r
 > barplot(prop.table(t(caff.marital),2),beside=T,
 +         legend.text=colnames(caff.marital),
 +         col=c("white","grey80","grey50","black"))
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-48-1.png)<!-- -->
 
-```r
+``` r
 > dotchart(t(caff.marital), lcolor="black")
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-49-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-49-1.png)<!-- -->
 
-```r
+``` r
 > opar <- par(mfrow=c(2,2),mex=0.8, mar=c(1,1,2,1))
 > slices <- c("white","grey80","grey50","black")
 > pie(caff.marital["Married",], main="Married", col=slices)
@@ -967,14 +957,13 @@ consumption
 > par(opar)
 ```
 
-![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-html/unnamed-chunk-50-1.png)<!-- -->
+![](Phase1_R_Basic_Learning_4_基本统计分析_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
 
--   添加了各列的和。在表中可以看到，有显著改善患者中的25%是接受安慰剂治疗的。
+- 添加了各列的和。在表中可以看到，有显著改善患者中的25%是接受安慰剂治疗的。
 
--   代码清单7-10 使用CrossTable生成二维列联表
+- 代码清单7-10 使用CrossTable生成二维列联表
 
-
-```r
+``` r
 > library(gmodels) 
 > CrossTable(Arthritis$Treatment, Arthritis$Improved)
 
@@ -1014,16 +1003,15 @@ Arthritis$Treatment |      None |      Some |    Marked | Row Total |
  
 ```
 
--   CrossTable()函数有很多选项，可以做许多事情：计算(行、列、单元格)的百分比；指定小数位数；进行卡方、Fisher和McNemar独立性检验；计算期望和(皮尔逊、标准化、调整的标准化)残差；将缺失值作为一种有效值；进行行和列标题的标注；生成SAS或SPSS风格的输出。参阅help(CrossTable)以了解详情。如果有两个以上的类别型变量，那么就是在处理多维列联表。
+- CrossTable()函数有很多选项，可以做许多事情：计算(行、列、单元格)的百分比；指定小数位数；进行卡方、Fisher和McNemar独立性检验；计算期望和(皮尔逊、标准化、调整的标准化)残差；将缺失值作为一种有效值；进行行和列标题的标注；生成SAS或SPSS风格的输出。参阅help(CrossTable)以了解详情。如果有两个以上的类别型变量，那么就是在处理多维列联表。
 
 #### 4_1.2.1.3 多维列联表
 
--   `table()`和`xtabs()`都可以基于三个或更多的类别型变量生成多维列联表。`margin.table()`、`prop.table()`和`addmargins()`函数可以自然地推广到高于二维的情况。另外，`ftable()`函数可以以一种紧凑而吸引人的方式输出多维列联表。
+- `table()`和`xtabs()`都可以基于三个或更多的类别型变量生成多维列联表。`margin.table()`、`prop.table()`和`addmargins()`函数可以自然地推广到高于二维的情况。另外，`ftable()`函数可以以一种紧凑而吸引人的方式输出多维列联表。
 
--   代码清单7-11 三维列联表
+- 代码清单7-11 三维列联表
 
-
-```r
+``` r
 > mytable <- xtabs(~ Treatment+Sex+Improved, data=Arthritis)   # 各单元格的频数
 > mytable
 , , Improved = None
@@ -1055,8 +1043,7 @@ Treated   Female             6    5     16
           Male               7    2      5
 ```
 
-
-```r
+``` r
 > margin.table(mytable, 1) # 边际频数，由于使用公式~Treatement+Sex+Improve创建了这个表,所以Treatment需要通过下标1来引用,Sex通过下标2来引用,Improve通过下标3来引用。
 Treatment
 Placebo Treated 
@@ -1071,8 +1058,7 @@ Improved
     42     14     28 
 ```
 
-
-```r
+``` r
 > margin.table(mytable, c(1, 3)) # 治疗情况(Treatment)×改善情况(Improved)的边际频数
          Improved
 Treatment None Some Marked
@@ -1080,8 +1066,7 @@ Treatment None Some Marked
   Treated   13    7     21
 ```
 
-
-```r
+``` r
 > ftable(prop.table(mytable, c(1, 2)))   # 治疗情况(Treatment)×性别(Sex)的各类改善情况比例
                  Improved       None       Some     Marked
 Treatment Sex                                             
@@ -1091,8 +1076,7 @@ Treated   Female          0.22222222 0.18518519 0.59259259
           Male            0.50000000 0.14285714 0.35714286
 ```
 
-
-```r
+``` r
 > ftable(addmargins(prop.table(mytable, c(1, 2)), 3))
                  Improved       None       Some     Marked        Sum
 Treatment Sex                                                        
@@ -1102,10 +1086,9 @@ Treated   Female          0.22222222 0.18518519 0.59259259 1.00000000
           Male            0.50000000 0.14285714 0.35714286 1.00000000
 ```
 
--   如果想得到百分比而不是比例，可以将结果表格乘以100。
+- 如果想得到百分比而不是比例，可以将结果表格乘以100。
 
-
-```r
+``` r
 > ftable(addmargins(prop.table(mytable, c(1, 2)), 3)) * 100
                  Improved       None       Some     Marked        Sum
 Treatment Sex                                                        
@@ -1119,80 +1102,77 @@ Treated   Female           22.222222  18.518519  59.259259 100.000000
 
 #### 4_1.2.2.1 卡方独立性检验
 
--   可以使用`chisq.test()`函数对二维表的行变量和列变量进行卡方独立性检验。
+- 可以使用`chisq.test()`函数对二维表的行变量和列变量进行卡方独立性检验。
 
--   代码清单7-12 卡方独立性检验
+- 代码清单7-12 卡方独立性检验
 
-
-```r
+``` r
 > library(vcd)  
 > mytable <- xtabs(~Treatment+Improved, data=Arthritis) 
 > chisq.test(mytable)
 
-	Pearson's Chi-squared test
+    Pearson's Chi-squared test
 
 data:  mytable
 X-squared = 13.055, df = 2, p-value = 0.001463
 ```
 
--   以上结果表明：治疗情况和改善情况不独立（患者接受的治疗和改善的水平看上去存在着某种关系(p\<0.01)）。
+- 以上结果表明：治疗情况和改善情况不独立（患者接受的治疗和改善的水平看上去存在着某种关系(p\<0.01)）。
 
-
-```r
+``` r
 > mytable <- xtabs(~Improved+Sex, data=Arthritis)
 > chisq.test(mytable)
 
-	Pearson's Chi-squared test
+    Pearson's Chi-squared test
 
 data:  mytable
 X-squared = 4.8407, df = 2, p-value = 0.08889
 ```
 
--   以上结果表明：性别和改善情况独立（而患者性别和改善情况之间却不存在关系(p\>0.05)）。
+- 以上结果表明：性别和改善情况独立（而患者性别和改善情况之间却不存在关系(p\>0.05)）。
 
--   由于p-value = 0.09不够小，故没有足够的理由说明治疗结果和性别之间是不独立的。代码清单7-12中产生警告信息的原因是，表中的6个单元格之一(男性-一定程度上的改善)有一个小于5的值，这可能会使卡方近似无效。
+- 由于p-value =
+  0.09不够小，故没有足够的理由说明治疗结果和性别之间是不独立的。代码清单7-12中产生警告信息的原因是，表中的6个单元格之一(男性-一定程度上的改善)有一个小于5的值，这可能会使卡方近似无效。
 
 #### 4_1.2.2.2 Fisher精确检验
 
--   可以使用`fisher.test()`函数进行Fisher精确检验。Fisher精确检验的原假设是：边界固定的列联表中行和列是相互独立的。其调用格式为`fisher.test(mytable)`，其中的mytable是一个二维列联表。
+- 可以使用`fisher.test()`函数进行Fisher精确检验。Fisher精确检验的原假设是：边界固定的列联表中行和列是相互独立的。其调用格式为`fisher.test(mytable)`，其中的mytable是一个二维列联表。
 
-
-```r
+``` r
 > mytable <- xtabs(~Treatment+Improved, data=Arthritis) 
 > fisher.test(mytable)
 
-	Fisher's Exact Test for Count Data
+    Fisher's Exact Test for Count Data
 
 data:  mytable
 p-value = 0.001393
 alternative hypothesis: two.sided
 ```
 
--   这里的`fisher.test()`函数可以在任意行列数大于等于2的二维列联表上使用，但不能用于2×2的列联表。
+- 这里的`fisher.test()`函数可以在任意行列数大于等于2的二维列联表上使用，但不能用于2×2的列联表。
 
 #### 4_1.2.2.3 Cochran-Mantel-Haenszel检验
 
--   `mantelhaen.test()`函数可用来进行`Cochran-Mantel-Haenszel`卡方检验，其原假设是，两个名义变量在第三个变量的每一层中都是条件独立的。下列代码可以检验治疗情况和改善情况在性别的每一水平下是否独立。此检验假设不存在三阶交互作用(治疗情况×改善情况×性别)。
+- `mantelhaen.test()`函数可用来进行`Cochran-Mantel-Haenszel`卡方检验，其原假设是，两个名义变量在第三个变量的每一层中都是条件独立的。下列代码可以检验治疗情况和改善情况在性别的每一水平下是否独立。此检验假设不存在三阶交互作用(治疗情况×改善情况×性别)。
 
-
-```r
+``` r
 > mytable <- xtabs(~Treatment+Improved+Sex, data=Arthritis) 
 > mantelhaen.test(mytable)
 
-	Cochran-Mantel-Haenszel test
+    Cochran-Mantel-Haenszel test
 
 data:  mytable
 Cochran-Mantel-Haenszel M^2 = 14.632, df = 2, p-value = 0.0006647
 ```
 
--   结果表明，患者接受的治疗与得到的改善在性别的每一水平下并不独立(分性别来看，用药治疗的患者较接受安慰剂的患者有了更多的改善)。
+- 结果表明，患者接受的治疗与得到的改善在性别的每一水平下并不独立(分性别来看，用药治疗的患者较接受安慰剂的患者有了更多的改善)。
 
 ### 4_1.2.3 相关性的度量
 
--   vcd包中的`assocstats()`函数可以用来计算二维列联表的phi系数、列联系数和Cramer's V系数。
+- vcd包中的`assocstats()`函数可以用来计算二维列联表的phi系数、列联系数和Cramer’s
+  V系数。
 
-
-```r
+``` r
 > library(vcd) 
 > mytable <- xtabs(~Treatment+Improved, data=Arthritis)
 > assocstats(mytable)
@@ -1205,36 +1185,37 @@ Contingency Coeff.: 0.367
 Cramer's V        : 0.394 
 ```
 
--   总体来说，较大的值意味着较强的相关性。
+- 总体来说，较大的值意味着较强的相关性。
 
 ## 4_1.3 相关
 
--   相关系数可以用来描述定量变量之间的关系。相关系数的符号(±)表明关系的方向(正相关或负相关)，其值的大小表示关系的强弱程度(完全不相关时为0，完全相关时为1) 。
+- 相关系数可以用来描述定量变量之间的关系。相关系数的符号(±)表明关系的方向(正相关或负相关)，其值的大小表示关系的强弱程度(完全不相关时为0，完全相关时为1)
+  。
 
--   需要安装psych和ggm包。
+- 需要安装psych和ggm包。
 
--   使用R基础安装中的state.x77数据集，它提供了美国50个州在1977年的人口、收入、文盲率、预期寿命、谋杀率和高中毕业率数据，使用help(state.x77)了解数据集的更多信息。
+- 使用R基础安装中的state.x77数据集，它提供了美国50个州在1977年的人口、收入、文盲率、预期寿命、谋杀率和高中毕业率数据，使用help(state.x77)了解数据集的更多信息。
 
 ### 4_1.3.1 相关的类型
 
 #### 4_1.3.1.1 Pearson、Spearman和Kendall相关
 
--   Pearson积差相关系数衡量了两个定量变量之间的线性相关程度（**这两个变量必须是符合正态分布的连续变量**）。Spearman等级相关系数则衡量分级定序变量之间的相关程度。Kendall's Tau相关系数也是一种非参数的等级相关度量。
+- Pearson积差相关系数衡量了两个定量变量之间的线性相关程度（**这两个变量必须是符合正态分布的连续变量**）。Spearman等级相关系数则衡量分级定序变量之间的相关程度。Kendall’s
+  Tau相关系数也是一种非参数的等级相关度量。
 
--   `cor()`函数可以计算这三种相关系数，而`cov()`函数可用来计算协方差。两个函数的参数有很多，其中与相关系数的计算有关的参数可以简化为：`cor(x, use= , method= )`。
+- `cor()`函数可以计算这三种相关系数，而`cov()`函数可用来计算协方差。两个函数的参数有很多，其中与相关系数的计算有关的参数可以简化为：`cor(x, use= , method= )`。
 
-| 参数   | 描述                                                                                                                                                                                                                                           |
-|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| x      | 矩阵或数据框。                                                                                                                                                                                                                                 |
-| use    | 指定缺失数据的处理方式。可选的方式为 all.obs(假设不存在缺失数据------遇到缺失数据时将报错) 、 everything (遇到缺失数据时, 相关系数的计算结果将被设为 missing) 、 complete.obs (行删除)以及 pairwise.complete.obs(成对删除,pairwise deletion)。 |
-| method | 指定相关系数的类型。可选类型为 pearson、spearman 或 kendall。                                                                                                                                                                                  |
+| 参数   | 描述                                                                                                                                                                                                                                       |
+|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| x      | 矩阵或数据框。                                                                                                                                                                                                                             |
+| use    | 指定缺失数据的处理方式。可选的方式为 all.obs(假设不存在缺失数据——遇到缺失数据时将报错) 、 everything (遇到缺失数据时, 相关系数的计算结果将被设为 missing) 、 complete.obs (行删除)以及 pairwise.complete.obs(成对删除,pairwise deletion)。 |
+| method | 指定相关系数的类型。可选类型为 pearson、spearman 或 kendall。                                                                                                                                                                              |
 
-- 默认参数为use="everything"和method="pearson"。
+- 默认参数为use=“everything”和method=“pearson”。
 
 - 代码清单7-14 协方差和相关系数
 
-
-```r
+``` r
 > states<- state.x77[,1:6]  
 > cov(states)  # 计算方差和协方差
               Population      Income   Illiteracy     Life Exp      Murder
@@ -1253,7 +1234,7 @@ Murder       -14.549616
 HS Grad       65.237894
 ```
 
-```r
+``` r
 > cor(states) # 计算了Pearson积差相关系数
             Population     Income Illiteracy    Life Exp     Murder     HS Grad
 Population  1.00000000  0.2082276  0.1076224 -0.06805195  0.3436428 -0.09848975
@@ -1264,7 +1245,7 @@ Murder      0.34364275 -0.2300776  0.7029752 -0.78084575  1.0000000 -0.48797102
 HS Grad    -0.09848975  0.6199323 -0.6571886  0.58221620 -0.4879710  1.00000000
 ```
 
-```r
+``` r
 > cor(states, method="spearman") # 计算了Spearman等级相关系数
            Population     Income Illiteracy   Life Exp     Murder    HS Grad
 Population  1.0000000  0.1246098  0.3130496 -0.1040171  0.3457401 -0.3833649
@@ -1281,8 +1262,7 @@ HS Grad    -0.3833649  0.5104809 -0.6545396  0.5239410 -0.4367330  1.0000000
 
 - 函数调用格式为：`pcor(u, S)`，其中的u是一个数值向量，前两个数值表示要计算相关系数的变量下标，其余的数值为条件变量(即要排除影响的变量)的下标。S为变量的协方差阵。
 
-
-```r
+``` r
 > library(ggm) 
 > colnames(states)
 [1] "Population" "Income"     "Illiteracy" "Life Exp"   "Murder"    
@@ -1290,6 +1270,7 @@ HS Grad    -0.3833649  0.5104809 -0.6545396  0.5239410 -0.4367330  1.0000000
 > pcor(c(1,5,2,3,6), cov(states))
 [1] 0.3462724
 ```
+
 - 本例中，在控制了收入、文盲率和高中毕业率的影响时，人口和谋杀率之间的相关系数为0.346。偏相关系数常用于社会科学的研究中。
 
 ### 4_1.3.2 相关性的显著性检验
@@ -1298,15 +1279,14 @@ HS Grad    -0.3833649  0.5104809 -0.6545396  0.5239410 -0.4367330  1.0000000
 
   `cor.test(x, y, alternative = , method = )`
 
-  - 其中的x和y为要检验相关性的变量，alternative则用来指定进行双侧检验或单侧检验(取值为"two.side"、"less"或"greater")，而method用以指定要计算的相关类型("pearson"、"kendall"或"spearman")。当研究的假设为总体的相关系数小于0时，请使用alternative="less"。在研究的假设为总体的相关系数大于0时，应使用alternative="greater"。在默认情况下，假设为alternative="two.side"(总体相关系数不等于0)。
+  - 其中的x和y为要检验相关性的变量，alternative则用来指定进行双侧检验或单侧检验(取值为”two.side”、“less”或”greater”)，而method用以指定要计算的相关类型(“pearson”、“kendall”或”spearman”)。当研究的假设为总体的相关系数小于0时，请使用alternative=“less”。在研究的假设为总体的相关系数大于0时，应使用alternative=“greater”。在默认情况下，假设为alternative=“two.side”(总体相关系数不等于0)。
 
 - 代码清单7-15 检验某种相关系数的显著性
 
-
-```r
+``` r
 > cor.test(states[,3], states[,5])
 
-	Pearson's product-moment correlation
+    Pearson's product-moment correlation
 
 data:  states[, 3] and states[, 5]
 t = 6.8479, df = 48, p-value = 1.258e-08
@@ -1320,16 +1300,16 @@ sample estimates:
 
 - 这段代码检验了预期寿命和谋杀率的Pearson相关系数为0的原假设。假设总体的相关度为0，则预计在一千万次中只会有少于一次的机会见到0.703这样大的样本相关度(即p=1.258e–08)。由于这种情况几乎不可能发生，所以可以拒绝原假设，从而支持了要研究的猜想，即预期寿命和谋杀率之间的总体相关度不为0。然而`cor.test()`每次只能检验一种相关关系。但psych包中提供的`corr.test()`函数可以为Pearson、Spearman或Kendall相关计算相关矩阵和显著性水平。
 
-- 在多元正态性的假设下, psych包中的`pcor.test()`函数可以用来检验在控制一个或多个额外变量时两个变量之间的条件独立性。使用格式为：
-  
+- 在多元正态性的假设下,
+  psych包中的`pcor.test()`函数可以用来检验在控制一个或多个额外变量时两个变量之间的条件独立性。使用格式为：
+
   `pcor.test(r, q, n)`
-  
+
   - 其中的r是由`pcor()`函数计算得到的偏相关系数，q为要控制的变量数(以数值表示位置)，n为样本大小。
 
 - 代码清单7-16 通过corr.test计算相关矩阵并进行显著性检验
 
-
-```r
+``` r
 > library(psych) 
 > corr.test(states, use="complete")
 Call:corr.test(x = states, use = "complete")
@@ -1355,14 +1335,13 @@ HS Grad          0.50   0.00       0.00      0.0   0.00       0
  To see confidence intervals of the correlations, print with the short=FALSE option
 ```
 
-- 参数use=的取值可为"pairwise"或"complete"(分别表示对缺失值执行成对删除或行删除)。参数method=的取值可为"pearson"(默认值)、"spearman"或"kendall"。这里可以看到，人口数量和高中毕业率的相关系数(–0.10)并不显著地不为0(p=0.5)。
+- 参数use=的取值可为”pairwise”或”complete”(分别表示对缺失值执行成对删除或行删除)。参数method=的取值可为”pearson”(默认值)、“spearman”或”kendall”。这里可以看到，人口数量和高中毕业率的相关系数(–0.10)并不显著地不为0(p=0.5)。
 
 ## 4_1.4 t 检验
 
 - 案例1：
 
-
-```r
+``` r
 > daily.intake <- c(5260,5470,5640,6180,6390,6515,
 +                   6805,7515,7515,8230,8770)
 > mean(daily.intake)
@@ -1374,11 +1353,10 @@ HS Grad          0.50   0.00       0.00      0.0   0.00       0
 5260 5910 6515 7515 8770 
 ```
 
-
-```r
+``` r
 > t.test(daily.intake,mu=7725) # mu是总体均数
 
-	One Sample t-test
+    One Sample t-test
 
 data:  daily.intake
 t = -2.8208, df = 10, p-value = 0.01814
@@ -1389,7 +1367,6 @@ sample estimates:
 mean of x 
  6753.636 
 ```
-
 
 - 案例2：
 
@@ -1404,21 +1381,22 @@ mean of x
   `t.test(y ~ x, data)`
 
   - 其中的y是一个数值型变量，x是一个二分变量。调用格式或为：
-  
-  `t.test(y1, y2)`
-  
-  - 其中的y1和y2为数值型向量(即各组的结果变量)。可选参数data的取值为一个包含了这些变量的矩阵或数据框。与其他多数统计软件不同的是, 这里的t检验默认假定方差不相等，并使用Welsh的修正自由度。你可以添加一个参数`var.equal=TRUE`以假定方差相等，并使用合并方差估计。默认的备择假设是双侧的(即均值不相等，但大小的方向不确定)。你可以添加一个参数`alternative="less"`或`alternative="greater"`来进行有方向的检验。
 
-- 使用一个假设方差不等的双侧检验，比较了南方(group 1)和非南方(group 0)各州的监禁概率：
+  `t.test(y1, y2)`
+
+  - 其中的y1和y2为数值型向量(即各组的结果变量)。可选参数data的取值为一个包含了这些变量的矩阵或数据框。与其他多数统计软件不同的是,
+    这里的t检验默认假定方差不相等，并使用Welsh的修正自由度。你可以添加一个参数`var.equal=TRUE`以假定方差相等，并使用合并方差估计。默认的备择假设是双侧的(即均值不相等，但大小的方向不确定)。你可以添加一个参数`alternative="less"`或`alternative="greater"`来进行有方向的检验。
+
+- 使用一个假设方差不等的双侧检验，比较了南方(group 1)和非南方(group
+  0)各州的监禁概率：
 
 - 方差齐性检验
 
-
-```r
+``` r
 > library(MASS)
 > var.test(Prob ~ So, data=UScrime)
 
-	F test to compare two variances
+    F test to compare two variances
 
 data:  Prob by So
 F = 0.624, num df = 30, denom df = 15, p-value = 0.2646
@@ -1429,13 +1407,14 @@ sample estimates:
 ratio of variances 
          0.6240006 
 ```
-- p-value = 0.3，大于0.05（**若P值<于0.05，便拒绝方差整齐的假设**），说明方差具有齐性（相等）。
 
+- p-value =
+  0.3，大于0.05（**若P值\<于0.05，便拒绝方差整齐的假设**），说明方差具有齐性（相等）。
 
-```r
+``` r
 > t.test(Prob ~ So, data=UScrime,var.equal=TRUE)
 
-	Two Sample t-test
+    Two Sample t-test
 
 data:  Prob by So
 t = -4.2021, df = 45, p-value = 0.0001236
@@ -1447,18 +1426,20 @@ mean in group 0 mean in group 1
      0.03851265      0.06371269 
 ```
 
-- 可以拒绝南方各州和非南方各州拥有相同监禁概率的假设(p<0.001)。
+- 可以拒绝南方各州和非南方各州拥有相同监禁概率的假设(p\<0.001)。
 
 ### 4_1.4.2 非独立样本的 t 检验
 
-- 案例1，问：较年轻(14-24岁)男性的失业率是否比年长(35-39岁)男性的失业率更高？在这种情况下，这两组数据并不独立。在两组的观测之间相关时，获得的是一个非独立组设计(dependent groups design)。前-后测设计(pre-post design)或重复测量设计(repeated measures design)同样也会产生非独立的组。非独立样本的t检验假定组间的差异呈正态分布。对于本例，检验的调用格式为： 
+- 案例1，问：较年轻(14-24岁)男性的失业率是否比年长(35-39岁)男性的失业率更高？在这种情况下，这两组数据并不独立。在两组的观测之间相关时，获得的是一个非独立组设计(dependent
+  groups design)。前-后测设计(pre-post design)或重复测量设计(repeated
+  measures
+  design)同样也会产生非独立的组。非独立样本的t检验假定组间的差异呈正态分布。对于本例，检验的调用格式为：
 
   `t.test(y1, y2, paired=TRUE)`
-  
+
   - 其中的y1和y2为两个非独立组的数值向量。结果如下：
 
-
-```r
+``` r
 > library(MASS)  
 > sapply(UScrime[c("U1","U2")], function(x)(c(mean=mean(x),sd=sd(x))))
            U1       U2
@@ -1466,10 +1447,10 @@ mean 95.46809 33.97872
 sd   18.02878  8.44545
 ```
 
-```r
+``` r
 > with(UScrime, t.test(U1, U2, paired=TRUE))
 
-	Paired t-test
+    Paired t-test
 
 data:  U1 and U2
 t = 32.407, df = 46, p-value < 2.2e-16
@@ -1485,8 +1466,7 @@ mean difference
 
 - 案例2：两个配对样本的 t 检验
 
-
-```r
+``` r
 > library(ISwR)
 > attach(intake)
 > intake  # 查看数据集内容
@@ -1506,7 +1486,7 @@ mean difference
  [1] -1350 -1250 -1755 -1020  -745 -1835 -1540 -1540  -725 -1330 -1435
 > t.test(pre, post, paired=T) # t.test(pre, post) #WRONG!这是两个独立样本的t检验
 
-	Paired t-test
+    Paired t-test
 
 data:  pre and post
 t = 11.941, df = 10, p-value = 3.059e-07
@@ -1525,17 +1505,16 @@ mean difference
 - 若两组数据独立，可以使用**Wilcoxon秩和检验**(更广为人知的名字是`Mann-Whitney U`检验)来评估观测是否是从相同的概率分布中抽得的(即，在一个总体中获得更高得分的概率是否比另一个总体要大)。调用格式为：
 
   `wilcox.test(y ~ x, data)`
-  
+
   - 其中的y是数值型变量，而x是一个二分变量。调用格式或为：
-  
+
   `wilcox.test(y1, y2)`
-  
+
   - 其中的y1和y2为各组的结果变量。可选参数data的取值为一个包含了这些变量的矩阵或数据框。默认进行一个双侧检验。可以添加参数exact来进行精确检验，指定`alternative="less"`或`alternative="greater"`进行有方向的检验。
 
 - 如果使用`Mann-Whitney U`检验回答上一节中关于监禁率的问题，将得到这些结果:
 
-
-```r
+``` r
 > with(UScrime, by(Prob, So, median))
 So: 0
 [1] 0.038201
@@ -1544,54 +1523,50 @@ So: 1
 [1] 0.055552
 ```
 
-
-```r
+``` r
 > wilcox.test(Prob ~ So, data=UScrime)
 
-	Wilcoxon rank sum exact test
+    Wilcoxon rank sum exact test
 
 data:  Prob by So
 W = 81, p-value = 8.488e-05
 alternative hypothesis: true location shift is not equal to 0
 ```
 
-- 可以再次拒绝南方各州和非南方各州监禁率相同的假设(p<0.001) 。
+- 可以再次拒绝南方各州和非南方各州监禁率相同的假设(p\<0.001) 。
 
 - Wilcoxon符号秩检验是非独立样本t检验的一种非参数替代方法。**它适用于两组成对数据和无法保证正态性假设的情境**。调用格式与`Mann-Whitney U`检验完全相同，不过还可以添加参数`paired=TRUE`。
 
 - 用它解答上一节中的失业率问题：
 
-
-```r
+``` r
 > sapply(UScrime[c("U1","U2")], median)
 U1 U2 
 92 34 
 ```
 
-```r
+``` r
 > with(UScrime, wilcox.test(U1, U2, paired=TRUE))  # 配对秩和检验
 
-	Wilcoxon signed rank test with continuity correction
+    Wilcoxon signed rank test with continuity correction
 
 data:  U1 and U2
 V = 1128, p-value = 2.464e-09
 alternative hypothesis: true location shift is not equal to 0
 ```
 
-- 再次得到了与配对t检验相同的结论。 
+- 再次得到了与配对t检验相同的结论。
 
 - 在本例中，含参的t检验和与其作用相同的非参数检验得到了相同的结论。当t检验的假设合理时，参数检验的功效更强(更容易发现存在的差异)。而非参数检验在假设非常不合理时(如对于等级有序数据)更适用。
 
 - 之前一个案例：
 
-
-```r
+``` r
 > wilcox.test(pre, post, paired=T) # 绝经前后的配对秩和检验
 
-	Wilcoxon signed rank test with continuity correction
+    Wilcoxon signed rank test with continuity correction
 
 data:  pre and post
 V = 66, p-value = 0.00384
 alternative hypothesis: true location shift is not equal to 0
 ```
-
