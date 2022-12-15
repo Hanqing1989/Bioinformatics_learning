@@ -1,106 +1,74 @@
-R语言进阶学习（第二阶段）——方差分析
-================
+---
+title: "R语言进阶学习（第二阶段）——方差分析"
+output:
+  html_document:
+    toc: TRUE
+    keep_md: TRUE
+  github_document:
+    toc: TRUE
+---
 
-- <a href="#5_1-方差分析" id="toc-5_1-方差分析">5_1 方差分析</a>
-  - <a href="#5_11-术语速成" id="toc-5_11-术语速成">5_1.1 术语速成</a>
-  - <a href="#5_12-anova模型拟合" id="toc-5_12-anova模型拟合">5_1.2
-    ANOVA模型拟合</a>
-    - <a href="#5_121-aov函数" id="toc-5_121-aov函数">5_1.2.1
-      <code>aov()</code>函数</a>
-    - <a href="#5_122-表达式中各项的顺序"
-      id="toc-5_122-表达式中各项的顺序">5_1.2.2 表达式中各项的顺序</a>
-  - <a href="#5_13-单因素方差分析" id="toc-5_13-单因素方差分析">5_1.3
-    单因素方差分析</a>
-    - <a href="#5_131-多重比较" id="toc-5_131-多重比较">5_1.3.1 多重比较</a>
-    - <a href="#5_132-评估检验的假设条件"
-      id="toc-5_132-评估检验的假设条件">5_1.3.2 评估检验的假设条件</a>
-  - <a href="#5_14-单因素协方差分析" id="toc-5_14-单因素协方差分析">5_1.4
-    单因素协方差分析</a>
-    - <a href="#5_141-评估检验的假设条件"
-      id="toc-5_141-评估检验的假设条件">5_1.4.1 评估检验的假设条件</a>
-    - <a href="#5_142-结果可视化" id="toc-5_142-结果可视化">5_1.4.2
-      结果可视化</a>
-  - <a href="#5_15-双因素方差分析" id="toc-5_15-双因素方差分析">5_1.5
-    双因素方差分析</a>
-  - <a href="#5_16-重复测量方差分析" id="toc-5_16-重复测量方差分析">5_1.6
-    重复测量方差分析</a>
-  - <a href="#5_17-多元方差分析" id="toc-5_17-多元方差分析">5_1.7
-    多元方差分析</a>
-    - <a href="#5_171-评估假设检验" id="toc-5_171-评估假设检验">5_1.7.1
-      评估假设检验</a>
-  - <a href="#5_18-组间差异的非参数检验秩和检验"
-    id="toc-5_18-组间差异的非参数检验秩和检验">5_1.8
-    组间差异的非参数检验（秩和检验）</a>
-    - <a href="#5_181-多于两组的比较" id="toc-5_181-多于两组的比较">5_1.8.1
-      多于两组的比较</a>
+
 
 Source：
 
 1.  《R语言实战（中文第二版）》
 
-2.  [【B站】从零开始学 R
-    语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
+2.  [【B站】从零开始学 R 语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
 
 # 5_1 方差分析
 
-- 本章需要使用car、gplots、HH、rrcov、multcomp、effects、MASS和mvoutlier包。运行后面的代码示例时，请确保已安装以上这些包。
+-   本章需要使用car、gplots、HH、rrcov、multcomp、effects、MASS和mvoutlier包。运行后面的代码示例时，请确保已安装以上这些包。
 
 ## 5_1.1 术语速成
 
-- 以焦虑症治疗为例，现有两种治疗方案：认知行为疗法 (CBT)
-  和眼动脱敏再加工法 (EMDR)。
+-   以焦虑症治疗为例，现有两种治疗方案：认知行为疗法 (CBT) 和眼动脱敏再加工法 (EMDR)。
 
-- 仅有一个类别型变量的统计设计，称为**单因素方差分析(one-way
-  ANOVA)**，或进一步称为单因素组间方差分析。
+-   仅有一个类别型变量的统计设计，称为**单因素方差分析(one-way ANOVA)**，或进一步称为单因素组间方差分析。
 
-- 由于在每种治疗方案下观测数相等，因此这种设计也称为均衡设计(balanced
-  design)；若观测数不同，则称作非均衡设计(unbalanced design)。
+-   由于在每种治疗方案下观测数相等，因此这种设计也称为均衡设计(balanced design)；若观测数不同，则称作非均衡设计(unbalanced design)。
 
-- 当设计包含两个甚至更多的因子时，便是**因素方差分析**设计，比如两因子时称作双因素方差分析，三因子时称作三因素方差分析，以此类推。若因子设计包括组内和组间因子，又称作**混合模型方差分析**，比如，疗法(therapy)和时间(time)都作为因子时，我们既可分析疗法的影响(时间跨度上的平均)和时间的影响(疗法类型跨度上的平均)，又可分析疗法和时间的交互影响，前两个称作**主效应**，交互部分称作**交互效应**，这就是典型的双因素混合模型方差分析。
+-   当设计包含两个甚至更多的因子时，便是**因素方差分析**设计，比如两因子时称作双因素方差分析，三因子时称作三因素方差分析，以此类推。若因子设计包括组内和组间因子，又称作**混合模型方差分析**，比如，疗法(therapy)和时间(time)都作为因子时，我们既可分析疗法的影响(时间跨度上的平均)和时间的影响(疗法类型跨度上的平均)，又可分析疗法和时间的交互影响，前两个称作**主效应**，交互部分称作**交互效应**，这就是典型的双因素混合模型方差分析。
 
-- 本例将做三次F检验：疗法因素一次，时间因素一次，两者交互因素一次。1、若疗法结果显著，说明CBT和EMDR对焦虑症的治疗效果不同；2、若时间结果显著，说明焦虑度从五周到六个月发生了变化；3、若两者交互效应显著，说明两种疗法随着时间变化对焦虑症治疗影响不同(也就是说，焦虑度从五周到六个月的改变程度在两种疗法间是不同的)。
+-   本例将做三次F检验：疗法因素一次，时间因素一次，两者交互因素一次。1、若疗法结果显著，说明CBT和EMDR对焦虑症的治疗效果不同；2、若时间结果显著，说明焦虑度从五周到六个月发生了变化；3、若两者交互效应显著，说明两种疗法随着时间变化对焦虑症治疗影响不同(也就是说，焦虑度从五周到六个月的改变程度在两种疗法间是不同的)。
 
-- 对上面的实验设计稍微做些扩展。已知抑郁症对病症治疗有影响，而且**抑郁症和焦虑症常常同时出现**。抑郁症也可以解释因变量的组间差异，因此它常称为**混淆因素(confounding
-  factor)**。由于对抑郁症不感兴趣，因此，它也被称作**干扰变数(nuisance
-  variable)**。假设招募患者时使用抑郁症的自我评测报告（白氏抑郁症量表(BDI)）记录了他们的抑郁水平，那么可以在评测疗法类型的影响前，**对任何抑郁水平的组间差异进行统计性调整**。
+-   对上面的实验设计稍微做些扩展。已知抑郁症对病症治疗有影响，而且**抑郁症和焦虑症常常同时出现**。抑郁症也可以解释因变量的组间差异，因此它常称为**混淆因素(confounding factor)**。由于对抑郁症不感兴趣，因此，它也被称作**干扰变数(nuisance variable)**。假设招募患者时使用抑郁症的自我评测报告（白氏抑郁症量表(BDI)）记录了他们的抑郁水平，那么可以在评测疗法类型的影响前，**对任何抑郁水平的组间差异进行统计性调整**。
 
-- 本案例中，BDI为协变量，该设计为**协方差分析(ANCOVA)**。以上设计只记录了单个因变量情况(STAI)，为增强研究的有效性，可以对焦虑症进行其他的测量(比如家庭评分、医师评分,以及焦虑症对日常行为的影响评价)。当因变量不止一个时，设计被称作**多元方差分析(MANOVA)**，若协变量也存在，那么就叫**多元协方差分析(MANCOVA)**。
+-   本案例中，BDI为协变量，该设计为**协方差分析(ANCOVA)**。以上设计只记录了单个因变量情况(STAI)，为增强研究的有效性，可以对焦虑症进行其他的测量(比如家庭评分、医师评分,以及焦虑症对日常行为的影响评价)。当因变量不止一个时，设计被称作**多元方差分析(MANOVA)**，若协变量也存在，那么就叫**多元协方差分析(MANCOVA)**。
 
 ## 5_1.2 ANOVA模型拟合
 
 ### 5_1.2.1 `aov()`函数
 
-- `aov()`函数的语法为`aov(formula,data=dataframe)`，下表列举了表达式中可以使用的特殊符号，y是因变量，字母A、B、C代表因子。
+-   `aov()`函数的语法为`aov(formula,data=dataframe)`，下表列举了表达式中可以使用的特殊符号，y是因变量，字母A、B、C代表因子。
 
-  | 符号 | 用法                                                                                                        |
-  |------|-------------------------------------------------------------------------------------------------------------|
-  | \~   | 分隔符号,左边为响应变量，右边为解释变量。例如，用 A、B 和 C 预测 y，代码为 y \~ A + B + C。                 |
-  | :    | 表示变量的交互项。例如，用 A、B 和 A 与 B 的交互项来预测 y，代码为 y \~ A + B + A:B。                       |
-  | \*   | 表示所有可能交互项。代码 y \~ A \* B \* C 可展开为 y \~ A + B + C + A:B + A:C + B:C + A:B:。                |
-  | ^    | 表示交互项达到某个次数。代码 y \~ (A + B + C)^2 可展开为 y \~ A + B + C + A:B + A:C + B:C。                 |
-  | .    | 表示包含除因变量外的所有变量。例如，若一个数据框包含变量 y、A、B 和 C，代码 y \~ .可展开为 y \~ A + B + C。 |
+    | 符号 | 用法                                                                                                        |
+    |------|-------------------------------------------------------------------------------------------------------------|
+    | \~   | 分隔符号,左边为响应变量，右边为解释变量。例如，用 A、B 和 C 预测 y，代码为 y \~ A + B + C。                 |
+    | :    | 表示变量的交互项。例如，用 A、B 和 A 与 B 的交互项来预测 y，代码为 y \~ A + B + A:B。                       |
+    | \*   | 表示所有可能交互项。代码 y \~ A \* B \* C 可展开为 y \~ A + B + C + A:B + A:C + B:C + A:B:。                |
+    | \^   | 表示交互项达到某个次数。代码 y \~ (A + B + C)\^2 可展开为 y \~ A + B + C + A:B + A:C + B:C。                |
+    | .    | 表示包含除因变量外的所有变量。例如，若一个数据框包含变量 y、A、B 和 C，代码 y \~ .可展开为 y \~ A + B + C。 |
 
-- 下表列举了一些常见的研究设计表达式，小写字母表示定量变量，大写字母表示组别因子，Subject是对被试者独有的标识变量。
+-   下表列举了一些常见的研究设计表达式，小写字母表示定量变量，大写字母表示组别因子，Subject是对被试者独有的标识变量。
 
-  | 设计                                               | 表达式                         |
-  |----------------------------------------------------|--------------------------------|
-  | 单因素 ANOVA                                       | y \~ A                         |
-  | 含单个协变量的单因素 ANCOVA                        | y \~ x + A                     |
-  | 双因素 ANOVA                                       | y \~ A \* B                    |
-  | 含两个协变量的双因素 ANCOVA                        | y \~ x1 + x2 + A\*B            |
-  | 随机化区组                                         | y \~ B + A(B 是区组因子)       |
-  | 单因素组内 ANOVA                                   | y \~ A + Error(Subject/A)      |
-  | 含单个组内因子(W)和单个组间因子(B)的重复测量 ANOVA | y \~ B \* W + Error(Subject/W) |
+    | 设计                                               | 表达式                         |
+    |----------------------------------------------------|--------------------------------|
+    | 单因素 ANOVA                                       | y \~ A                         |
+    | 含单个协变量的单因素 ANCOVA                        | y \~ x + A                     |
+    | 双因素 ANOVA                                       | y \~ A \* B                    |
+    | 含两个协变量的双因素 ANCOVA                        | y \~ x1 + x2 + A\*B            |
+    | 随机化区组                                         | y \~ B + A(B 是区组因子)       |
+    | 单因素组内 ANOVA                                   | y \~ A + Error(Subject/A)      |
+    | 含单个组内因子(W)和单个组间因子(B)的重复测量 ANOVA | y \~ B \* W + Error(Subject/W) |
 
 ### 5_1.2.2 表达式中各项的顺序
 
 - 表达式中效应的顺序在两种情况下会造成影响：(a)因子不止一个，并且是非平衡设计；(b)存在协变量。
 
-- R默认类型I(序贯型)方法计算ANOVA效应(参考补充内容P202“顺序很重要!”)。第一个模型可以这样写：y
-  \~ A + B +
-  A:B。R中的ANOVA表的结果将评价：1、A对y的影响；2、控制A时，B对y的影响；控制A和B的主效应时，A与B的交互效应。
+- R默认类型I(序贯型)方法计算ANOVA效应(参考补充内容P202“顺序很重要!”)。第一个模型可以这样写：y ~ A + B + A:B。R中的ANOVA表的结果将评价：1、A对y的影响；2、控制A时，B对y的影响；控制A和B的主效应时，A与B的交互效应。
 
-- **基本的准则：若研究设计不是正交的(也就是说，因子和/或协变量相关)，一定要谨慎设置效应的顺序**。
+- **基本的准则：若研究设计不是正交的(也就是说，因子和/或协变量相关)，一定要谨慎设置效应的顺序**。 
 
 - 请注意car包中的`Anova()`函数(不要与标准`anova()`函数混淆)提供了使用类型Ⅱ或类型Ⅲ方法的选项，而`aov()`函数使用的是类型I方法。若想使结果与其他软件(如SAS和SPSS)提供的结果保持一致，可以使用`Anova()`函数，细节可参考`help(Anova, package="car")`。
 
@@ -114,7 +82,8 @@ Source：
 
 - 需要安装mvtnorm、survival、TH.data、MASS包。
 
-``` r
+
+```r
 > library(multcomp) # 加载包
 > attach(cholesterol) # 加载数据集
 > table(trt) # 各组样本大小
@@ -123,7 +92,8 @@ trt
     10     10     10     10     10 
 ```
 
-``` r
+
+```r
 > options(digits = 3)
 > aggregate(response, by=list(trt), FUN=mean) # 各组均值显示drugE降低胆固醇最多,而1time降低胆固醇最少
   Group.1     x
@@ -134,7 +104,8 @@ trt
 5   drugE 20.95
 ```
 
-``` r
+
+```r
 > aggregate(response, by=list(trt), FUN=sd) # 各组标准差相对恒定,在2.88到3.48间浮动
   Group.1    x
 1   1time 2.88
@@ -144,7 +115,8 @@ trt
 5   drugE 3.35
 ```
 
-``` r
+
+```r
 > fit <- aov(response ~ trt)  # 检验组间差异(ANOVA)，ANOVA对治疗方式(trt)的F检验非常显著(p<0.0001) ,说明五种疗法的效果不同
 > summary(fit)
             Df Sum Sq Mean Sq F value  Pr(>F)    
@@ -154,16 +126,17 @@ Residuals   45    469      10
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-``` r
+
+```r
 > library(gplots) # 加载包
 > # 绘制各组均值及其置信区间的图形
 > plotmeans(response ~ trt, xlab="Treatment", ylab="Response",   
 +           main="Mean Plot\nwith 95% CI")  
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
-``` r
+```r
 > detach(cholesterol) # 卸载数据集
 ```
 
@@ -173,7 +146,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 虽然ANOVA对各疗法的F检验表明五种药物疗法效果不同，但是并没有告诉你哪种疗法与其他疗法不同。多重比较可以解决这个问题。
 
-``` r
+
+```r
 > TukeyHSD(fit) # TukeyHSD()函数提供了对各组均值差异的成对检验
   Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -194,26 +168,26 @@ drugE-4times   8.57  4.471 12.67 0.000
 drugE-drugD    5.59  1.485  9.69 0.003
 ```
 
-``` r
+```r
 > par(las=2) # 第一个par语句用来旋转轴标签
 > par(mar=c(5,8,4,2))  # 第二个用来增大左边界的面积，可使标签摆放更美观
 > plot(TukeyHSD(fit))
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-7-1.png)<!-- --> -
-图形中置信区间包含0的疗法说明差异不显著(p\>0.5)。
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+- 图形中置信区间包含0的疗法说明差异不显著(p>0.5)。
 
-- 【重点掌握】multcomp包中的`glht()`函数提供了多重均值比较更为全面的方法，既适用于线性模型(如本章各例)，也适用于广义线性模型。下面的代码重现了Tukey
-  HSD检验，并用一个不同的图形对结果进行展示：
+- 【重点掌握】multcomp包中的`glht()`函数提供了多重均值比较更为全面的方法，既适用于线性模型(如本章各例)，也适用于广义线性模型。下面的代码重现了Tukey HSD检验，并用一个不同的图形对结果进行展示：
 
-``` r
+
+```r
 > library(multcomp) 
 > par(mar=c(5,4,6,2)) 
 > tuk <- glht(fit, linfct=mcp(trt="Tukey")) 
 > plot(cld(tuk, level=.05),col="lightgrey")
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 - 上面的代码中，为适合字母阵列摆放，par语句增大了顶部边界面积。cld()函数中的level选项设置了使用的显著水平(0.05，即本例中的95%的置信区间)。有相同字母的组(用箱线图表示)说明均值差异不显著。可以看到，1time和2times差异不显著(有相同的字母a)，2times和4times差异也不显著(有相同的字母b)，而1time和4times差异显著(它们没有共同的字母)。
 
@@ -225,26 +199,30 @@ drugE-drugD    5.59  1.485  9.69 0.003
 
 - 可以使用Q-Q图来检验正态性假设：
 
-``` r
+
+```r
 > library(car) 
 > # 注意qqPlot()要求用lm()拟合
 > qqPlot(lm(response ~ trt, data=cholesterol),         
 +        simulate=TRUE, main="Q-Q Plot", labels=FALSE)
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
-    [1] 19 38
+```
+[1] 19 38
+```
 
 - 数据落在95%的置信区间范围内，说明满足正态性假设。
 
 - R提供了一些可用来做方差齐性检验的函数。例如，可以通过如下代码来做Bartlett检验：
 
-``` r
+
+```r
 > options(digits = 5)
 > bartlett.test(response ~ trt, data=cholesterol)
 
-    Bartlett test of homogeneity of variances
+	Bartlett test of homogeneity of variances
 
 data:  response by trt
 Bartlett's K-squared = 0.58, df = 4, p-value = 0.97
@@ -254,7 +232,8 @@ Bartlett's K-squared = 0.58, df = 4, p-value = 0.97
 
 - 不过，方差齐性分析对离群点非常敏感。可利用car包中的`outlierTest()`函数来检测离群点：
 
-``` r
+
+```r
 > library(car)  
 > outlierTest(fit)
 No Studentized residuals with Bonferroni p < 0.05
@@ -263,18 +242,18 @@ Largest |rstudent|:
 19   2.2511           0.029422           NA
 ```
 
-- 从输出结果来看，并没有证据说明胆固醇数据中含有离群点(当p\>1时将产生NA)。因此根据Q-Q图、Bartlett检验和离群点检验，该数据似乎可以用ANOVA模型拟合得很好。
+- 从输出结果来看，并没有证据说明胆固醇数据中含有离群点(当p>1时将产生NA)。因此根据Q-Q图、Bartlett检验和离群点检验，该数据似乎可以用ANOVA模型拟合得很好。
 
 ## 5_1.4 单因素协方差分析
 
 - 单因素协方差分析(ANCOVA)扩展了单因素方差分析(ANOVA)，包含一个或多个定量的协变量。
 
-- 下面的例子来自于multcomp包中的litter数据集(见Westfall et
-  al.,1999)。怀孕小鼠被分为四个小组，每个小组接受不同剂量(0、5、50或500)的药物处理。产下幼崽的体重均值为因变量，怀孕时间为协变量。
+- 下面的例子来自于multcomp包中的litter数据集(见Westfall et al.,1999)。怀孕小鼠被分为四个小组，每个小组接受不同剂量(0、5、50或500)的药物处理。产下幼崽的体重均值为因变量，怀孕时间为协变量。
 
 - 代码清单9-3 单因素ANCOVA
 
-``` r
+
+```r
 > data(litter, package="multcomp")  
 > attach(litter) 
 > table(dose) # 利用table()函数,可以看到每种剂量下所产的幼崽数并不相同:0剂量时(未用药)产崽20个,500剂量时产崽17个
@@ -283,7 +262,7 @@ dose
  20  19  18  17 
 ```
 
-``` r
+```r
 > # 用aggregate()函数获得各组均值,可以发现未用药组幼崽体重均值最高(32.3) 
 > options(digits = 3)
 > aggregate(weight, by=list(dose), FUN=mean) 
@@ -294,7 +273,7 @@ dose
 4     500 29.6
 ```
 
-``` r
+```r
 > options(digits = 8)
 > fit <- aov(weight ~ gesttime + dose) 
 > summary(fit)
@@ -310,7 +289,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 由于使用了协变量，可能还想要获取调整的组均值，即去除协变量效应后的组均值。可使用effects包中的`effects()`函数来计算调整的均值：
 
-``` r
+
+```r
 > library(effects) 
 > options(digits = 3)
 > effect("dose", fit)
@@ -329,13 +309,14 @@ dose
 
 - 代码清单9-4 对用户定义的对照的多重比较
 
-``` r
+
+```r
 > library(multcomp)  
 > contrast <- rbind("no drug vs. drug" = c(3, -1, -1, -1)) 
 > options(digits = 7)
 > summary(glht(fit, linfct=mcp(dose=contrast)))
 
-     Simultaneous Tests for General Linear Hypotheses
+	 Simultaneous Tests for General Linear Hypotheses
 
 Multiple Comparisons of Means: User-defined Contrasts
 
@@ -350,8 +331,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 (Adjusted p values reported -- single-step method)
 ```
 
-- 对照c(3, -1, -1,
-  -1)设定第一组和其他三组的均值进行比较。假设检验的t统计量(2.581)在p\<0.05水平下显著，因此，可以得出未用药组比其他用药条件下的出生体重高的结论。其他对照可用`rbind()`函数添加(详见help(glht))。
+- 对照c(3, -1, -1, -1)设定第一组和其他三组的均值进行比较。假设检验的t统计量(2.581)在p<0.05水平下显著，因此，可以得出未用药组比其他用药条件下的出生体重高的结论。其他对照可用`rbind()`函数添加(详见help(glht))。
 
 ### 5_1.4.1 评估检验的假设条件
 
@@ -363,7 +343,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 代码清单9-5 检验回归斜率的同质性
 
-``` r
+
+```r
 > library(multcomp)  
 > fit2 <- aov(weight ~ gesttime*dose, data=litter)
 > options(digits = 6)
@@ -383,7 +364,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - HH包中的`ancova()`函数可以绘制因变量、协变量和因子之间的关系图。
 
-``` r
+
+```r
 > library(HH) 
 > ancova(weight ~ gesttime + dose, data=litter)
 Analysis of Variance Table
@@ -397,7 +379,7 @@ Residuals 69 1151.3   16.69
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 - 从图中可以看到，用怀孕时间来预测出生体重的回归线相互平行，只是截距项不同。随着怀孕时间增加，幼崽出生体重也会增加。另外，还可以看到0剂量组截距项最大，5剂量组截距项最小。由于上面的设置，直线会保持平行，若用`ancova(weight ~ gesttime*dose)`，生成的图形将允许斜率和截距项依据组别而发生变化，这对可视化那些违背回归斜率同质性的实例非常有用。
 
@@ -407,7 +389,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 代码清单9-6 双因素ANOVA
 
-``` r
+
+```r
 > attach(ToothGrowth)  
 > table(supp, dose) # table语句的预处理表明该设计是均衡设计(各设计单元中样本大小都相同)
     dose
@@ -416,7 +399,7 @@ supp 0.5  1  2
   VC  10 10 10
 ```
 
-``` r
+```r
 > aggregate(len, by=list(supp, dose), FUN=mean) # aggregate 语句处理可获得各单元的均值和标准差
   Group.1 Group.2     x
 1      OJ     0.5 13.23
@@ -427,7 +410,7 @@ supp 0.5  1  2
 6      VC     2.0 26.14
 ```
 
-``` r
+```r
 > options(digits = 3)
 > aggregate(len, by=list(supp, dose), FUN=sd)
   Group.1 Group.2    x
@@ -439,7 +422,7 @@ supp 0.5  1  2
 6      VC     2.0 4.80
 ```
 
-``` r
+```r
 > dose <- factor(dose) # dose变量被转换为因子变量, 这样aov()函数就会将它当做一个分组变量, 而不是一个数值型协变量
 > fit <- aov(len ~ supp*dose) 
 > summary(fit) # 用summary()函数得到方差分析表, 可以看到主效应(supp和dose)和交互效应都非常显著
@@ -455,16 +438,17 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 有多种方式对结果进行可视化处理。此处可用`interaction.plot()`函数来展示双因素方差分析的交互效应。
 
-``` r
+
+```r
 > attach(ToothGrowth)  
 > interaction.plot(dose, supp, len, type="b",         
 +                  col=c("red","blue"), pch=c(16, 18),              
 +                  main = "Interaction between Dose and Supplement Type")
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
-``` r
+```r
 > detach(ToothGrowth)
 ```
 
@@ -472,7 +456,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 还可以用gplots包中的`plotmeans()`函数来展示交互效应。
 
-``` r
+
+```r
 > library(gplots) 
 > attach(ToothGrowth)  
 > plotmeans(len ~ interaction(supp, dose, sep=" "),      
@@ -482,9 +467,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +           xlab="Treatment and Dose Combination")
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
-``` r
+```r
 > detach(ToothGrowth)
 ```
 
@@ -492,22 +477,24 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 最后，用HH包中的`interaction2wt()`函数来可视化结果，图形对任意顺序的因子设计的主效应和交互效应都会进行展示。
 
-``` r
+
+```r
 > library(HH)
 > attach(ToothGrowth) 
 > interaction2wt(len~supp*dose)
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
-``` r
+```r
 > detach(ToothGrowth)
 ```
 
 - 上面三幅图形都表明：
   - 1、随着橙汁和维生素C中的抗坏血酸剂量的增加，牙齿长度变长。
   - 2、对于0.5mg和1mg剂量，橙汁比维生素C更能促进牙齿生长。
-  - 3、对于2mg剂量的抗坏血酸，两种喂食方法下牙齿长度增长相同。
+  - 3、对于2mg剂量的抗坏血酸，两种喂食方法下牙齿长度增长相同。 
+
 - 三种绘图方法中更推荐HH包中的`interaction2wt()`函数，因为它能展示任意复杂度设计(双因素方差分析、三因素方差分析等)的主效应(箱线图)和交互效应。
 
 ## 5_1.6 重复测量方差分析
@@ -516,17 +503,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 本节重点关注含一个组内和一个组间因子的重复测量方差分析(这是一个常见的设计)。示例来源于生理生态学领域，研究方向是生命系统的生理和生化过程如何响应环境因素的变异(此为应对全球变暖的一个非常重要的研究领域)。
 
-- 基础安装包中的CO2数据集包含了北方和南方牧草类植物Echinochloa
-  crus-galli
-  (Potvin、Lechowicz、Tardif,1990)的寒冷容忍度研究结果，在某浓度二氧化碳的环境中，对寒带植物与非寒带植物的光合作用率进行了比较。研究所用植物一半来自于加拿大的魁北克省(Quebec)，另一半来自美国的密西西比州(Mississippi)。
+- 基础安装包中的CO2数据集包含了北方和南方牧草类植物Echinochloa crus-galli (Potvin、Lechowicz、Tardif,1990)的寒冷容忍度研究结果，在某浓度二氧化碳的环境中，对寒带植物与非寒带植物的光合作用率进行了比较。研究所用植物一半来自于加拿大的魁北克省(Quebec)，另一半来自美国的密西西比州(Mississippi)。 
 
-- 首先关注寒带植物。因变量是二氧化碳吸收量(uptake)，单位为ml/L，自变量是植物类型Type(魁北克VS.密西西比)
-  和七种水平 (95\~1000 umol/m^2 sec)的二氧化碳浓度
-  (conc)。另外，Type是组间因子，conc是组内因子。Type已经被存储为一个因子变量，但还需要先将conc转换为因子变量。
+- 首先关注寒带植物。因变量是二氧化碳吸收量(uptake)，单位为ml/L，自变量是植物类型Type(魁北克VS.密西西比) 和七种水平 (95~1000 umol/m^2 sec)的二氧化碳浓度 (conc)。另外，Type是组间因子，conc是组内因子。Type已经被存储为一个因子变量，但还需要先将conc转换为因子变量。
 
 - 代码清单9-7 含一个组间因子和一个组内因子的重复测量方差分析
 
-``` r
+
+```r
 > CO2$conc <- factor(CO2$conc)
 > w1b1 <- subset(CO2, Treatment=='chilled')
 > fit <- aov(uptake ~ conc*Type + Error(Plant/(conc)), w1b1) 
@@ -548,7 +532,8 @@ Residuals 24    112     4.7
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-``` r
+
+```r
 > par(las=2) 
 > par(mar=c(10,4,4,2)) 
 > with(w1b1, interaction.plot(conc,Type,uptake,    
@@ -556,22 +541,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +                             main="Interaction Plot for Plant Type and Concentration")) 
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
 
-``` r
+```r
 > boxplot(uptake ~ Type*conc, data=w1b1, col=(c("gold", "green")),     
 +         main="Chilled Quebec and Mississippi Plants",      
 +         ylab="Carbon dioxide uptake rate (umol/m^2 sec)",
 +         xlab=" ")
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-27-2.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-27-2.png)<!-- -->
 
 - 从以上任意一幅图都可以看出，魁北克省的植物比密西西比州的植物二氧化碳吸收率高，而且随着CO2浓度的升高，差异越来越明显。
 
 - 重复测量方差分析案例2
 
-``` r
+
+```r
 > Example8_12  <- read.table ("example8_12.csv", header=TRUE, sep=",")
 > attach(Example8_12)
 > type  <-factor(type, order=FALSE) # order=FALSE表明该因子对象内是无序关系
@@ -603,7 +589,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 代码清单9-8 单因素多元方差分析
 
-``` r
+
+```r
 > library(MASS)  
 > attach(UScereal) 
 > shelf <- factor(shelf) # 将shelf变量转换为因子变量, 从而使它在后续分析中能作为分组变量
@@ -615,7 +602,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 3       3      180 1.945   10.9
 ```
 
-``` r
+```r
 > options(digits = 3)
 > cov(y) # cov()则输出各谷物间的方差和协方差
          calories   fat sugars
@@ -624,7 +611,7 @@ fat          60.7  2.71    4.0
 sugars      180.4  4.00   34.1
 ```
 
-``` r
+```r
 > fit <- manova(y ~ shelf) # manova()函数能对组间差异进行多元检验。 
 > summary(fit)
           Df Pillai approx F num Df den Df Pr(>F)    
@@ -636,7 +623,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 上面F值显著，说明三个组的营养成分测量值不同。注意shelf变量已经转成了因子变量，因此它可以代表一个分组变量。
 
-``` r
+
+```r
 > summary.aov(fit) # 输出单变量结果。由于多元检验是显著的，可以使用summary.aov()函数对每一个变量做单因素方差分析
  Response calories :
             Df Sum Sq Mean Sq F value  Pr(>F)    
@@ -666,12 +654,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - 单因素多元方差分析有两个前提假设，一个是多元正态性，一个是方差-协方差矩阵同质性。
 
-- 第一个假设即指因变量组合成的向量服从一个多元正态分布。可以用Q-Q图来检验该假设条件(参见P218“理论补充”对其工作原理的统计解释)
-  。
+- 第一个假设即指因变量组合成的向量服从一个多元正态分布。可以用Q-Q图来检验该假设条件(参见P218“理论补充”对其工作原理的统计解释) 。
 
 - 代码清单9-9 检验多元正态性
 
-``` r
+
+```r
 > center <- colMeans(y)
 > n <- nrow(y)  
 > p <- ncol(y) 
@@ -683,11 +671,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > abline(a=0,b=1) 
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
 
 - 若数据服从多元正态分布，那么点将落在直线上。
 
-``` r
+
+```r
 > center <- colMeans(y)
 > n <- nrow(y)  
 > p <- ncol(y) 
@@ -702,24 +691,24 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +      cex=1, pos=2, col="red")
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-34-1.png)<!-- -->
 
-- 可以通过identify()函数(参见P176)交互性地对图中的点进行鉴别，也可以直接把点的名称直接标上。从图形上看，观测点“Wheaties
-  Honey
-  Gold”和“Wheaties”异常，数据集似乎违反了多元正态性。可以删除这两个点再重新分析。
+- 可以通过identify()函数(参见P176)交互性地对图中的点进行鉴别，也可以直接把点的名称直接标上。从图形上看，观测点“Wheaties Honey Gold”和“Wheaties”异常，数据集似乎违反了多元正态性。可以删除这两个点再重新分析。
+
 
 - 最后，还可以使用mvoutlier包中的`ap.plot()`函数来检验多元离群点。
 
-``` r
+
+```r
 > library(mvoutlier) 
 > outliers <- aq.plot(y) 
 Projection to the first and second robust principal components.
 Proportion of total variation (explained variance): 0.979
 ```
 
-![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](Phase2_R_Advanced_Learning_5_方差分析_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
 
-``` r
+```r
 > outliers
 $outliers
  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
@@ -734,45 +723,44 @@ $outliers
 
 ### 5_1.8.1 多于两组的比较
 
-- 如果无法满足ANOVA设计的假设，那么可以使用非参数方法来评估组间的差异。如果各组独立，则Kruskal-Wallis检验将是一种实用的方法。如果各组不独立(如重复测量设计或随机区组设计)，那么Friedman检验会更合适。
+- 如果无法满足ANOVA设计的假设，那么可以使用非参数方法来评估组间的差异。如果各组独立，则Kruskal-Wallis检验将是一种实用的方法。如果各组不独立(如重复测量设计或随机区组设计)，那么Friedman检验会更合适。 
 
 - Kruskal-Wallis检验的调用格式为：
 
-  `kruskal.test(y ~ A, data)`
-
-  - 其中的y是一个数值型结果变量，A是一个拥有两个或更多水平的分组变量(grouping
-    variable)。(若有两个水平,则它与Mann-Whitney U检验等价。)
-
+  `kruskal.test(y ~ A, data)` 
+  
+  - 其中的y是一个数值型结果变量，A是一个拥有两个或更多水平的分组变量(grouping variable)。(若有两个水平,则它与Mann-Whitney U检验等价。)
+  
 - 而Friedman检验的调用格式为：
 
   `friedman.test(y ~ A | B, data)`
+  
+  - 其中的y是数值型结果变量，A是一个分组变量，而B是一个用以认定匹配观测的区组变量(blocking variable)。
+  
+- 在以上两例中：data皆为可选参数，它指定了包含这些变量的矩阵或数据框。 
 
-  - 其中的y是数值型结果变量，A是一个分组变量，而B是一个用以认定匹配观测的区组变量(blocking
-    variable)。
-
-- 在以上两例中：data皆为可选参数，它指定了包含这些变量的矩阵或数据框。
-
-- 利用Kruskal-Wallis检验回答文盲率的问题。
+- 利用Kruskal-Wallis检验回答文盲率的问题。 
 
 - 首先，将地区的名称添加到数据集中，这些信息包含在随R基础安装分发的state.region数据集中。
 
-``` r
+
+```r
 > states <- data.frame(state.region, state.x77)
 > kruskal.test(Illiteracy ~ state.region, data=states)
 
-    Kruskal-Wallis rank sum test
+	Kruskal-Wallis rank sum test
 
 data:  Illiteracy by state.region
 Kruskal-Wallis chi-squared = 23, df = 3, p-value = 5e-05
 ```
-
-- 显著性检验的结果意味着美国四个地区的文盲率各不相同(p\<0.001) 。
+- 显著性检验的结果意味着美国四个地区的文盲率各不相同(p<0.001) 。
 
 - 代码清单7-17 通过这个函数比较了美国四个区域的文盲率
 
 - `从www.statmethods.net/RiA/wmc.txt`上下载到一个包含`wmc()`函数的文本文件
 
-``` r
+
+```r
 > source("/Users/liang.hanqing/Documents/Git-local/Github_Bioinformatics_Learning/R/Phase1_R_Basic_Learning/wmc.txt") 
 > states <- data.frame(state.region, state.x77) 
 > options(digits = 3)
@@ -800,18 +788,18 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 - `source()`函数下载并执行了定义`wmc()`函数的R脚本。函数的形式是`wmc(y ~ A,data,method)`，其中y是数值输出变量，A是分组变量，data是包含这些变量的数据框，method指定限制I类误差的方法。
 
-- `wmc()`函数首先给出了样本量、样本中位数、每组的绝对中位差。其中，西部地区(West)的文盲率最低，南部地区(South)文盲率最高。然后,函数生成了六组统计比较(南部与中北部(North
-  Central)、西部与东北部(Northeast)、西部与南部、中北部与东北部、中北部与南部、东北部与南部)。可以从双侧p值(p)看到，南部与其他三个区域有明显差别，但当显著性水平p\<0.05时，其他三个区域间并没有统计显著的差别。
+- `wmc()`函数首先给出了样本量、样本中位数、每组的绝对中位差。其中，西部地区(West)的文盲率最低，南部地区(South)文盲率最高。然后,函数生成了六组统计比较(南部与中北部(North Central)、西部与东北部(Northeast)、西部与南部、中北部与东北部、中北部与南部、东北部与南部)。可以从双侧p值(p)看到，南部与其他三个区域有明显差别，但当显著性水平p<0.05时，其他三个区域间并没有统计显著的差别。
 
 - 案例2：
 
-``` r
+
+```r
 > example14_11  <- read.table ("example14_11.csv", header=TRUE, sep=",")
 > attach(example14_11)
 > group <-factor(group)
 > kruskal.test(rate ~ group)
 
-    Kruskal-Wallis rank sum test
+	Kruskal-Wallis rank sum test
 
 data:  rate by group
 Kruskal-Wallis chi-squared = 10, df = 2, p-value = 0.008
@@ -922,19 +910,20 @@ attr(,"class")
 > detach(example14_11)
 ```
 
-- 主要看\$Analysis，各组数据的比较结果。
+- 主要看$Analysis，各组数据的比较结果。
 
 - friedman.test案例3：
 
 - 安装PMCMRplus包。
 
-``` r
+
+```r
 > example14_18  <- read.table ("example14_18.csv", header=TRUE, sep=",")
 > attach(example14_18)
 > options(digits = 6)
 > friedman.test (rate~ treat|block)
 
-    Friedman rank sum test
+	Friedman rank sum test
 
 data:  rate and treat and block
 Friedman chi-squared = 15.15, df = 3, p-value = 0.00169
@@ -946,3 +935,4 @@ Friedman chi-squared = 15.15, df = 3, p-value = 0.00169
 4 0.0019 0.0443 0.6510
 > detach(example14_18)
 ```
+

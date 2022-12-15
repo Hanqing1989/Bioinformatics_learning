@@ -1,6 +1,9 @@
 ---
 title: "R语言基础学习（第一阶段）——图形初阶"
-output: 
+output:
+  html_document:
+    toc: TRUE
+    keep_md: TRUE
   github_document:
     toc: TRUE
 ---

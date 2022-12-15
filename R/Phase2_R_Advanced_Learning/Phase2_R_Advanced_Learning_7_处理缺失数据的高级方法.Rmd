@@ -1,6 +1,9 @@
 ---
 title: "R语言进阶学习（第二阶段）——处理缺失数据的高级方法"
-output: 
+output:
+  html_document:
+    toc: TRUE
+    keep_md: TRUE
   github_document:
     toc: TRUE
 ---

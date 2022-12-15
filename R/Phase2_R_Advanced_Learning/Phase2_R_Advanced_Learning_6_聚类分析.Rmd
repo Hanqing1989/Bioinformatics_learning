@@ -1,6 +1,9 @@
 ---
 title: "R语言进阶学习（第二阶段）——聚类分析）"
-output: 
+output:
+  html_document:
+    toc: TRUE
+    keep_md: TRUE
   github_document:
     toc: TRUE
 ---

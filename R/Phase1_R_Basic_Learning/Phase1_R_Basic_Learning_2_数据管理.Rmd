@@ -1,6 +1,9 @@
 ---
 title: "R语言基础学习（第一阶段）——数据管理"
-output: 
+output:
+  html_document:
+    toc: TRUE
+    keep_md: TRUE
   github_document:
     toc: TRUE
 ---
