@@ -1,7 +1,9 @@
 ---
 title: "chapter4_折线图"
-output: 
+output:
   github_document:
+    toc: TRUE
+  html_document:
     toc: TRUE
 ---
 

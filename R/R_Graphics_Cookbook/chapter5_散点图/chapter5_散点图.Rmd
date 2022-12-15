@@ -1,7 +1,9 @@
 ---
 title: "chapter5_散点图"
-output: 
+output:
   github_document:
+    toc: TRUE
+  html_document:
     toc: TRUE
 ---
 

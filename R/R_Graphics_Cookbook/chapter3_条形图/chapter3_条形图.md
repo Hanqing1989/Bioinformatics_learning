@@ -614,7 +614,7 @@ Source：
 - 有时人们会用Cleverland点图来替代条形图以减少图形造成的视觉混乱并使图形更具可读性。最简便的绘制Cleverland点图的方法是直接运行`geom_point()`命令：
 
 ``` r
-> library(gcookbook) #为了使用数摇
+> library(gcookbook) #为了使用数据
 > tophit <- tophitters2001[1:25,] #取出tophitters数据集中的前25个数据
 > ggplot(tophit,aes(x=avg,y=name)) + geom_point()
 ```
@@ -652,3 +652,58 @@ Source：
 ```
 
 ![](chapter3_条形图_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+
+- 我们也可以将点图的x轴和y轴互换，互换后，x轴对应于姓名，y轴将对应于数值，如下图所示。我们也可以将数据标签旋转60”。
+
+``` r
+> ggplot(tophit, aes (x=reorder(name, avg), y=avg)) + 
++   geom_point(size=3) + # 使用更大的点
++   theme_bw() + 
++   theme(axis.text.x = element_text(angle=60, hjust=1),
++         panel.grid.major.y = element_blank(),
++         panel.grid.minor.y = element_blank(),
++         panel.grid.major.x = element_line(colour="grey60", linetype="dashed"))
+```
+
+![](chapter3_条形图_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
+
+- 有时候，根据其他变量对样本进行分组很有用。这里我们根据因子lg对样本进行分组，因子lg对应有NL和AL两个水平，分别表示国家队(National
+  League)和美国队 (American
+  league)。我们依次根据lg和avg对变量进行排序。遗憾的是，`reorder()`函数只能根据一个变量对因子水平进行排序，所以我们只能手动实现上述过程。绘制点图时(见下图)，我们把lg变量映射到点的颜色属性上。借助`geom_segment()`函数用“以数据点为端点的线段”代替贯通全图的网格线。注意`geom_segment()`函数需要设定x、y、xend和yend四个参数：
+
+``` r
+> # 提取出name变量，依次根据变量lg和avg对其进行排序
+> nameorder <- tophit$name[order(tophit$lg, tophit$avg)]
+> #将name转化为因子，因子水平与nameorder一致
+> tophit$name <- factor(tophit$name, levels=nameorder)
+> ggplot(tophit, aes(x=avg, y=name)) + 
++   geom_segment(aes(yend=name), xend=0, colour="grey50") + 
++   geom_point(size=3, aes(colour=lg)) + 
++   scale_colour_brewer(palette="Setl", limits=c("NL","AL")) + 
++   theme_bw() + 
++   theme(panel.grid.major.y = element_blank(),  # 删除水平网格线
++         legend.position=c(1, 0.55),  # 将图例放置在绘图区域中
++         legend.justification=c(1, 0.5))
+```
+
+![](chapter3_条形图_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
+
+- 另外一种分组展示数据的方式是分面，如下图所示。分面条形图中的条形的堆叠顺序与上图中的堆叠顺序有所不同；要修改分面显示的堆叠顺序只有通过调整lg变量的因子水平来实现。
+
+``` r
+> ggplot(tophit, aes(x=avg, y=name)) + 
++   geom_segment(aes(yend=name), xend=0, colour="grey50") + 
++   geom_point(size=3, aes(colour=lg)) + 
++   scale_colour_brewer(palette="Set1", limits=c("NL","AL"), guide=FALSE) + 
++   theme_bw() + 
++   theme(panel.grid.major.y = element_blank()) + 
++   facet_grid(lg ~ ., scales="free_y", space="free_y")
+```
+
+![](chapter3_条形图_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
+
+- 上图以队为分组变量进行分面绘图。
+
+- 更多关于调整因子水平顺序的内容可参见15.8节。关于基于其他变量调整因子水平顺序的细节内容可参见15.9节。
+
+- 更多关于调整图例位置的内容可参见10.2节。更多关于隐藏网格线的内容，可参见9.6节。
