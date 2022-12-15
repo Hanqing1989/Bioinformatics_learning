@@ -3,9 +3,11 @@ title: "RStudio的初始设置和基本操作"
 output:
   html_document:
     toc: TRUE
-    keep_md: TRUE
+  keep_github_document: TRUE
   github_document:
     toc: TRUE
+  
+  
 ---
 
 # 1 连接 Rstudio 与 Github 进行版本控制
