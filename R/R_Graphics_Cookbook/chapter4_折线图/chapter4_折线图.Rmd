@@ -282,8 +282,8 @@ ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup)) +
 - 下面以uspopage数据集为例：
 
 ```{r}
-uspopage
-head(uspopage)
+uspopage6 <- uspopage
+head(uspopage6)
 ```
 
 - 默认情况下图例的堆积顺序与面积图的堆积顺序是相同的。将调色板设定为蓝色渐变色，并在各个区域之间添加细线(linewidth=.2)。同时我们将填充区域设定为半透明(alpha=.4)，这样可以透过填充区域看见网格线。
@@ -343,8 +343,8 @@ ggplot(uspopage_prop, aes(x=Year, y=Percent, fill=AgeGroup)) +
 - 让我们更深入查看上面的数据，并探究一下数据的计算过程：
 
 ```{r}
-uspopage
-head(uspopage)
+uspopage6 <- uspopage
+head(uspopage6)
 ```
 
 - 调用`ddply()`函数，按照变量Year将数据集拆分为多个独立的数据框，对所有数据框执行`transform()`函数并计算每个数据框对应的Percent。最后，调用`ddply()`函数将所有数据框重组在一起：

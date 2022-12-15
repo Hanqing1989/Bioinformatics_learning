@@ -1,0 +1,18 @@
+---
+title: "chapter6_描述数据分布"
+output:
+  github_document:
+    toc: TRUE
+  html_document:
+    toc: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
+```
+
+Source：
+
+1.  《R数据可视化手册》，北京：人民邮电出版社，2014.5
+
+# 6 
