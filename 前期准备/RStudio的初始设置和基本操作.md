@@ -120,15 +120,16 @@ Markdown 入门教程](https://cosx.org/2021/04/rmarkdown-introduction/)。
 
   - 安装xtable包`(install.packages("xtable"))`。这个包中的`xtable()`函数用美观的方式格式化报告中的数据框和矩阵。`xtable()`也可以对`lm()`、`glm()`、`aov()`、`table()`、`ts()`和`coxph()`返回的对象进行格式化。载入这个包后，可以用`methods(xtable)`来查看它能格式化的所有对象列表。
 
-- 如需同时输出Markdown和HTML文档，可在R
+- 如需输出Github的Markdown或HTML文档，可在R
   Markdown文档开头的YAML文件进行永久性设置，参考格式如下：
 
       output:
       html_document:
         toc: TRUE
-        keep_md: TRUE
       github_document:
         toc: TRUE
+
+- 然后在Knit输出选项中选择输出的目标格式即可。
 
 # References
 
