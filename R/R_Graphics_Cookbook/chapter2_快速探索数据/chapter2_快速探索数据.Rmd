@@ -3,7 +3,6 @@ title: "chapter2_快速探索数据"
 output:
   html_document:
     toc: TRUE
-  keep_github_document: TRUE
   github_document:
     toc: TRUE
 ---

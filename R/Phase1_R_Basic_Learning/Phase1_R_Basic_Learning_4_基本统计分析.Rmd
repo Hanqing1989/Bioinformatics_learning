@@ -1,9 +1,9 @@
 ---
 title: "R语言进阶学习（第二阶段）——基本统计分析"
 output:
-  github_document:
-    toc: TRUE
   html_document:
+    toc: TRUE
+  github_document:
     toc: TRUE
 ---
 

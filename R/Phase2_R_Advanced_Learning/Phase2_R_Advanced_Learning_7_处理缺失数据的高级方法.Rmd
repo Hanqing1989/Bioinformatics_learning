@@ -3,7 +3,6 @@ title: "R语言进阶学习（第二阶段）——处理缺失数据的高级�
 output:
   html_document:
     toc: TRUE
-  keep_github_document: TRUE
   github_document:
     toc: TRUE
 ---

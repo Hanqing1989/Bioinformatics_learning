@@ -1,9 +1,9 @@
 ---
 title: "R语言基础学习（第一阶段）——图形初阶"
 output:
-  github_document:
-    toc: yes
   html_document:
+    toc: yes
+  github_document:
     toc: yes
 ---
 

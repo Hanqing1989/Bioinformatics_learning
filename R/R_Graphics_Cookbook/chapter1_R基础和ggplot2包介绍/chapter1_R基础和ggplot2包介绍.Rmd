@@ -3,7 +3,6 @@ title: "chapter1_R基础和ggplot2包介绍"
 output:
   html_document:
     toc: TRUE
-  keep_github_document: TRUE
   github_document:
     toc: TRUE
 ---
