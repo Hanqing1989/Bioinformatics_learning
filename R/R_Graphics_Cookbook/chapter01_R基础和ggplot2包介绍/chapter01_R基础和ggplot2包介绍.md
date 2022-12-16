@@ -1,4 +1,4 @@
-chapter1_R基础和ggplot2包介绍
+chapter01_R基础和ggplot2包介绍
 ================
 
 - <a href="#1-r基础和ggplot2包介绍" id="toc-1-r基础和ggplot2包介绍">1
@@ -65,7 +65,7 @@ B2  9 11  6
 > barplot(simpledat, beside=TRUE)
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 - 如需调换数据值的位置，使得B值沿x轴排布而A值用来分组，则需要转置矩阵以重构数据：
 
@@ -80,7 +80,7 @@ B2  9 11  6
 > barplot(t_simpledat, beside=TRUE)
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 - 另一方面，如想使用线条而不是条形来呈现数据，则需要使用一套完全不同的命令。首先，需要调用`plot()`来通知R创建一幅新图并为其中一行数据绘制一条线，然后使用lines()去绘制另一行数据：
 
@@ -89,7 +89,7 @@ B2  9 11  6
 > lines(simpledat[2,], type="l", col="blue")
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 - 结果图中有一些怪异的地方。第二条(蓝色)线的下部超出了可见范围，这是因为y轴的范围是在调用`plot()`函数时仅为第一条线设定的。另外，x轴是数值型而不是类别型。
 
@@ -116,7 +116,7 @@ B2  9 11  6
 + geom_bar (stat="identity", position="dodge")
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 - 要调换位置，令B值沿x轴排布而让A值决定分组，只需简单地交换映射参数，使得`x=Bval`且`fill=Aval`即可。与基础图形不同的是，这里无需修改数据，仅需修改绘图命令:
 
@@ -126,7 +126,7 @@ B2  9 11  6
 + geom_bar (stat="identity", position="dodge")
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 - \*\*注意：在ggplot2中，各个图形部件都是通过操作符+进行组合的。可以通过添加组件的方式来渐进式地构建一个ggplot对象，在做完以后，就可以打印出来了。
 
@@ -137,7 +137,7 @@ B2  9 11  6
 +   geom_line()
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 - 在结合基础图形将条形图改为折线图时，我们不得不使用完全不同的命令。但通过ggplot2，我们仅需将几何对象从条形改为线条。结果图也与基础图形版有着重要区别：由于所有的线条都是同时绘制而非每次绘制一条，所以y的范围已被自动调整以适应全体数据，且x轴仍保持为类别型而不会被转换为数值型。ggplot2图形还带有自动生成的图例。
 
@@ -195,7 +195,7 @@ B2  9 11  6
 > ggplot (dat, aes (x=xval, y=yval)) + geom_point ()
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 - 如果想重用其中的一些组件，可以将其存储到变量中。我们可以把ggplot对象保存到p中，然后向它添加`geom_point()`。这样做的效果与之前的代码相同：
 
@@ -204,7 +204,7 @@ B2  9 11  6
 > p + geom_point()
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 - 我们也可以通过将`aes()`放入`geompoint()`的调用中以将变量group映射为点的颜色，并指定`colour=group`：
 
@@ -212,7 +212,7 @@ B2  9 11  6
 > p + geom_point(aes(colour=group))
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 - 这样做并不会改变我们之前在`ggplot(..)`内部定义的默认图形属性映射。这样只是为特定的几何对象，即`geom_point()`添加了一个图形属性映射。如果我们再添加其他的几何对象，此映射将不对它们适用。
 
@@ -222,7 +222,7 @@ B2  9 11  6
 > p + geom_point(colour='blue')
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 - 我们也可以修改标度，也就是从数据到视觉属性的映射。在此，我们将改变x标度使其拥有一个更大的范围：
 
@@ -230,7 +230,7 @@ B2  9 11  6
 > p + geom_point() + scale_x_continuous(limits = c(0,8))
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 - 如果回顾一下colour=group映射的例子，我们也可以修改颜色标度：
 
@@ -238,7 +238,7 @@ B2  9 11  6
 > p + scale_colour_manual(values = c('red','blue'))
 ```
 
-![](chapter1_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](chapter01_R基础和ggplot2包介绍_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 - 注：实际正常输出图片“fig.1.6.png”到目录文件夹中。
 

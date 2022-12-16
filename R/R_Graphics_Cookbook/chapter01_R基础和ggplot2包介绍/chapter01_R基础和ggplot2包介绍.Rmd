@@ -1,5 +1,5 @@
 ---
-title: "chapter1_R基础和ggplot2包介绍"
+title: "chapter01_R基础和ggplot2包介绍"
 output:
   html_document:
     toc: TRUE
