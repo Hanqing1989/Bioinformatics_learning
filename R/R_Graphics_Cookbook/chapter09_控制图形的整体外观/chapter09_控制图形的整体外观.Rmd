@@ -1,5 +1,5 @@
 ---
-title: "chapter9_控制图形的整体外观"
+title: "chapter09_控制图形的整体外观"
 output:
   github_document:
     toc: TRUE

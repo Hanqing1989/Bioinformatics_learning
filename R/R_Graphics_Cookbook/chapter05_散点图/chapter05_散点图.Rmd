@@ -1,5 +1,5 @@
 ---
-title: "chapter5_散点图"
+title: "chapter05_散点图"
 output:
   html_document:
     toc: TRUE

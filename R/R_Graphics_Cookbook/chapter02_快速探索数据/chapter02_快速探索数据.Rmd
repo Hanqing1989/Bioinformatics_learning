@@ -1,5 +1,5 @@
 ---
-title: "chapter2_快速探索数据"
+title: "chapter02_快速探索数据"
 output:
   html_document:
     toc: TRUE

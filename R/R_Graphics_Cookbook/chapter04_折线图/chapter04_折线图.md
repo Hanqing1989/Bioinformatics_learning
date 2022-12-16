@@ -1,4 +1,4 @@
-chapter4_折线图
+chapter04_折线图
 ================
 
 - <a href="#4-折线图" id="toc-4-折线图">4 折线图</a>
@@ -36,7 +36,7 @@ Source：
 +   geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 -对于这个简单的数据框，x对应的变量Time和y对应的变量demand分别对应于数据框的两列数据：
 
@@ -61,7 +61,7 @@ Source：
 > ggplot(BOD1, aes(x=Time, y=demand, group=1)) + geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 - 上图是x轴对应于分类变量的简单折线图(注意x轴上没有对应于水平6的取值)。
 
@@ -73,7 +73,7 @@ Source：
 +   ylim(0, max(BOD$demand)) 
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 > # 运行下面的命令得到的结果是相同的
@@ -82,7 +82,7 @@ Source：
 +   expand_limits(y=0)
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
 ## 4.2 向折线图添加数据标记
 
@@ -94,7 +94,7 @@ Source：
 +   geom_point()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 - 有时候，在折线图上添加数据标记很有用处。当数据点的密度较低或者数据采集频率不规则时尤其有用。比如，BOD数据集中没有与Time=6相对应的输入，然而，这在单独的一张折线图看起来并不明显(可比较一下上两张图)。
 
@@ -107,7 +107,7 @@ Source：
 +   geom_point() 
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 > # 当y轴取对数时也一样
@@ -117,7 +117,7 @@ Source：
 +   scale_y_log10()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
 
 - 从对y轴取对数的折线图上可以看出：在过去数千年中人口增长率有所增加。公元元年之前的人口增长率接近常数，约每5000年增加10倍。从图中也可以看出，近年来的人口普查频率比以往更为频繁，数据也更为准确。
 
@@ -136,14 +136,14 @@ Source：
 > ggplot(tg, aes(x=dose, y=length, colour=supp)) + geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 > # supp映射给线型(linetype)
 > ggplot(tg, aes(x=dose, y=length, linetype=supp)) + geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
 - tg数据集共有三列，其中一列是我们映射给颜色(colour)和线型(linetype)的supp变量：
 
@@ -174,7 +174,7 @@ Source：
 +   geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 - **注意：不可缺少`group=supp`语句，否则，`ggplot()`会不知如何将数据组合在一起绘制折线图，从而会报错**：
 
@@ -183,7 +183,7 @@ Source：
 +   geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 - 当分组不正确时会遇见的另一种问题是，折线图会变成锯齿状：
 
@@ -192,7 +192,7 @@ Source：
 +   geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 - 导致这种情况的原因在于x在每个位置都对应于多个点，`ggplot()`误以为这些点属于同一组数据而将其用一根折线相连，结果形成了锯齿状折线图。如果将任意离散型变量映射给colour或者linetype，`ggplot()`会以其为分组变量对数据进行分组。如果你想借助其他变量对数据进行分组(未映射给图形属性)则需使用group。
 
@@ -206,7 +206,7 @@ Source：
 +   geom_point(size=4) # 更大的点
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 > ggplot(tg, aes(x=dose, y=length, fill=supp)) + 
@@ -214,7 +214,7 @@ Source：
 +   geom_point(size=4, shape=21) # 使用有填充色的点
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
 
 - 有时，数据标记会相互重叠。我们需要令其彼此错开。这意味着要将它们的位置左移或者右移。同时，需要相应地左移或者右移连接线以避免点线偏离。在这一过程中，必须指定数据标记的移动距离：
 
@@ -224,7 +224,7 @@ Source：
 +   geom_point(position=position_dodge (0.2), size=4) # 将点的位置左右移动 0.2
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ## 4.4 修改线条样式
 
@@ -235,7 +235,7 @@ Source：
 +   geom_line(linetype="dashed", linewidth=1, colour="blue")
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 - 对于多重折线图而言，设定图形属性会对图上的所有折线产生影响。而将变量映射给图形属性则会使图上的折线具有不同的外观，参见4.3节。折线图的默认颜色并不是很吸引眼球，所以，我们可能希望使用其他调色板为图形着色，可以调用`scale_colour_brewer()`和`scale_colour_manual()`函数完成上述操作：
 
@@ -249,7 +249,7 @@ Source：
 +   scale_colour_brewer(palette="Set1")
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 - 在`aes()`函数外部设定颜色(colour)会将所有折线设定为同样的颜色。其他图形属性诸如线宽(linewidth)、线型(linetype)和点形(shape)与此类似，如下图所示。操作过程中可能需要指定分组变量。
 
@@ -259,7 +259,7 @@ Source：
 +   geom_line(colour="darkgreen", linewidth=1.5)
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
 > # 因为变量supp被映射给了颜色(colour)属性，所以，它自动作为分组变量 
@@ -268,7 +268,7 @@ Source：
 +   geom_point(shape=22, size=3, fill="white")
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
 
 - 左图：单一颜色和宽度的折线图；右图：将变量supp映射给colour并添加数据标记的折线图。
 
@@ -285,7 +285,7 @@ Source：
 +   geom_point(size=4, shape=22, colour="darkred", fill="pink")
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 - 数据标记默认的形状(shape)是实线圆圈，默认的大小()是2，默认的颜色(colour)是黑色(black)。填充色(fill)
   属性只适用于某些(标号21-25)具有独立边框线和填充颜色的点形(参见5.3节中的点形列表)。fill一般取空值或者NA。将填充色设定为白色可以得到一个空心圆，如下图所示。
@@ -296,7 +296,7 @@ Source：
 +   geom_point(size=4, shape=21, fill="white")
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 - 如果要将数据标记和折线设定为不同的颜色，我们必须在折线绘制完毕后再行设定数据标记的颜色，此时，数据标记被绘制在更上面的图层，从而，避免被折线遮盖。
 
@@ -318,7 +318,7 @@ Source：
 +   scale_fill_manual(values=c("black","white"))
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 - 上图将填充色手动设定为黑白两色，并轻微调整数据标记的位置。
 
@@ -337,7 +337,7 @@ Source：
 > ggplot(sunspotyear, aes(x=Year, y=Sunspots)) + geom_area()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 - 默认情况下，面积图的填充色为黑灰色且没有边框线，通过设定填充色(fill)可以修改面积图的填充色。接下来的例子中，我们将填充色设定为蓝色，并通过设定`alpha=0.2`将面积图的透明度设定为80%，此时，我们可以看到面积图的网格线，如下图所示。通过设置颜色(colour)可以为面积图添加边框线：
 
@@ -346,7 +346,7 @@ Source：
 +   geom_area(colour="black", fill="blue", alpha=.2)
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 - 假如整个面积图添加边框线之后的效果并不十分令人满意，可能此时系统会在面积图的起点和终点位置分别绘制一套垂直线，且在底部绘制了一条横线。为了修正上述情况，可以先绘制不带边框线的面积图(不设定colour)，然后，添加新图层，并用`geom_line()`函数绘制轨迹线，如下图所示。
 
@@ -356,7 +356,7 @@ Source：
 +   geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 - 更多关于使用颜色的内容可以参见第12章。
 
@@ -370,7 +370,7 @@ Source：
 +   geom_area()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 - 堆积面积图对应的基础数据通常为宽格式(wide
   format)，但ggplot2要求数据必须是长格式(long
@@ -398,7 +398,7 @@ Source：
 +   scale_fill_brewer(palette="Blues")
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 - 通过设定标度中的切分(breaks)参数可以翻转图例的堆积顺序。下图中的堆积面积图对图例的堆积顺序进行了反转。
 
@@ -408,7 +408,7 @@ Source：
 +   scale_fill_brewer(palette="Blues", breaks=rev(levels(uspopage$AgeGroup)))
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 - 因为堆积面积图中的各个部分是由多边形构成的，假如其具有左、右边框线，那绘图效果差强人意且可能产生误导效果。为了对此进行修正，我们可以先绘制一个不带边框线的堆积面积图(将colour设定为默认的NA值)，然后，在其顶部添加`geom_line()`：
 
@@ -419,7 +419,7 @@ Source：
 +   geom_line(position="stack", linewidth=.2)
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 - 更多关于宽格式与长格式相互转换的内容，可参见15.3节。
 
@@ -442,7 +442,7 @@ Source：
 +   scale_fill_brewer(palette="Blues")
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 - 如需将图中的堆积面积图和图例的堆积顺序同时进行反转，则对代码做如下修改：
 
@@ -452,7 +452,7 @@ Source：
 +   scale_fill_brewer(palette="Blues", breaks=rev(levels(uspopage$AgeGroup)))
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 - 让我们更深入查看上面的数据，并探究一下数据的计算过程：
 
@@ -510,7 +510,7 @@ Source：
 +   geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 - 阴影部分的颜色实际上是黑灰色，但看起来几乎是透明的。这是因为我们通过设定alpha=0.2将阴影部分的透明度设定为80%。
 
@@ -526,6 +526,6 @@ Source：
 +   geom_line()
 ```
 
-![](chapter4_折线图_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](chapter04_折线图_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 - 除了表示置信域之外，阴影区域还可以用来表示其他内容，比如两个变量之间的差值等。在4.7节中的面积图中，阴影区域的y轴范围是0到y，而上图中y轴的范围是ymin到ymax。

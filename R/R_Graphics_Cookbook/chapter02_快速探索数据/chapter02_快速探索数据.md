@@ -1,4 +1,4 @@
-chapter2_快速探索数据
+chapter02_快速探索数据
 ================
 
 - <a href="#2-快速探索数据" id="toc-2-快速探索数据">2 快速探索数据</a>
@@ -23,7 +23,7 @@ Source：
 > plot(mtcars$wt,mtcars$mpg)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 - 对于ggplot2系统，可用`qplot()`函数得到相同的绘图结果：
 
@@ -32,7 +32,7 @@ Source：
 > qplot(mtcars$wt,mtcars$mpg)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 - 如果绘图所用的两个参数向量包含在同一个数据框内，则可以运行下面的命令：
 
@@ -40,7 +40,7 @@ Source：
 > qplot(wt,mpg,data=mtcars)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 - 或者：
 
@@ -48,7 +48,7 @@ Source：
 > ggplot(mtcars,aes(x=wt,y=mpg)) + geom_point()
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 - 更多关于绘制散点图的详细内容可参见第5章。
 
@@ -60,7 +60,7 @@ Source：
 > plot(pressure$temperature,pressure$pressure,type = 'l')
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 - 如果要向图形中添加数据点或者多条折线，则需先用`plot()`函数绘制第一条折线，再通过`points()`函数和`lines()`函数分别添加数据点和更多折线：
 
@@ -71,7 +71,7 @@ Source：
 > points(pressure$temperature,pressure$pressure/2,col = 'red')
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 - 在ggplot2中，可以使用`qplot()`函数并将参数设定为`geom="line"`得到类似的绘图结果：
 
@@ -80,7 +80,7 @@ Source：
 > qplot(pressure$temperature,pressure$pressure,geom = 'line')
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 - 如果函数的两个参数向量已包含在同一个数据框中，则可以运行下面的语句：
 
@@ -88,7 +88,7 @@ Source：
 > qplot(temperature,pressure,data = pressure,geom = 'line')
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 > # 等价于
@@ -98,7 +98,7 @@ Source：
 > qplot(temperature,pressure,data = pressure,geom = c('line','point'))
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
 
 ``` r
 > # 等同于
@@ -117,7 +117,7 @@ Source：
 > barplot(BOD$demand,names.arg=BOD$Time)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 - 有时候，“条形图”表示的是分组数据中各个元素的频数。这种条形图跟直方图有些类似，不过，其用离散取值的x轴替代了直方图中连续取值的x轴。要计算向量中各个类别的频数，可以使用`table()`函数。
 
@@ -136,7 +136,7 @@ Source：
 > barplot(table(mtcars$cyl))
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 - 如果参数向量包含在同一个数据框内，则可以运行下面的语句：
 
@@ -148,7 +148,7 @@ Source：
 > ggplot(BOD,aes(x=Time,y=demand)) + geom_bar(stat = 'identity')
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 > # 这与下面的语句等价
@@ -162,7 +162,7 @@ Source：
 > ggplot(BOD,aes(x=factor(Time),y=demand)) + geom_bar(stat = 'identity')
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 - **再提醒一次，注意连续x轴和离散x轴的差异。**
 
@@ -171,14 +171,14 @@ Source：
 > qplot(mtcars$cyl)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 > # 将cyl转化为因子变量
 > qplot(factor(mtcars$cyl))
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
 
 ``` r
 > # 这与下面的语句等价
@@ -196,14 +196,14 @@ Source：
 > hist(mtcars$mpg)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ``` r
 > # 通过 breaks 参数指定大致组距
 > hist(mtcars$mpg,breaks = 10)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
 
 - 对于ggplot2包，可以使用`qplot()`函数得到同样的绘图结果：
 
@@ -211,7 +211,7 @@ Source：
 > qplot(mtcars$mpg)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 - 如果参数向量在同一个数据框内，则可以使用下面的语句：
 
@@ -220,7 +220,7 @@ Source：
 > qplot(mpg,data = mtcars,binwidth=4)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 > # 等价于
@@ -237,7 +237,7 @@ Source：
 > plot(ToothGrowth$supp,ToothGrowth$len)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 - 当两个参数向量包含在同一个数据框中时，也可以使用公式语法。公式语法允许我们在x轴上使用变量组合：
 
@@ -246,14 +246,14 @@ Source：
 > boxplot(len~supp,data = ToothGrowth)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 ``` r
 > # 在x轴上引入两变量的交互
 > boxplot(len~supp+dose,data = ToothGrowth)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
 
 - 对于ggplot2包，你可以使用`qplot()`函数绘制同样的图形，使用时将参数设定为`geom="boxplot"`：
 
@@ -262,7 +262,7 @@ Source：
 > qplot (ToothGrowth$supp,ToothGrowth$len,geom="boxplot")
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 - 当两个参数向量在同一个数据框内时，则可以使用下面的语句：
 
@@ -270,7 +270,7 @@ Source：
 > qplot(supp,len,data=ToothGrowth,geom="boxplot") 
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ``` r
 > #这等价于
@@ -284,13 +284,13 @@ Source：
 > qplot(interaction(ToothGrowth$supp,ToothGrowth$dose),ToothGrowth$len,geom="boxplot") #也可以以数据框中的列作为参数
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ``` r
 > qplot(interaction(supp,dose),len,data=ToothGrowth,geom="boxplot") 
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-22-2.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-22-2.png)<!-- -->
 
 ``` r
 > #这等价于
@@ -307,7 +307,7 @@ Source：
 > curve(x^3-5*x,from = -4,to=4)
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 - 你可以绘制任何一个以数值型向量作为输入且以数值型向量作为输出的函数图像，包括你自己定义的函数：
 
@@ -323,7 +323,7 @@ Source：
 > curve(1-myfun(x),add=TRUE,col ="red")
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 - 对于ggplot2，可以使用`ggplot()`函数绘制得到同样的结果。使用时需向其传递一个输入和输出皆为数值型向量的函数：
 
@@ -333,6 +333,6 @@ Source：
 > ggplot(data.frame(x=c(0,20)),aes(x=x)) + stat_function(fun=myfun,geom="line")
 ```
 
-![](chapter2_快速探索数据_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](chapter02_快速探索数据_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 - 更多关于绘制函数图像的内容参见13.2节。

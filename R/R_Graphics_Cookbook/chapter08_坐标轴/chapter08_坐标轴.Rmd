@@ -1,5 +1,5 @@
 ---
-title: "chapter8_坐标轴"
+title: "chapter08_坐标轴"
 output:
   github_document:
     toc: TRUE

@@ -1,5 +1,5 @@
 ---
-title: "R语言进阶学习（第二阶段）——lattice高级绘图"
+title: "R语言进阶学习（第二阶段）——10_lattice高级绘图"
 output:
   html_document:
     toc: TRUE

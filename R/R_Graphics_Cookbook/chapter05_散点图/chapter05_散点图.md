@@ -1,4 +1,4 @@
-chapter5_散点图
+chapter05_散点图
 ================
 
 - <a href="#5-散点图" id="toc-5-散点图">5 散点图</a>
@@ -61,7 +61,7 @@ Source：
 +   geom_point()
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 - 通过设定点形(shape)参数可以在散点图中绘制默认值以外的点形。比如，我们常用空心圈(点形21)代替实心圆(点形16)：
 
@@ -70,7 +70,7 @@ Source：
 +   geom_point(shape=21)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 - 大小(size)参数可以控制图中点的大小。系统默认的大小(size)值等于2，下面我们将其设定为size=1.5，以得到更小的数据点：
 
@@ -79,7 +79,7 @@ Source：
 +   geom_point(size=1.5)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ## 5.2 使用点形和颜色属性，并基于某变量对数据进行分组
 
@@ -101,14 +101,14 @@ Source：
 +   geom_point() 
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 > ggplot(heightweight, aes(x=ageYear, y=heightIn, shape=sex)) + 
 +   geom_point()
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
 - 左图：按映射colour的变量对数据进行分组；右图：按映射给shape的变量对数据进行分组。
 
@@ -119,7 +119,7 @@ Source：
 +   geom_point()
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 - 散点图默认的点形和颜色可能不是很吸引人，通过调用`scale_shape_manual()`函数可以使用其他点形；调用`scale_colour_brewer()`或者`scale_colour_manual()`函数可以使用其他调色板，系统会根据分组变量将分属各组的数据点设置为不同的点形和颜色。
 
@@ -130,7 +130,7 @@ Source：
 +   scale_colour_brewer(palette="Set1")
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 - 要使用不同于默认设置的点形，可参见5.3节的内容。要使用不同的绘图颜色，可参见第12章的内容。
 
@@ -144,7 +144,7 @@ Source：
 +   geom_point(shape=3)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 - 如果已将分组变量映射给shape，则可以调用`scale_shape_manual()`函数来修改点形：
 
@@ -155,7 +155,7 @@ Source：
 +   scale_shape_manual(values=c(1, 4))
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 - 下图显示了R绘图中可调用的点形。其中一些点形只有边框线，一些只有实心区域，还有一些则是由可分离的边框线和具有填充色的实心区域共同组成(我们也可以用字符作点形)。
 
@@ -181,7 +181,7 @@ Source：
 +                     guide=guide_legend(override.aes=list(shape=21)))
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 - 更多关于使用不同颜色的内容，可参见第12章。
 
@@ -208,14 +208,14 @@ Source：
 +   geom_point() 
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
 > ggplot(heightweight, aes(x=ageYear, y=heightIn, size=weightLb)) + 
 +   geom_point()
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
 
 - 基本散点图通过将两个连续型变量分别映射给x轴和y轴来刻画它们之间的关系。当变量超过两个时，我们必须将它们映射到其他图形属性上，如数据点的大小和颜色。
 
@@ -231,7 +231,7 @@ Source：
 +   scale_fill_gradient(low="black", high="white")
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 > # 使用guide_legend()函数以离散的图例代替色阶
@@ -241,7 +241,7 @@ Source：
 +                       guide=guide_legend())
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
 
 - 当我们把一个连续型变量映射给某个图形属性之后，这并不妨碍我们同时将分类变量映射给其他图形属性。下图中，我们将变量weightLb映射给点size属性，同时将变量sex映射给colour属性。图形中有很多重合的数据点，因此，我们设定alpha=.5将数据点设定为半透明。调用`scale_size_area()`函数使数据点的面积正比于变量值(参见5.12节)，同时，修改调色板使图形更吸引眼球：
 
@@ -252,7 +252,7 @@ Source：
 +   scale_colour_brewer(palette="Set1")
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 - 将某个变量映射给size属性时，最好避免将其他变量映射给shape属性。因为不同点形的点大小很难相互比较。比如，大小为4的三角形看起来比大小为3.5的圆形更小。同时，有些形状本身就具有不同的大小：点形16和点形19都是圆形，但无论点大小设定为多少，点形19的圆总是比点形16的圆看起来更大。
 
@@ -278,7 +278,7 @@ Source：
 > sp + geom_point()
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 - 设定alpha参数可以使数据点半透明，如下图所示。通过设定alpha=.1和alpha=.01使数据点分别具有90%和99%的透明度：
 
@@ -286,13 +286,13 @@ Source：
 > sp + geom_point(alpha=.1)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 > sp + geom_point(alpha=.01)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
 
 - 图中，变量carat的取值为整数和“0.5”的地方有很多垂直带，这意味着人们常按照这些尺寸切割钻石。不过，由于图中数据点过于致密，即使在数据点透明度为99%的情况下，图上的大部分区域依然显示为实心的黑色，且数据点的分布情况依然相当模糊。
 
@@ -304,14 +304,14 @@ Source：
 > sp + stat_bin2d()
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ``` r
 > sp + stat_bin2d(bins=50) + 
 +   scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
 
 - 图中数据点的默认颜色看起来难以区分，这是因为它们的光度(luminosity)变化不大。在第二个版本中我们通过
   `scale_fill_gradient()`重新设定数据点的颜色，并指定颜色的最小色阶low和最大色阶high。默认情况下，图例中不包括最小值，这是因为颜色标度的范围不是从0开始的，而是以各箱中的最小非零值(本例中是1)为起始点的。如果想在图例中包括零值(见上图)，可以调用limits参数手动将范围设定为0到最大值6000。
@@ -325,7 +325,7 @@ Source：
 +                       limits=c(0,8000))
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
 > 
@@ -334,7 +334,7 @@ Source：
 +                                          limits=c(0,6000))
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->
 
 - 对于这两种方法，在手动设置分箱范围时，因为数据点太多或者太少，会出现一个落在分箱范围外的箱子，且这个箱子的颜色会显示为灰色，而不是最大值或最小值对应的颜色，如上图所示。
 
@@ -345,19 +345,19 @@ Source：
 > spl + geom_point()
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ``` r
 > spl + geom_point(position="jitter")  # 也可以调用geom_jitter()函数，两者是等价的
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-17-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-17-2.png)<!-- -->
 
 ``` r
 > spl + geom_point(position=position_jitter(width=.5,height=0))
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-17-3.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-17-3.png)<!-- -->
 
 - 左图：变量x为离散型的数据集；中间：添加随机扰动；右图：只在水平方向添加随机扰动。
 
@@ -369,13 +369,13 @@ Source：
 > spl + geom_boxplot(aes(group=Time)) # 分组
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 > spl + geom_boxplot() # 不分组
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-18-2.png)<!-- -->
 
 - 除了对数据进行分箱，我们还可以展示二维的密度估计。具体操作参见6.12节。
 
@@ -390,21 +390,21 @@ Source：
 > sp + geom_point() + stat_smooth(method=lm)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 ``` r
 > # 99%置信域
 > sp + geom_point() + stat_smooth(method=lm,level=0.99)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
 
 ``` r
 > # 没有置信域
 > sp + geom_point() + stat_smooth(method=lm,se=FALSE)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-19-3.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-19-3.png)<!-- -->
 
 ``` r
 > # 数据点为灰色的黑色线性拟合线
@@ -412,7 +412,7 @@ Source：
 +   stat_smooth(method=lm,se=FALSE,colour="black")
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-19-4.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-19-4.png)<!-- -->
 
 - 线性模型并不是唯一可对数据进行拟合的模型。事实上，它甚至不是默认的模型。如果在调用`stat_smooth()`函数时未指定模型类型，那么，该函数会对数据拟合loess曲线（局部加权多项式），如下图所示。下面两行命令的输出结果相同：
 
@@ -420,7 +420,7 @@ Source：
 > sp + geom_point(colour="grey60") + stat_smooth() 
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ``` r
 > # sp + geom_point(colour="grey60") + stat_smooth(method=loess)
@@ -452,7 +452,7 @@ Source：
 +   stat_smooth(method=glm,family=binomial)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 - 如果散点图对应的数据集按照某个因子型变量进行了分组，且已将分组变量映射给colour和shape属性，上述命令将针对各个组分别绘制模型拟合线。首先，创建一个基本绘图对象sps；然后，向其添加loess线；最后，将点的颜色设定为半透明(alpha=.4)以弱化数据点的显示。
 
@@ -464,7 +464,7 @@ Source：
 > sps + geom_smooth()
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 - 注意，男性分组的蓝色拟合线并没有绘制到图形的右边界。其中有两个原因：第一个原因在于，默认情况下`stat_smooth()`函数将预测值的范围限定在预测数据对应的范围内（对应于x轴）；第二个原因在于，即使对模型进行外推，`loess()`函数也只能根据整组数据对应的x轴的范围进行预测。
 
@@ -474,7 +474,7 @@ Source：
 > sps + geom_smooth(method=lm,se=FALSE,fullrange=TRUE)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 - 对于本例中的heightweight数据集而言，`stat_smooth()`函数默认的方法（不带外推的LOESS方法)比外推的线性预测更合理，因为人类的生长过程并非线性的，且人类也不会一直在生长。
 
@@ -523,7 +523,7 @@ Coefficients:
 > sp + geom_line(data=predicted,size=1)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 - 无论哪种模型，只要有对应的`predict()`方法，则其都可用来绘制拟合线。举个例子：`lm()`函数和`loess()`函数对应的`predict()`方法分别是`predict.lm()`和`predict. 1oess()`等，因此，这两个模型都可以用来绘制模型拟合线。
 
@@ -560,7 +560,7 @@ Coefficients:
 +   geom_line(data=loess_predicted,colour="blue",size=.8)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 - 对于具有非线性连接函数的glm模型，需要将`predictvals()`函数的参数设定为`type="response"`。这样做的原因在于，默认情况下该函数返回的预测结果是基于线性项的，而不是基于响应变量(y)的。
 
@@ -583,7 +583,7 @@ Coefficients:
 +   geom_line(data=glm_predicted,colour="41177FF",linewidth=1)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 ## 5.8 添加来自多个模型的拟合线
 
@@ -648,7 +648,7 @@ attr(,"split_labels")
 +   geom_line(data=predvals)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 - `dlply()`函数和`ldply()`函数的作用是切分数据，对各个部分执行某一函数，并对执行结果进行重组。
 
@@ -663,7 +663,7 @@ attr(,"split_labels")
 +   geom_line(data=predvals)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 - 从上图可以看到，男性组的模型拟合线延伸到了女性组的右边界。谨记一点：外推拟合线并非总是适用的，其适用与否要视数据特性及模型假设而定。
 
@@ -707,7 +707,7 @@ F-statistic: 172.9 on 1 and 234 DF,  p-value: < 2.2e-16
 > sp + annotate("text",label="r^2=0.42",x=16.5,y=52)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 - 如果不想使用纯文本字符串当注释的话，可以通过设置`parse=TRUE`调用R的数学表达式语法来输入公式。
 
@@ -715,7 +715,7 @@ F-statistic: 172.9 on 1 and 234 DF,  p-value: < 2.2e-16
 > sp + annotate("text",label="r^2 == 0.42",parse=TRUE,x=16.5,y=52)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 - ggplot2中的文本对象不能直接以表达式对象作为输入，其参数通常是一个字符串，接收字符串后，通过`parse(text="a+b")`函数将其转化为公式。
 
@@ -754,7 +754,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 > sp + annotate("text",label=eqn,parse=TRUE,x=Inf,y=-Inf,hjust=1.1,vjust=-.5)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
 
 - R中数学表达式的语法可能需要花一些时间去学习，更多信息请参见7.2节。
 
@@ -768,7 +768,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 +   geom_rug()
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
 
 - 边际地毯图本质上是一个一维的散点图，它可被用于展示每个坐标轴上数据的分布情况。对于本例中的数据集，边际地毯传递的信息量十分有限。因为变量waiting的最小刻度是分钟，因此，图中相应的边际地毯线重叠严重。通过向边际地毯线的位置坐标添加扰动并设定size减小线宽可以减轻边际地毯线的重叠程度。上述操作有助于看清数据的分布情况：
 
@@ -778,7 +778,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 +   geom_rug(position="jitter",size=.2)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
 - 更多关于图形重叠的内容，可参见5.5节。
 
@@ -810,7 +810,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 +   annotate("text",x=7400,y=6.8,label="USA")
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
 
 - 要根据数据集自动向散点图添加数据标签，可以使用`geom_text()`函数，此时，只需映射一个因子型或者字符串型的向量给标签(label)属性。本例中，我们把变量Name映射给label属性，同时为了避免数据点过于拥挤，我们使用略小一点的字号。默认的标签size属性为5，这个数值并不与字号直接对应。
 
@@ -818,7 +818,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 > sp + geom_text(aes(label=Name),size=4)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
 
 - 系统自动放置注释时会将其中心置于x坐标和y坐标的位置。不过，我们可以对文本位置进行上下或者左右调整，或者两者兼做。
 
@@ -828,7 +828,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 > sp + geom_text(aes(label=Name),size=4,vjust=0)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
 
 ``` r
 > 
@@ -836,7 +836,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 > sp + geom_text(aes(y=infmortality+.1,label=Name),size=4,vjust=0)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-44-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-44-2.png)<!-- -->
 
 - 有时候，有必要根据数据点的位置令注释左对齐或右对齐。要左对齐，可设置hjust=0；要右对齐，可设定hjust=1。与调整vjust的情形类似，图中的标签会与数据点有所重叠。然而，这时候，我们最好不要通过增加或者减少hjust的值对此进行修正，因为调整hjust的值时，系统会按照文本标签长度的一定比例来移动文本标签的位置，这时候，较长的文本标签会比短文本标签移动的位置更大。此时，最好将hjust设定为0或者1，然后，通过对x增加或者减去一个值来调整文本标签的位置：
 
@@ -844,14 +844,14 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 > sp + geom_text(aes(label=Name),size=4,hjust=0)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
 
 ``` r
 > 
 > sp + geom_text(aes(x=healthexp+100,label=Name),size=4,hjust=0)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-45-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-45-2.png)<!-- -->
 
 - **如果绘图时用的是对数坐标轴，要想将文本标签移动同样的位置，就不能通过增加x或y的数值来实现了。此时需要令x或者y乘以一个数值才行。**
 
@@ -893,7 +893,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 +   geom_text(aes(x=healthexp+100,label=Name1),size=4,hjust=0) 
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-48-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-48-1.png)<!-- -->
 
 ``` r
 > xlim(2000,10000)
@@ -937,14 +937,14 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 > p
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
 
 ``` r
 > # 将GDP映射给面积，得到一个略大的圆圈
 > p + scale_size_area(max_size=15)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-50-2.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-50-2.png)<!-- -->
 
 - 本例中的气泡图实际上还是散点图，但气泡图也有其他用法。比如，当x轴和y轴皆为分类变量时，气泡图可以用来表示网格点上的变量值：
 
@@ -964,7 +964,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 +             colour="grey60",size=4)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-51-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-51-1.png)<!-- -->
 
 - 本例中，我们使用了一些小技巧来将文本标签置于圆圈正下方。首先，设定vjust=1，将文本标签顶端与数据点的y轴对应。接下来，调整y坐标，使其刚好位于每个圆圈的底部。这一过程涉及一些计算：提取Hair变量的数值，并将其减去一个与变量count有关的值。事实上，这需要计算count变量的平方根，因为圆圈的半径跟count变量的平方根线性相关。这里的除数是通过试错得出的（本例中等于22）：这个值取决于具体的数据值、圆圈半径及文本大小。
 
@@ -1000,7 +1000,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 > pairs(c2009[,2:5])
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-53-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-53-1.png)<!-- -->
 
 - 此处，我们没有使用ggplot2，是因为它不能绘制散点图矩阵（至少绘制的效果不佳）。上述绘图过程中也可以使用自定义的面板函数。我们定义一个panel.cor函数来展示变量两两之间的相关系数以代替默认的散点图。相关系数较大的位置将对应于较大的字体。现在暂时不需要关心函数的细节，先把代码粘贴到R会话或者脚本中：
 
@@ -1047,7 +1047,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 +       lower.panel=panel.smooth)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-56-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-56-1.png)<!-- -->
 
 - 也许，我们会希望用线性模型代替LOWESS模型，`panel.lm`函数可以完成该操作（与前面的面板函数不同，这里的函数不在`pairs()`函数的帮助页面中)：
 
@@ -1070,7 +1070,7 @@ expression(italic(y) == c(`(Intercept)` = "37.4") + c(ageYear = "1.75") *
 +       lower.panel=panel.lm)
 ```
 
-![](chapter5_散点图_files/figure-gfm/unnamed-chunk-58-1.png)<!-- -->
+![](chapter05_散点图_files/figure-gfm/unnamed-chunk-58-1.png)<!-- -->
 
 - cex参数可以控制图中点的大小。cex参数的默认值是1，其值越大，相应的数据点也越大，反之亦然。如果参数cex小于0.5，图形输出为PDF文件时可能无法很好地渲染。
 

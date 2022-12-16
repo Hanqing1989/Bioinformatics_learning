@@ -1,4 +1,4 @@
-chapter3_条形图
+chapter03_条形图
 ================
 
 - <a href="#3-条形图" id="toc-3-条形图">3 条形图</a>
@@ -37,7 +37,7 @@ Source：
 > ggplot(pg_mean,aes(x=group,y=weight)) + geom_bar(stat="identity")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 - 当x是连续型（数值型）变量时，条形图的结果与上图会略有不同。此时，ggplot不是只在实际取值处绘制条形，而将在x轴上介于最大值和最小值之间所有可能的取值处绘制条形。我们可以使用`factor()`函数将连续型变量转化为离散型变量。
 
@@ -66,14 +66,14 @@ Source：
 > ggplot(BOD,aes(x=Time,y=demand)) + geom_bar(stat="identity")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 > # 使用factor()函数将Time转化为离散型（分类）变量
 > ggplot(BOD,aes(x=factor(Time),y=demand)) + geom_bar(stat="identity")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
 - 本例中，数据集中包含两列分别对应于x和y变量。如果你想让条形图的高度与每组变量的频数相对应，可参见3.3节的内容。
 
@@ -84,7 +84,7 @@ Source：
 +   geom_bar(stat="identity",fill="lightblue",colour="red")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 - 如果你想让条形图的高度对应于每组变量的频数，可参见3.3节的内容。
 
@@ -117,7 +117,7 @@ Source：
 +   geom_bar(position="dodge",stat="identity")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 - 最简单的条形图通常只对应一个绘制在x轴上的分类变量和一个绘制在y轴上的连续型变量。有时候，我们想额外添加一个分类变量跟x轴上的分类变量一起对数据进行分组。此时，可通过将该分类变量映射给fill参数来绘制簇状条形图，这里的fill参数用来指定条形的填充色。**在这一过程中必须令参数position=“dodge”以使得两组条形在水平方向上错开排列，否则，系统会输出堆积条形图（参见3.7节）**。
 
@@ -129,7 +129,7 @@ Source：
 +   scale_fill_brewer(palette="Pastel1")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 - 其他图形属性诸如颜色colour(指定条形图的边框线颜色)和线型(linestyle)也能用来对变量进行分组，不过，填充色(fill)也许是最合人心意的图形属性。
 
@@ -153,7 +153,7 @@ Source：
 +   scale_fill_brewer(palette="Pastel1")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 - 缺失条形的簇状条形图一临近的条形自动扩充到相应位置。
 
@@ -171,7 +171,7 @@ Source：
 > ggplot(diamonds,aes(x=cut)) + geom_bar() # 等价于使用geom_bar(stat="bin")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 - diamonds数据集共有53940行数据，每行数据对应于一颗钻石的品质信息：
 
@@ -196,7 +196,7 @@ Source：
 > ggplot(diamonds,aes(x=carat)) + geom_bar()
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 - 上图x轴对应于连续型变量的条形图，也即常说的直方图。
 
@@ -235,7 +235,7 @@ Source：
 > ggplot(upc,aes(x=Abb,y=Change,fill=Region))+geom_bar(stat="identity")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 - 条形图的默认颜色不太吸引眼球，因此，可能需要借助函数`scale_fill_brewer()`或`scale_fill_manual()`重新设定图形颜色。这里我们调用后者。我们通过把参数指定为`colour="black"`将条形的边框线设定为黑色。**注意：颜色的映射设定是在`aes()`内部完成的，而颜色的重新设定是在`aes()`外部完成的**：
 
@@ -246,7 +246,7 @@ Source：
 +   xlab("State")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 - 本例用到了`reorder()`函数。在本例中，根据条形图的高度进行排序比按照字母顺序对分类变量排序更有意义。
 
@@ -279,7 +279,7 @@ Source：
 +   geom_bar(stat="identity",position="identity")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 - 上面的绘图过程存在一些问题：
 
@@ -296,7 +296,7 @@ Source：
 +   scale_fill_manual(values=c("#CCEEFF","#FFDDDD"),guide = "none")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 - 更多关于更改图形颜色的内容可参见12.3节和12.4节。
 
@@ -312,21 +312,21 @@ Source：
 > ggplot(pg_mean,aes(x=group,y=weight)) + geom_bar(stat="identity")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ``` r
 > # 窄些的条形图
 > ggplot(pg_mean,aes(x=group,y=weight)) + geom_bar(stat="identity",width=0.5)
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
 
 ``` r
 > # 宽些的条形图（条形图的最大宽度为1）
 > ggplot(pg_mean,aes(x=group,y=weight)) + geom_bar(stat="identity",width=1)
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-20-3.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-20-3.png)<!-- -->
 
 - 簇状条形图默认组内的条形间距为0。如果希望增加组内条形的间距，则可以通过将width设定得小一些，并令`position_dodge`的取值大于width：
 
@@ -336,7 +336,7 @@ Source：
 +   geom_bar(stat="identity",width=0.5,position="dodge")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ``` r
 > # 添加条形组距
@@ -344,7 +344,7 @@ Source：
 +   geom_bar(stat="identity",width=0.5,position=position_dodge(0.7))
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-21-2.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-21-2.png)<!-- -->
 
 - 第一幅图的绘图命令中用到了参数`position="dodge"`，第二幅图的绘图命令中用到的参数是`position=position_dodge()`。这是因为`position="dodge"`是参数默认为0.9的`position_dodge()`的简写。当我们需要单独指定该参数的时候，必须输入完整的命令。
 
@@ -364,14 +364,14 @@ Source：
 +   geom_bar(stat="identity",width=0.9,position="dodge")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
 > ggplot(cabbage_exp,aes(x=Date,y=Weight,fill=Cultivar)) + 
 +   geom_bar(stat="identity",width=0.2,position=position_dodge(0.7))
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-23-2.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-23-2.png)<!-- -->
 
 - 如果你将整幅图形进行伸缩，条形图也会依照相应的比例进行伸缩。要了解图形是怎样变化的，只需改变图形所在窗口的大小，然后，观察图形的变化即可。更多关于在输出图形文件时控制图片大小的内容可参见第14章。
 
@@ -385,7 +385,7 @@ Source：
 +   geom_bar(stat="identity")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 - 弄清楚图形对应的数据结构有助于理解图形的绘制过程。上例数据集中Date变量对应于三个水平、Cultivar变量对应于两个水平，两个变量不同水平的组合又分别与一个Weight变量相对应：
 
@@ -409,7 +409,7 @@ Source：
 +   geom_bar(stat="identity",position = position_stack(reverse = TRUE))
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 - 假如条形的堆积顺序与图例顺序是相反的（上图）。我们可以通过`guides()`函数对图例顺序进行调整，并指定图例所对应的需要调整的图形属性，本例中对应的是填充色（fill)，如下图所示：
 
@@ -419,7 +419,7 @@ Source：
 +   guides(fill=guide_legend(reverse=TRUE))
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 - **当然，也可以通过调整数据框中对应列的因子顺序来实现上述操作（参见15.8节），但需谨慎进行该操作，因为对数据进行修改可能导致其他分析结果也发生改变**。为了获得效果更好的条形图，我们保持逆序的图例顺序不变，同时，使用`scale_fill_brewer()`函数得到一个新的调色板，最后设定`colour="black"`为条形添加一个黑色边框线（如下图所示）：
 
@@ -430,7 +430,7 @@ Source：
 +   scale_fill_brewer(palette="Pastel1")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 - 更多关于条形图着色的内容可参见3.4节。
 
@@ -450,7 +450,7 @@ Source：
 +   geom_bar(stat="identity")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 - 我们用`ddply()`函数计算每组Date变量对应的百分比。本例中，`ddply()`函数根据指定的变量Date对数据框cabbage_exp进行分组，并对各组数据执行`transform()`函数(`ddply()`函数中设定的其他参数也会传递给该函数)。
 
@@ -491,7 +491,7 @@ Source：
 +   scale_fill_brewer(palette='Pastel1')
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 - 反转图例顺序，使用新调色板和黑色边线框的百分比堆积条形图.
 
@@ -509,7 +509,7 @@ Source：
 +   geom_text(aes(label=Weight),vjust=1.5,colour="white")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 ``` r
 > # 在条形图顶端上方
@@ -518,7 +518,7 @@ Source：
 +   geom_text(aes(label=Weight),vjust=-0.2)
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-33-2.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-33-2.png)<!-- -->
 
 - **注意，当数据标签被置于条形图顶端时，它们可能会被遮挡。为了避免这个问题，可以参见8.2节的内容。**
 
@@ -532,7 +532,7 @@ Source：
 +   ylim(0,max(cabbage_exp$Weight)*1.05)
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 ``` r
 > #设定标签的y轴位置使其略高于条形图顶端----y轴范围会自动调整
@@ -541,7 +541,7 @@ Source：
 +   geom_text(aes(y=Weight+0.1,label=Weight))
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-34-2.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-34-2.png)<!-- -->
 
 - 对于簇状条形图，需要设定`position=position_dodge()`并给其一个参数来设定分类间距。分类间距的默认值是0.9，因为簇状条形图的条形更窄，所以，需要使用字号(size)来缩小数据标签的字体大小以匹配条形宽度。数据标签的默认字号是5，这里我们将字号设定为3使其看起来更小。
 
@@ -552,7 +552,7 @@ Source：
 +             position=position_dodge(.9),size=3)
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 - 向堆积条形图添加数据标签之前，要先对每组条形对应的数据进行累积求和。**在进行本操作之前，须保证数据的合理排序，否则，可能计算出错误的累积和**。我们可以用plyr包中的`arrange()`函数完成上述操作，plyr包是一个随ggplot2包加载的软件包。确认数据合理排序之后，我们可以借助`ddply()`函数以Date为分组变量对数据进行分组，并分别计算每组数据对应的变量Weight的累积和。
 
@@ -578,7 +578,7 @@ Source：
 +   geom_text(aes(y=label_y,label=Weight),vjust=1.5,colour="white")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
 - 如果想把数据标签置于条形中部，须对累计求和的结果加以调整，并同时略去`geom_bar()`函数中对y偏移量(offset)的设置：
 
@@ -591,7 +591,7 @@ Source：
 +   geom_text(aes(y=label_y,label=Weight),colour="White")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
 
 - 为了得到效果更好的条形图，我们修改一下图例顺序和颜色，将数据标签置于条形中间，同时通过字号参数(size)缩小标签字号，并调用paste函数在标签后面添加“kg”，为了使得标签保留两位小数我们还需调用format函数：
 
@@ -603,7 +603,7 @@ Source：
 +   scale_fill_brewer(palette="Pastel1")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
 
 - 更多关于控制文本格式的内容可参见9.2节。
 
@@ -619,7 +619,7 @@ Source：
 > ggplot(tophit,aes(x=avg,y=name)) + geom_point()
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
 - tophitters2001数据集包含很多列，这里我们只看其中前6列：
 
@@ -651,7 +651,7 @@ Source：
 +         panel.grid.major.y=element_line(colour="grey60",linetype="dashed"))
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
 
 - 我们也可以将点图的x轴和y轴互换，互换后，x轴对应于姓名，y轴将对应于数值，如下图所示。我们也可以将数据标签旋转60”。
 
@@ -665,7 +665,7 @@ Source：
 +         panel.grid.major.x = element_line(colour="grey60", linetype="dashed"))
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-43-1.png)<!-- -->
 
 - 有时候，根据其他变量对样本进行分组很有用。这里我们根据因子lg对样本进行分组，因子lg对应有NL和AL两个水平，分别表示国家队(National
   League)和美国队 (American
@@ -679,14 +679,14 @@ Source：
 > ggplot(tophit, aes(x=avg, y=name)) + 
 +   geom_segment(aes(yend=name), xend=0, colour="grey50") + 
 +   geom_point(size=3, aes(colour=lg)) + 
-+   scale_colour_brewer(palette="Setl", limits=c("NL","AL")) + 
++   scale_colour_brewer(palette="Set1", limits=c("NL","AL")) + 
 +   theme_bw() + 
 +   theme(panel.grid.major.y = element_blank(),  # 删除水平网格线
 +         legend.position=c(1, 0.55),  # 将图例放置在绘图区域中
 +         legend.justification=c(1, 0.5))
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
 
 - 另外一种分组展示数据的方式是分面，如下图所示。分面条形图中的条形的堆叠顺序与上图中的堆叠顺序有所不同；要修改分面显示的堆叠顺序只有通过调整lg变量的因子水平来实现。
 
@@ -694,13 +694,13 @@ Source：
 > ggplot(tophit, aes(x=avg, y=name)) + 
 +   geom_segment(aes(yend=name), xend=0, colour="grey50") + 
 +   geom_point(size=3, aes(colour=lg)) + 
-+   scale_colour_brewer(palette="Set1", limits=c("NL","AL"), guide=FALSE) + 
++   scale_colour_brewer(palette="Set1", limits=c("NL","AL"), guide = "none") + 
 +   theme_bw() + 
 +   theme(panel.grid.major.y = element_blank()) + 
 +   facet_grid(lg ~ ., scales="free_y", space="free_y")
 ```
 
-![](chapter3_条形图_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
+![](chapter03_条形图_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
 
 - 上图以队为分组变量进行分面绘图。
 

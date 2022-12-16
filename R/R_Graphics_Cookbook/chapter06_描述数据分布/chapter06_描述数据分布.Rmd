@@ -1,5 +1,5 @@
 ---
-title: "chapter6_描述数据分布"
+title: "chapter06_描述数据分布"
 output:
   github_document:
     toc: TRUE

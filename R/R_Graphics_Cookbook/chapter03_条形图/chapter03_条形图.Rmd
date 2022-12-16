@@ -1,9 +1,9 @@
 ---
-title: "chapter3_条形图"
+title: "chapter03_条形图"
 output:
-  html_document:
-    toc: TRUE
   github_document:
+    toc: TRUE
+  html_document:
     toc: TRUE
 ---
 
@@ -490,7 +490,7 @@ tophit$name <- factor(tophit$name, levels=nameorder)
 ggplot(tophit, aes(x=avg, y=name)) + 
   geom_segment(aes(yend=name), xend=0, colour="grey50") + 
   geom_point(size=3, aes(colour=lg)) + 
-  scale_colour_brewer(palette="Setl", limits=c("NL","AL")) + 
+  scale_colour_brewer(palette="Set1", limits=c("NL","AL")) + 
   theme_bw() + 
   theme(panel.grid.major.y = element_blank(),  # 删除水平网格线
         legend.position=c(1, 0.55),  # 将图例放置在绘图区域中
@@ -503,7 +503,7 @@ ggplot(tophit, aes(x=avg, y=name)) +
 ggplot(tophit, aes(x=avg, y=name)) + 
   geom_segment(aes(yend=name), xend=0, colour="grey50") + 
   geom_point(size=3, aes(colour=lg)) + 
-  scale_colour_brewer(palette="Set1", limits=c("NL","AL"), guide=FALSE) + 
+  scale_colour_brewer(palette="Set1", limits=c("NL","AL"), guide = "none") + 
   theme_bw() + 
   theme(panel.grid.major.y = element_blank()) + 
   facet_grid(lg ~ ., scales="free_y", space="free_y")
