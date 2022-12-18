@@ -88,17 +88,17 @@ Source：
 
 ![](chapter06_描述数据分布_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
-- 有时，直方图的外观会非常依赖于组距及组边界。下图中，我们将组距设定为8。同时设定分组原点(origin)参数令左图的组边界分别位于31、39、47等;右图中，对origin参数增加4，令组边界分别位于35、43、51等：
+- 有时，直方图的外观会非常依赖于组距及组边界。下图中，我们将组距设定为8。同时设定分组原点(boundary)参数令左图的组边界分别位于31、39、47等;右图中，对boundary参数增加4，令组边界分别位于35、43、51等：
 
 ``` r
 > h <- ggplot(faithful, aes(x=waiting)) # 将基本绘图结果存为变量以便于重复使用
-> h + geom_histogram(binwidth=8, fill="white", colour="black", origin=31) 
+> h + geom_histogram(binwidth=8, fill="white", colour="black", boundary=31) 
 ```
 
 ![](chapter06_描述数据分布_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
-> h + geom_histogram(binwidth=8, fill="white", colour="black", origin=35)
+> h + geom_histogram(binwidth=8, fill="white", colour="black", boundary=35)
 ```
 
 ![](chapter06_描述数据分布_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
@@ -275,7 +275,7 @@ Source：
 
 ``` r
 > ggplot(faithful, aes(x=waiting, y=after_stat(density))) + 
-+   geom_histogram(fill="cornsilk", colour="grey60", size=.2) + 
++   geom_histogram(fill="cornsilk", colour="grey60", linewidth=.2) + 
 +   geom_density() + 
 +   xlim(35, 105)
 ```
@@ -354,7 +354,7 @@ Source：
 
 ``` r
 > ggplot(birthwt1, aes(x=bwt, y=after_stat(density))) + 
-+   geom_histogram(binwidth=200, fill="cornsilk", colour="grey60", size=.2) + 
++   geom_histogram(binwidth=200, fill="cornsilk", colour="grey60", linewidth=.2) + 
 +   geom_density() + 
 +   facet_grid(smoke~.)
 ```

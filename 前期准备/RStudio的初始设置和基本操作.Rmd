@@ -1,9 +1,9 @@
 ---
 title: "RStudio的初始设置和基本操作"
 output:
-  github_document:
-    toc: TRUE
   html_document:
+    toc: TRUE
+  github_document:
     toc: TRUE
 ---
 
@@ -89,7 +89,7 @@ RStudio 的详细使用教程（如图形和表格的输入和输出，表格内
     toc: TRUE
     ```
 
-- 然后在Knit输出选项中选择输出的目标格式即可。
+- 然后在Knit输出选项中，先选择输出`github_document`，再选择输出`html_document`。
 
 # References
 

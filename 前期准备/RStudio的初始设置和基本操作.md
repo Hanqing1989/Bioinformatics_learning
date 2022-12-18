@@ -129,7 +129,7 @@ Markdown 入门教程](https://cosx.org/2021/04/rmarkdown-introduction/)。
       github_document:
         toc: TRUE
 
-- 然后在Knit输出选项中选择输出的目标格式即可。
+- 然后在Knit输出选项中，先选择输出`github_document`，再选择输出`html_document`。
 
 # References
 
