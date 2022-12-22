@@ -39,6 +39,17 @@ output:
 - Python：根据 Python 的环境路径选择 Python 解释器的路径。
 - 如需导出PDF文档，则需要设置 Sweave：“PDF Generation”，在 Weave Rnw files using 选择 knitr，在 Typeset LaTeX into PDF using 选择 XeLaTex；“LaTeX Editing and Compilation”，全部勾选。
 
+## 3.3 当前工作路径设置
+
+```
+# 显示当前工作空间的路径
+getwd()
+# 列出当前文件夹的子目录
+list.files()
+# 重新设置当前工作文件夹
+setwd("path")
+```
+
 # 4 Workflow
 
 在 RStudio 中写代码有3中选择：写在命令窗口中，写在R脚本中，写在 Rmarkdown 文档中。对初学者而言，使用 Rmarkdown 文档是比较合适的。

@@ -9,6 +9,8 @@ RStudio的初始设置和基本操作
   - <a href="#31-r-markdown-安装" id="toc-31-r-markdown-安装">3.1 R markdown
     安装</a>
   - <a href="#32-options-设定" id="toc-32-options-设定">3.2 Options 设定</a>
+  - <a href="#33-当前工作路径设置" id="toc-33-当前工作路径设置">3.3
+    当前工作路径设置</a>
 - <a href="#4-workflow" id="toc-4-workflow">4 Workflow</a>
 - <a href="#5-最常用快捷键必会" id="toc-5-最常用快捷键必会">5
   最常用快捷键（必会）</a>
@@ -63,6 +65,15 @@ RStudio的初始设置和基本操作
 - 如需导出PDF文档，则需要设置 Sweave：“PDF Generation”，在 Weave Rnw
   files using 选择 knitr，在 Typeset LaTeX into PDF using 选择
   XeLaTex；“LaTeX Editing and Compilation”，全部勾选。
+
+## 3.3 当前工作路径设置
+
+    # 显示当前工作空间的路径
+    getwd()
+    # 列出当前文件夹的子目录
+    list.files()
+    # 重新设置当前工作文件夹
+    setwd("path")
 
 # 4 Workflow
 
