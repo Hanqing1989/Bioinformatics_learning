@@ -133,7 +133,7 @@ Source：
 - 通过使用坐标变换，数据则不会被修剪；从本质上说，它只是将数据放大或缩小到指定的范围。下图展示了两种方式的区别：
 
 ``` r
-> p1 + scale_y_continuous(limits = c(5,6.5)) # 与使用ylim()相间
+> p1 + scale_y_continuous(limits = c(5,6.5)) # 与使用ylim()相同
 ```
 
 ![](chapter08_坐标轴_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
