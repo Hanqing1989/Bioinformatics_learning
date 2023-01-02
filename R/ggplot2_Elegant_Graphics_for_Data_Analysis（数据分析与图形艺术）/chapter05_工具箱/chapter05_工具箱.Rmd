@@ -106,7 +106,7 @@ qplot(cut,depth,data = diamonds,geom = "boxplot")
 qplot(carat,depth,data = diamonds,geom = "boxplot", group = round_any(carat,0.1,floor),xlim = c(0,3))
 ```
 
-- 图5.4 箱线图可以用于观察针对一个类别型变量（如cut)取条件时（左图），或连续型变量(如carat)取条件时（右图），连续型变量的分布情况。对于连续型变量，必须设置group图形属性以得到多个箱线图。此处使用了group = round_any(carat,0.1,floor)来获得针对变量carat以0.1个单位为大小封箱后的箱线图。
+- 图5.4 箱线图可以用于观察针对一个类别型变量（如cut)取条件时（左图），或连续型变量(如carat)取条件时（右图），连续型变量的分布情况。对于连续型变量，必须设置group图形属性以得到多个箱线图。此处使用了`group = round_any(carat,0.1,floor)`来获得针对变量carat以0.1个单位为大小封箱后的箱线图。
 
 - geom_jitter = position_jitter + geom_point：通过在离散型分布上添加随机噪声以避免遮盖绘制问题，这是一种较为粗糙的方法。使用以下代码绘制的图5.5展示了这样的一个例子。
 
