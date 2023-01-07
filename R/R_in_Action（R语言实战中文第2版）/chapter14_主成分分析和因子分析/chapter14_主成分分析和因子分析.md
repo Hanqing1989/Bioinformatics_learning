@@ -18,6 +18,14 @@ chapter14_主成分分析和因子分析
     探索性因子分析</a>
     - <a href="#1431-判断需提取的公共因子数"
       id="toc-1431-判断需提取的公共因子数">14.3.1 判断需提取的公共因子数</a>
+    - <a href="#1432-提取公共因子" id="toc-1432-提取公共因子">14.3.2
+      提取公共因子</a>
+    - <a href="#1433-因子旋转" id="toc-1433-因子旋转">14.3.3 因子旋转</a>
+    - <a href="#1434-因子得分" id="toc-1434-因子得分">14.3.4 因子得分</a>
+    - <a href="#1435-其他与efa相关的包" id="toc-1435-其他与efa相关的包">14.3.5
+      其他与EFA相关的包</a>
+  - <a href="#144-其他潜变量模型" id="toc-144-其他潜变量模型">14.4
+    其他潜变量模型</a>
 
 # 14 主成分分析和因子分析
 
@@ -389,3 +397,278 @@ vocab      0.51    0.24   0.36 0.22    0.79  1.00
 - 图形中有几个值得注意的地方。如果使用PCA方法，你可能会选择一个成分（碎石检验和平行分析）或者两个成分（特征值大于1）。当摇摆不定时，高估因子数通常比低估因子数的结果好，因为高估因子数一般较少曲解“真实”情况。
 
 - 观察EFA的结果，显然需提取两个因子。碎石检验的前两个特征值（三角形）都在拐角处之上，并且大于基于100次模拟数据矩阵的特征值均值。对于EFA,Kaiser–Harris准则的特征值数大于0，而不是1。（大部分人都没有意识到这一点。）图形中该准则也建议选择两个因子。
+
+### 14.3.2 提取公共因子
+
+- 现在你决定提取两个因子，可以使用`fa()`函数获得相应的结果。`fa()`函数的格式如下：
+
+`fa(r,nfactors=,n.obs=,rotate=,scores=,fm=)`
+
+- 其中：
+
+- 是相关系数矩阵或者原始数据矩阵；
+
+- nfactorsi设定提取的因子数（默认为1）；
+
+- n.obs是观测数（输入相关系数矩阵时需要填写）；
+
+- rotate设定旋转的方法（默认互变异数最小法）；
+
+- scores设定是否计算因子得分（默认不计算）；
+
+- fm设定因子化方法（默认极小残差法）。
+
+- 与PCA不同，提取公共因子的方法很多，包括最大似然法(ml)、主轴迭代法(pa)、加权最小二乘法(wls)、广义加权最小二乘法(gls)和最小残差法(minres)。统计学家青睐使用最大似然法，因为它有良好的统计性质。不过有时候最大似然法不会收敛，此时使用主轴迭代法效果会很好。欲了解更多提取公共因子的方法，可参阅Mulaik(2009)和Corsuch(1983)。
+
+- 本例使用主轴迭代法（fm=“pa”）提取未旋转的因子。结果见代码清单14-6。
+
+- 代码清单14-6 未旋转的主轴迭代因子法
+
+``` r
+> fa <-fa(correlations,nfactors=2,rotate="none",fm="pa") 
+> fa
+Factor Analysis using method =  pa
+Call: fa(r = correlations, nfactors = 2, rotate = "none", fm = "pa")
+Standardized loadings (pattern matrix) based upon correlation matrix
+         PA1   PA2   h2    u2 com
+general 0.75  0.07 0.57 0.432 1.0
+picture 0.52  0.32 0.38 0.623 1.7
+blocks  0.75  0.52 0.83 0.166 1.8
+maze    0.39  0.22 0.20 0.798 1.6
+reading 0.81 -0.51 0.91 0.089 1.7
+vocab   0.73 -0.39 0.69 0.313 1.5
+
+                       PA1  PA2
+SS loadings           2.75 0.83
+Proportion Var        0.46 0.14
+Cumulative Var        0.46 0.60
+Proportion Explained  0.77 0.23
+Cumulative Proportion 0.77 1.00
+
+Mean item complexity =  1.5
+Test of the hypothesis that 2 factors are sufficient.
+
+The degrees of freedom for the null model are  15  and the objective function was  2.5
+The degrees of freedom for the model are 4  and the objective function was  0.07 
+
+The root mean square of the residuals (RMSR) is  0.03 
+The df corrected root mean square of the residuals is  0.06 
+
+Fit based upon off diagonal values = 0.99
+Measures of factor score adequacy             
+                                                   PA1  PA2
+Correlation of (regression) scores with factors   0.96 0.92
+Multiple R square of scores with factors          0.93 0.84
+Minimum correlation of possible factor scores     0.86 0.68
+```
+
+- 可以看到，两个因子解释了六个心理学测验60%的方差。不过因子载荷阵的意义并不太好解释，此时使用因子旋转将有助于因子的解释。
+
+### 14.3.3 因子旋转
+
+- 你可以使用正交旋转或者斜交旋转来旋转14.3.4节中两个因子的结果。现在我们同时尝试两种方法，看看它们的异同。
+  首先使用正交旋转(见代码清单14-7)。
+
+- 代码清单14-7 用正交旋转提取因子
+
+``` r
+> fa.varimax <- fa(correlations,nfactors=2,rotate="varimax",fm="pa") 
+> fa.varimax
+Factor Analysis using method =  pa
+Call: fa(r = correlations, nfactors = 2, rotate = "varimax", fm = "pa")
+Standardized loadings (pattern matrix) based upon correlation matrix
+         PA1  PA2   h2    u2 com
+general 0.49 0.57 0.57 0.432 2.0
+picture 0.16 0.59 0.38 0.623 1.1
+blocks  0.18 0.89 0.83 0.166 1.1
+maze    0.13 0.43 0.20 0.798 1.2
+reading 0.93 0.20 0.91 0.089 1.1
+vocab   0.80 0.23 0.69 0.313 1.2
+
+                       PA1  PA2
+SS loadings           1.83 1.75
+Proportion Var        0.30 0.29
+Cumulative Var        0.30 0.60
+Proportion Explained  0.51 0.49
+Cumulative Proportion 0.51 1.00
+
+Mean item complexity =  1.3
+Test of the hypothesis that 2 factors are sufficient.
+
+The degrees of freedom for the null model are  15  and the objective function was  2.5
+The degrees of freedom for the model are 4  and the objective function was  0.07 
+
+The root mean square of the residuals (RMSR) is  0.03 
+The df corrected root mean square of the residuals is  0.06 
+
+Fit based upon off diagonal values = 0.99
+Measures of factor score adequacy             
+                                                   PA1  PA2
+Correlation of (regression) scores with factors   0.96 0.92
+Multiple R square of scores with factors          0.91 0.85
+Minimum correlation of possible factor scores     0.82 0.71
+```
+
+- 结果显示因子变得更好解释了。阅读和词汇在第一因子上载荷较大，画图、积木图案和迷宫在第二因子上载荷较大，非语言的普通智力测量在两个因子上载荷较为平均，这表明存在一个语言智力因子和一个非语言智力因子。
+
+- 使用正交旋转将人为地强制两个因子不相关。如果想允许两个因子相关该怎么办呢？此时可以使用斜交转轴法，比如promax(见代码清单14-8)。
+
+- 需要安装GPArotation包。
+
+- 代码清单14-8 用斜交旋转提取因子
+
+``` r
+> fa.promax <- fa(correlations,nfactors=2,rotate="promax",fm="pa") 
+> fa.promax
+Factor Analysis using method =  pa
+Call: fa(r = correlations, nfactors = 2, rotate = "promax", fm = "pa")
+Standardized loadings (pattern matrix) based upon correlation matrix
+          PA1   PA2   h2    u2 com
+general  0.37  0.48 0.57 0.432 1.9
+picture -0.03  0.63 0.38 0.623 1.0
+blocks  -0.10  0.97 0.83 0.166 1.0
+maze     0.00  0.45 0.20 0.798 1.0
+reading  1.00 -0.09 0.91 0.089 1.0
+vocab    0.84 -0.01 0.69 0.313 1.0
+
+                       PA1  PA2
+SS loadings           1.83 1.75
+Proportion Var        0.30 0.29
+Cumulative Var        0.30 0.60
+Proportion Explained  0.51 0.49
+Cumulative Proportion 0.51 1.00
+
+ With factor correlations of 
+     PA1  PA2
+PA1 1.00 0.55
+PA2 0.55 1.00
+
+Mean item complexity =  1.2
+Test of the hypothesis that 2 factors are sufficient.
+
+The degrees of freedom for the null model are  15  and the objective function was  2.5
+The degrees of freedom for the model are 4  and the objective function was  0.07 
+
+The root mean square of the residuals (RMSR) is  0.03 
+The df corrected root mean square of the residuals is  0.06 
+
+Fit based upon off diagonal values = 0.99
+Measures of factor score adequacy             
+                                                   PA1  PA2
+Correlation of (regression) scores with factors   0.97 0.94
+Multiple R square of scores with factors          0.93 0.88
+Minimum correlation of possible factor scores     0.86 0.77
+```
+
+- 根据以上结果，你可以看出正交旋转和斜交旋转的不同之处。对于正交旋转，因子分析的重点在于因子结构矩阵（变量与因子的相关系数），而对于斜交旋转，因子分析会考虑三个矩阵：因子结构矩阵、因子模式矩阵和因子关联矩阵。
+
+- 因子模式矩阵即标准化的回归系数矩阵。它列出了因子预测变量的权重。因子关联矩阵即因子相关系数矩阵。
+
+- 在代码清单14-8中，PA1和PA2栏中的值组成了因子模式矩阵。它们是标准化的回归系数，而不是相关系数。注意，矩阵的列仍用来对因子进行命名（虽然此处存在一些争论）。你同样可以得到一个语言因子和一个非语言因子。
+
+- 因子关联矩阵显示两个因子的相关系数为0.57，相关性很大。如果因子间的关联性很低，你可能需要重新使用正交旋转来简化问题。
+
+- 因子结构矩阵（或称因子载荷阵）没有被列出来，但你可以使用公式F=P\*Phi很轻松地得到它，其中F是因子载荷阵，P为因子模式矩阵，Phi为因子关联矩阵。下面的函数即可进行该乘法运算：
+
+``` r
+> fsm <-function (oblique){
++   if (class(oblique)[2]=="fa" & is.null(oblique$Phi)){
++     warning("Object doesn't look like oblique EFA")
++     } else {
++       P <- unclass(oblique$loading)
++       F <- P %*% oblique$Phi
++       colnames(F) <- c("PA1","PA2") 
++       return(F)
++     }
++   }
+```
+
+- 对上面的例子使用该函数，可得：
+
+``` r
+> fsm(fa.promax)
+         PA1  PA2
+general 0.64 0.69
+picture 0.32 0.61
+blocks  0.43 0.91
+maze    0.25 0.45
+reading 0.95 0.46
+vocab   0.83 0.45
+```
+
+- 现在你可以看到变量与因子间的相关系数。将它们与正交旋转所得因子载荷阵相比，你会发现该载荷阵列的噪音比较大，这是因为之前你允许潜在因子相关。虽然斜交方法更为复杂，但模型将更符合真实数据。
+
+- 使用`factor.plot()`或`fa.diagram()`函数，你可以绘制正交或者斜交结果的图形。来看以下代码：
+
+``` r
+> factor.plot(fa.promax,labels=rownames(fa.promax$loadings))
+```
+
+![](chapter14_主成分分析和因子分析_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+
+- 图14-5
+  数据集ability.cov中心理学测验的两因子图形。词汇和阅读在第一个因子(PA1)上载荷较大，而积木图案、画图和迷宫在第二个因子(PA2)上载荷较大。普通智力测验在两个因子上较为平均
+
+- 代码：
+
+``` r
+> fa.diagram(fa.promax,simple=FALSE)
+```
+
+![](chapter14_主成分分析和因子分析_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+
+- 图14-6 数据集ability.cov中心理学测验的两因子斜交旋转结果图
+
+- 生成的图形见图14-6。若使simple=TUE，那么将仅显示每个因子下最大的载荷，以及因子间的相关系数。这类图形在有多个因子时十分实用。
+
+- 当处理真实生活中的数据时，你不可能只对这么少的变量进行因子分析。此处只是为了操作方便，如果你想检测自己的能力，可尝试对Harman74.cor中的24个心理学测验进行因子分析。以下代码：
+
+``` r
+> library(psych)
+> fa.24tests <- fa(Harman74.cor$cov,nfactors=4,rotate="promax")
+```
+
+- 应该是个不错的开头。
+
+### 14.3.4 因子得分
+
+- 相比PCA，EFA并不那么关注计算因子得分。在`fa()`函数中添加score=TRUE选项（原始数据可得时）便可很轻松地获得因子得分。另外还可以得到得分系数（标准化的回归权重），它在返回对象的weightsi元素中。
+
+- 对于ability.cov数据集，通过二因子斜交旋转法便可获得用来计算因子得分的权重：
+
+``` r
+> fa.promax$weights
+          PA1   PA2
+general 0.078 0.211
+picture 0.020 0.090
+blocks  0.037 0.702
+maze    0.027 0.035
+reading 0.743 0.030
+vocab   0.177 0.036
+```
+
+- 与可精确计算的主成分得分不同，因子得分只是估计得到的。它的估计方法有多种，`fa()`函数使用的是回归方法。若想更多地了解因子得分，可参阅DiStefano、Zhu和Mindrila的”Understanding
+  and Using Factor Scores:Considerations for the Applied
+  Researcher”(2009).
+
+- 在继续下文之前，让我们简单了解其他用于探索性因子分析的实用R软件包。
+
+### 14.3.5 其他与EFA相关的包
+
+- R包含了其他许多对因子分析非常有用的软件包。FactoMineR包不仅提供了PCA和EFA方法，还包含潜变量模型。它有许多此处我们并没考虑的参数选项，比如数值型变量和类别型变量的使用方法。FAiR包使用遗传算法来估计因子分析模型，它增强了模型参数估计能力，能够处理不等式的约束条件，GPArotation包则提供了许多因子旋转方法。最后，还有nFactors包，它提供了用来判断因子数目的许多复杂方法。
+
+## 14.4 其他潜变量模型
+
+- EFA只是统计中一种应用广泛的潜变量模型。在结束本章之前，我们简要看看R中其他的潜变量模型，包括检验先验知识的模型、处理混合数据类型（数值型和类别型）的模型，以及仅基于类别型多因素表的模型。
+
+- 在EFA中，你可以用数据来判断需要提取的因子数以及它们的含义。但是你也可以先从一些先验知识开始，比如变量背后有几个因子、变量在因子上的载荷是怎样的、因子间的相关性如何，然后通过收集数据检验这些先验知识。这种方法称作验证性因子分析(CFA)。
+
+- CFA是结构方程模型（SEM）中的一种方法。SEM不仅可以假定潜在因子的数目以及组成，还能假定因子间的影响方式。你可以将SEM看做是验证性因子分析（对变量）和回归分析（对因子）的组合，它的结果输出包含统计检验和拟合度的指标。R中有几个可做CFA和SEM的非常优秀的软件包，如sem、openMx和lavaan。
+
+- ltm包可以用来拟合测验和问卷中各项目的潜变量模型。该方法常用来创建大规模标准化测试，比如学术能力测验(SAT)和美国研究生入学考试(GRE)。
+
+- 潜类别模型（潜在的因子被认为是类别型而非连续型）可通过FlexMix、lcmm、randomLCA和PoLCA包进行拟合。lcda包可做潜类别判别分析，而lsa可做潜在语义分析一一种自然语言处理中的方法。
+
+- ca包提供了可做简单和多重对应分析的函数。利用这些函数，可以分别在二维列联表和多维列联表中探索类别型变量的结构。
+
+- 最后，R中还包含了众多的多维标度法(MDS)计算工具。所谓MDS，即可用来发现解释相似性和可测对象（如国家）间距离的潜在维度。基础安装中的`cmdscale()`函数可做经典的MDS，而MASS包中的`isoMDS()`函数可做非线性MDS。vagan包则包含了可做两种MDS的函数。
