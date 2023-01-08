@@ -1,0 +1,20 @@
+---
+title: "chapter04_方差分析与Kruskal-Wallis检验"
+output:
+  html_document:
+    toc: TRUE
+  github_document:
+    toc: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(prompt=TRUE,comment='',echo=TRUE,collapse=TRUE,message=FALSE,warning=FALSE)
+```
+
+Source：
+
+[【B站】从零开始学 R 语言，带你玩转医学统计学](https://www.bilibili.com/video/BV1JU4y1f7zg/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=fa22bae99c47db3f7bc43573bd9b3ed3)
+
+# 4 方差分析与Kruskal-Wallis检验
+
+## 
